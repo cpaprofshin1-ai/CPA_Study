@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>【監査論】第４章 第4節　除外事項付意見を表明する場合の監査報告書（自動保存付き）</title>
+    <style>
+        /* スムーズスクロール */
+        html { scroll-behavior: smooth; }
+
+        body {
+            /* ゼロにスラッシュが入るのを防ぐ標準フォント */
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75;
+            color: #333;
+            max-width: 900px; /* 13インチiPad向けゆったりレイアウト */
+            margin: 0 auto;
+            padding: 40px 25px;
+            background-color: #f5f7f9;
+        }
+
+        /* 表紙・目次エリア */
+        .cover-page {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50;
+            font-size: 2.2em;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 1.3em;
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        /* 目次リスト */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: left;
+            max-width: 600px;
+        }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block;
+            text-decoration: none;
+            color: #1e293b;
+            background-color: #f1f5f9;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-left: 6px solid #3498db;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover {
+            background-color: #e2e8f0;
+            transform: translateX(5px);
+        }
+
+        /* 大見出し（テーマごとのブロック） */
+        .topic-section {
+            margin-top: 150px; 
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding-left: 14px;
+            border-left: 6px solid #3498db;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+        }
+        
+        /* スコアボード（日付＋点数） */
+        .score-board {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .attempt-label {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+        
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+        }
+        .date-input {
+            width: 125px;
+            padding: 6px 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .score-input {
+            width: 50px;
+            padding: 6px 8px;
+            font-size: 1.05em;
+            text-align: right;
+        }
+        .score-denominator {
+            font-weight: bold;
+            color: #64748b;
+            font-size: 1.05em;
+        }
+
+        /* Q&Aブロック */
+        .qa-block {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            break-inside: avoid;
+        }
+        
+        /* タップしやすいチェックボックス */
+        .checkbox-area {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+
+        /* 問題文とバッジのレイアウト */
+        .question-header {
+            margin-bottom: 20px;
+        }
+        .q-badge {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.9em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 4px;
+        }
+        .question {
+            font-weight: bold;
+            font-size: 1.15em;
+            color: #1e293b;
+            line-height: 1.7;
+            display: inline;
+        }
+
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            display: inline-block;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ans-row {
+            display: flex;
+            margin-bottom: 14px;
+            font-size: 1.05em;
+        }
+        .label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+        
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 16px;
+            font-size: 0.95em;
+            color: #475569;
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+
+        /* トップに戻るリンク */
+        .back-to-top {
+            display: block;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+
+        /* 印刷用スタイル */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; padding-top: 0; border-top: none; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <div class="cover-page">
+        <h1 class="cover-title">監査論 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">第４章 監査報告論 ／ 第４節 除外事項付意見を表明する場合の監査報告書</div>
+        
+        <ul class="toc-list">
+            <li><a href="#topic-4-1">4-1 除外事項付意見ー総論</a></li>
+            <li><a href="#topic-4-2">4-2 各論①－意見に関する除外</a></li>
+            <li><a href="#topic-4-3">4-3 各論②－監査範囲の制約</a></li>
+            <li><a href="#topic-4-5">4-5 各論④－未確定事項</a></li>
+        </ul>
+    </div>
+
+    <div id="topic-4-1" class="topic-section">
+        <h2>4-1 除外事項付意見ー総論</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅱ-⑬ウ</span><div class="question">意見に関する除外事項を付した限定付適正意見を表明するためには，識別された虚偽表示が，監査計画の策定時に決定した重要性の基準値を超えるが広範性がない，という条件を満たす必要がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">虚偽表示の金額的重要性は，監査計画の策定時に決定した重要性の基準値に基づいて判断するとは限らず，改訂後の重要性の基準値に基づいて判断することもある。また，虚偽表示が重要性の基準値を超えていなくとも，質的な観点から重要であると判断した場合には，限定付適正意見を表明することもある。いずれにしても，本肢は誤りとなる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅱ-⑲ア</span><div class="question">財務諸表に及ぼす虚偽表示の影響が，個別に又は集計すると重要な金額となる場合には，監査人は，否定的意見を表明しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">本肢の場合であっても，広範性が認められない場合には，否定的意見ではなく限定意見を表明することになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅰ-⑱ア</span><div class="question">監査人は，経営者が採用した会計方針の選択及びその適用方法，財務諸表の表示方法に関して，重要な虚偽表示には該当しないが，不適切なものがあると判断した場合，除外事項を付した限定付適正意見を表明しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">経営者が採用した会計方針の選択及びその適用方法，財務諸表の表示方法に関して不適切なもの，すなわち虚偽表示があっても，当該虚偽表示に重要性がなければ，無限定適正意見を表明する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R3-⑲エ</span><div class="question">監査人は，注記事項に重要な未修正の虚偽表示があり，その影響が利用者の財務諸表の理解に不可欠であると判断した場合には，不適正意見を表明しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">注記事項の未修正の虚偽表示による影響が，利用者の財務諸表の理解に不可欠であると判断した場合は，当該虚偽表示による影響に広範性があると判断することになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅱ-⑰エ／R2-Ⅱ-⑰エ</span><div class="question">監査人は，限定付適正意見を表明する理由が，たとえ無限定適正意見の基礎となる十分かつ適切な監査証拠を入手できないことであっても，入手した監査証拠が監査人の限定付適正意見の基礎を得るために十分かつ適切なものであると判断した旨を監査報告書に記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-ー／⑱イ</span><div class="question">監査人は，意見に関する除外事項をもとに限定付適正意見を表明する場合には，意見の根拠において，当該除外事項による監査意見を不適正意見とせず限定付適正意見とした理由を明らかにしなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅰ-⑲イ</span><div class="question">監査人は，除外事項付意見を表明する場合，除外した不適切な事項のほか，除外事項を付した限定意見とした理由を監査報告書に記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">不備のある肢。除外事項付意見には否定的意見や意見不表明も含まれるが，本肢では，他の肢とのバランスで限定意見を想定していると読み取る必要があった。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅰ-⑬イ／H25-Ⅱ-⑰エ</span><div class="question">監査人は，監査報告書において除外事項付意見の表明が見込まれる場合，監査役等にその原因となる状況を報告しなければならないが，除外事項付意見の文言の草案については監査役等に報告する必要はない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">除外事項付意見の文言の草案についても，監査役等に報告する必要がある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-4-2" class="topic-section">
+        <h2>4-2 各論①－意見に関する除外</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅱ-⑮ウ</span><div class="question">監査人は，会計方針の選択及びその適用方法，財務諸表の表示方法に関して不適切なものがあり，無限定適正意見を表明することはできないが，財務諸表全体としては虚偽の表示ではないと判断したときには，除外事項を付した限定付適正意見を表明しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-⑱ア</span><div class="question">監査人が，自ら入手した監査証拠に基づいて，経営者が選択した会計方針が適用される財務報告の枠組みに準拠していないことを原因として，全体としての財務諸表に重要な虚偽表示があると判断する場合に，当該監査人には，監査報告書において，当該財務諸表に対して意見を表明しないことが認められる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">本肢の状況は，意見に関する除外の原因となるものであるため，意見不表明とすることは認められない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-⑲ア</span><div class="question">被監査会社は新たに獲得した重要な子会社について連結の範囲に含めていなかったが，監査人が当該子会社を連結の範囲に含めない理由を調べたところ，その理由は，一般に公正妥当と認められる企業会計の基準に準拠しているとは認められなかった。この状況は，意見を表明しない直接の原因となりうる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">連結の範囲に含めるべき子会社を連結の範囲に含めていないこと（会計基準違反）は，虚偽表示（意見に関する除外の原因）に該当する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-⑲エ</span><div class="question">監査人は，被監査会社において循環取引による売上が計上されていることを発見し，それが財務諸表に及ぼす影響は重要かつ広範であると判断した。この状況は，意見を表明しない直接の原因となりうる。R５Ⅱ②次の中から，虚偽表示に該当する状況を示したものを選べ。ア．得意先の売上債権に対する貸倒引当金の見積りについて，監査報告書日後，その得意先の経営状態が悪化したため，計上していた貸倒引当金の金額が過小となっていた。イ．決算日における，時価が下落している子会社株式の評価に関して，子会社が策定した将来の業績予測をそのまま利用したが，その業績予測は現実的な予測よりも大幅に利益を高く見積もっていたため，子会社株式の評価が過大となっていた。ウ．当年度から開示すべき重要な注記事項について，経理担当者に十分な知識がなかったために，必要な開示が漏れていた。エ．当年度に生じた会社の業績に影響を及ぼす特別な事項について，直接的に開示を求める規定はなかったが，追加的に注記事項としての開示を行った。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">循環取引による売上の架空計上は，虚偽表示（意見に関する除外の原因）に該当する。ア⇒監査報告書日後の得意先の経営状態の悪化は，財務諸表作成時点で考慮できないため，結果的に貸倒引当金の金額が過小となったとしても，虚偽表示には該当しない。👉講義レジュメ③-14-2イ⇒見積りに際して利用した仮定（業績予測）が現実的な予測に照らして不合理であるため，虚偽表示に該当する。ウ⇒必要な開示（注記）を行っていなかったため，虚偽表示に該当する。エ⇒適正表示の枠組みで求められる追加的な注記を適切に行っている状況であり，虚偽表示には該当しない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-⑱ア</span><div class="question">監査人は，財務諸表に対して限定付適正意見を表明する場合，限定付適正意見を表明する原因となる事項について記載する区分を新たに設けなければならず，当該区分には金額的な影響額とそれに関する説明を記載することがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">除外事項付意見を表明する原因となる事項は，新たに設けた区分ではなく，意見の根拠の区分に記載する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑯ウ／H25-Ⅱ-⑨イ／H25-Ⅰ-⑰イ</span><div class="question">監査人は，財務諸表の特定の金額に関連する重要な虚偽表示が存在することにより限定付適正意見を表明する場合，金額的な影響額を算定することが困難でない限り，「限定付適正意見の根拠」区分において，当該虚偽表示による金額的な影響額とそれに関する説明を記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">本肢は，影響額の記載にフォーカスした問題であるため，「限定付適正意見とした理由の記載」に言及がなくとも，正しいと判断してよい。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅰ-⑲ウ</span><div class="question">監査人は，財務諸表に定性的な注記事項に関連する重要な虚偽表示が存在する場合，当該事項を除外事項とするとともに，当該虚偽表示の内容を監査報告書に記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅱ-⑲ウ／R6-Ⅰ-⑲ア</span><div class="question">監査人は，財務諸表に開示すべき情報が開示されておらず，除外事項付意見を表明する場合，当該情報について十分かつ適切な監査証拠を入手したときは，法令等で禁止されていない限り，監査報告書において当該情報を開示しなければならない。ただし，当該開示を監査報告書に含めるには膨大であると監査人が判断した場合にはこの限りではない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅰ-⑮ア／H23-Ⅱ-⑱エ</span><div class="question">監査人は，経営者が採用した会計方針の適用方法に不適切な事項があり，除外事項を付した限定付適正意見を表明する場合，「限定付適正意見の根拠」の区分に，除外した不適切な事項，当該事項が財務諸表に与えている影響及びこれらを踏まえて除外事項を付した限定付適正意見とした理由を記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査基準の原文通りの記述である。なお，本肢にある「影響」は金額的な影響のみをさすわけではないため，「虚偽表示の金額的な影響額を算定することが可能であれば」という条件がなくとも，正しい記述と判断してよい。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅰ-⑰ア</span><div class="question">監査人は，財務諸表の表示方法に関して不適切なものがあり，財務諸表全体として虚偽の表示に当たるとするほどに重要かつ広範な影響を与えていると判断した場合，財務諸表が不適正である旨の意見を表明するとともに，意見の根拠の区分に，財務諸表が不適正であるとした理由を記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-⑱ウ</span><div class="question">監査人が，監査報告書において，財務諸表に対して不適正意見を表明する場合に，当該監査人は，当該監査報告書に設けられる不適正意見の根拠区分に記載した事項の財務諸表に及ぼす重要な影響を除く旨を，当該監査報告書に設けられる意見区分に記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">不適正意見を表明する場合には，「不適正意見の根拠区分に記載し、た、事、項、の、財、務、諸、表、に及ぼす影響の重要性に鑑み」という表現で記載される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-②エ／H27-Ⅱ-①エ</span><div class="question">監査人は，否定的意見を表明する場合，監査対象となった財務諸表について経営者が責任を果たさなかったことになるため，監査報告書において経営者による財務諸表の作成責任に関する記載を行わない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">否定的意見を表明する場合にも，経営者の財務諸表の作成責任に関する記載を行う。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-4-3" class="topic-section">
+        <h2>4-3 各論②－監査範囲の制約</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅱ-⑬ウ</span><div class="question">監査人は，意見表明の基礎となる十分かつ適切な監査証拠を入手できず，かつ，未発見の虚偽表示がもしあるとすれば，それが財務諸表に及ぼす可能性のある影響が，重要かつ広範であると判断する場合には，不適正意見を表明しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">本肢の状況は監査範囲の制約に該当するため，不適正意見ではなく意見不表明とすることになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅰ-⑮エ</span><div class="question">監査人は，重要な監査手続を実施できなかったことにより，自己の意見を形成するに足る基礎を得られないときは，財務諸表に及ぼす影響の重要性及び広範性の程度に応じて，実施できなかった監査手続を除外事項とした限定付適正意見を表明するか，又は意見を表明してはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「自己の意見を形成するに足る基礎を得られないとき」とあるため，限定付適正意見を表明する余地はなく，意見不表明としなければならない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅱ-⑫エ</span><div class="question">監査人は，大規模自然災害の発生により無限定適正意見表明の基礎となる十分かつ適切な監査証拠を入手できず，かつ，未発見の虚偽表示がもしあるとすれば，それが財務諸表に及ぼす可能性のある影響が，重要ではないが広範であると判断する場合には，意見を表明してはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">意見不表明とするケースは，未発見の虚偽表示がもしあるとすれば，それが財務諸表に及ぼす可能性のある影響が，「重要かつ広範」であると判断する場合である。なお，当該影響について「重要ではないが広範である」と判断する場合は，実務指針上想定されていない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-⑱イ</span><div class="question">監査人が，企業の管理の及ばない状況を原因として，全体としての財務諸表に重要な虚偽表示がないと判断するための十分かつ適切な監査証拠を入手できない場合に，当該監査人は，監査報告書において，当該財務諸表に対して否定的意見を表明してはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">本肢の状況は，監査範囲の制約の原因となるものであるため，否定的意見を表明することは認められない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H23-Ⅱ-⑰エ</span><div class="question">監査人は，他の監査人の監査の結果を利用できないと判断した重要な事項について，追加して行うべき重要な監査手続を実施できなかった場合には，除外事項を付した限定付適正意見を表明しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">仮に，本肢のような状況の影響に広範性が認められる場合には，限定付適正意見の表明ではなく，意見不表明とすることになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅱ-⑰ウ</span><div class="question">被監査会社が新しく導入した売掛金システムの不備を原因とする多数の誤謬が発見され，監査報告書日時点においてもシステムの不具合を是正し当該誤謬を修正している過程にあり，売掛金残高を他の方法によって検証できなかった場合で，その影響が重要かつ広範であると判断される場合には，監査人は不適正意見を表明しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">本肢の状況は，監査範囲の制約の原因となるものであるため，不適正意見を表明することは認められない。なお，本肢にある「売掛金残高を他の方法によって検証できなかった」という点は，「売掛金残高に関する十分かつ適切な監査証拠を入手できなかった」と読み替えればよい。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅱ-⑰ア</span><div class="question">監査人は，監査契約締結後に監査範囲の制約に気付き，財務諸表に対する意見不表明につながる可能性が高いと判断したため，経営者に当該制約を除去するように要請したにもかかわらず，それが拒否された場合でも，監査役等に報告する前には監査契約を解除しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅱ-⑫ウ</span><div class="question">重要な在外関連会社への投資に関して十分かつ適切な監査証拠を入手できないために連結財務諸表に対して限定付適正意見を表明する場合，監査人は，意見区分において，「『限定付適正意見の根拠』に記載した事項の連結財務諸表に及ぼす可能性のある影響を除き」という文言により記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">なお，「可能性のある」という文言が含まれているかどうかを読み逃さないように注意すること。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑯ア／H28-Ⅱ-⑱イ</span><div class="question">監査人は，十分かつ適切な監査証拠を入手できないため意見を表明しない場合においても，監査報告書における監査意見を記載する区分において，財務諸表について監査を行った旨を記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅰ-⑱ア</span><div class="question">監査報告書は，監査人が財務諸表に対して意見表明を行うことを目的とするものであるが，意見表明のための基礎が得られなかった場合，監査報告書にはその旨及びその理由が記載されるにとどまり財務諸表に対する意見は表明されない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅰ-⑮イ</span><div class="question">監査人は，重要な監査手続を実施できなかったことにより監査意見を表明しない場合，財務諸表に対する意見を表明しない旨を「意見不表明」の区分に，財務諸表に対する意見を表明しない理由を「意見不表明の根拠」の区分に，それぞれ記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑯イ</span><div class="question">監査人は，表明する監査意見の種類にかかわらず，監査報告書における監査意見の根拠を記載する区分において，意見表明の基礎となる十分かつ適切な監査証拠を入手したと判断したかどうかを記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">意見表明の基礎となる十分かつ適切な監査証拠を入手したと判断したかどうかの記載について，意見不表明以外の場合は監査意見の根拠を記載する区分に行うが，意見不表明の場合には，「意見不表明」区分及び「財務諸表監査における監査人の責任」区分に行うことになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-⑱エ</span><div class="question">監査人が，監査報告書に設けられる意見不表明の根拠区分に記載した事項の財務諸表に及ぼす可能性のある影響の重要性に鑑み，意見表明の基礎を得るための十分かつ適切な監査証拠を入手することができなかった旨は，当該監査人が，意見表明の基礎となる十分かつ適切な監査証拠を入手できなかったことによって当該財務諸表に対して意見を表明しない場合に，当該監査報告書に設けられる意見区分に記載されなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅰ-⑱イ／H29-Ⅱ-⑯エ／H25-Ⅱ-①ウ／H24-Ⅱ-①ウ</span><div class="question">監査人は，財務諸表に対して意見を表明しない場合，監査報告書に，監査人の責任は，我が国において一般に公正妥当と認められる監査の基準に準拠して監査を実施し，監査報告書において意見を表明することにある旨の記載は求められていない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">意見不表明とする場合であっても，「財務諸表監査における監査人の責任」区分において監査人の意見表明に関する責任が記載される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-⑬イ</span><div class="question">監査人は，意見を表明しない場合であっても「意見不表明の根拠」区分に，我が国において一般に公正妥当と認められる監査の基準に準拠して監査を実施した旨を記載する必要がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">意見不表明とする場合，本肢の記載は，監査報告書の全体の構成の観点から，利用者の理解可能性を考慮して，「意見不表明の根拠」区分ではなく「財務諸表監査における監査人の責任」区分で記載することになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-4-5" class="topic-section">
+        <h2>4-5 各論④－未確定事項</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑳ウ／H28-Ⅰ-⑱エ</span><div class="question">監査人は，将来の帰結が予測し得ない状況について，財務諸表に与える影響が複合的かつ多岐にわたる場合，重要な監査手続を実施できなかった場合に準じて意見の表明をしないことがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H23-Ⅱ-⑰オ</span><div class="question">監査人は，将来の帰結が予測し得ない事象又は状況について，財務諸表に与える当該事象又は状況の影響が複合的かつ多岐にわたる場合において，重要な監査手続を追加的に実施できなかったときには，除外事項を付した限定付適正意見を表明しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査人は，本肢のような状況においては，意見を表明できるか否かを慎重に判断しなければならないのであって，限定付適正意見の表明が強制されるわけではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅱ-⑮エ</span><div class="question">監査人は，複数の不確実性を伴う状況において，個々の不確実性について十分かつ適切な監査証拠を入手していたとしても，それらが財務諸表に及ぼす可能性のある累積的影響が複合的かつ多岐にわたる場合には，意見を表明できないことがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">なお，本肢には「財務諸表に対する意見を形成できないと判断する場合には」という条件付けがないため，意見を表明できない「ことがある」としている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅰ-⑱ウ</span><div class="question">監査人は大規模な自然災害など将来の帰結が予測し得ない事象又は状況について，財務諸表に与える当該事象又は状況の影響が複合的かつ多岐にわたり，財務諸表全体に対する意見表明のための基礎を得ることができなかった場合，意見を表明してはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">上記の問題とは異なり，本肢には「意見表明のための基礎を得ることができなかった」とあるため，意見を表明「してはならない」ことになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-⑲ウ</span><div class="question">被監査会社の重要な工場施設が未曾有の災害に見舞われ，監査人がその状況を調べたところ，この災害は，被監査会社の各種の資産のほか，中長期的な営業活動に甚大な影響を及ぼすと考えられたが，その損害が影響する項目の特定や損害額の予測は著しく困難であった。この状況は，意見を表明しない直接の原因となりうる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">同上</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 他のファイルとデータが混ざらないよう、作成時に一意の文字列に変更します
+            const pagePrefix = "Kansa_Ch4_Sec4_"; 
+
+            const inputs = document.querySelectorAll('input');
+
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                
+                // 保存されている値があれば復元
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') {
+                        input.checked = savedValue === 'true';
+                    } else {
+                        input.value = savedValue;
+                        // 日付入力欄の場合、値が入っていれば type を date に変更して表示
+                        if (input.classList.contains('date-input') && savedValue !== "") {
+                            input.type = 'date';
+                        }
+                    }
+                }
+
+                // 値が変更されるたびに保存
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') {
+                        localStorage.setItem(storageKey, input.checked);
+                    } else {
+                        localStorage.setItem(storageKey, input.value);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ここにタイトルを入力</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; padding: 20px; background-color: #f5f7f9; color: #333; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        h1 { font-size: 1.6em; border-bottom: 3px solid #3498db; padding-bottom: 10px; color: #2c3e50; }
+        .record-area { margin-bottom: 25px; padding: 15px; background: #e8f4f8; border-radius: 8px; border-left: 5px solid #3498db; }
+        .record-area input[type="text"] { padding: 8px; font-size: 1em; width: 120px; border: 1px solid #cbd5e1; border-radius: 6px; margin-right: 10px; }
+        .question-block { margin-bottom: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .checkbox-label { font-size: 1.1em; display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+        input[type="checkbox"] { transform: scale(1.6); margin-top: 5px; cursor: pointer; }
+        .back-link { display: block; margin-top: 40px; text-align: center; padding: 15px; background: #3498db; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1em; transition: background 0.2s; }
+        .back-link:active { background: #2980b9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 画面上の見出し -->
+        <h1>ここにタイトルを入力</h1>
+
+        <div class="record-area">
+            <label><strong>学習記録：</strong></label>
+            <input type="text" id="record1" placeholder="例: 5/5">
+            <input type="text" id="record2" placeholder="2回目">
+            <input type="text" id="record3" placeholder="3回目">
+        </div>
+
+        <!-- 問題エリア（必要な分だけコピーして増やす） -->
+        <div class="question-block">
+            <label class="checkbox-label">
+                <input type="checkbox" id="q1">
+                問題1： ここに問題文を入力。
+            </label>
+        </div>
+
+        <a href="/" class="back-link">↑ 全体の目次に戻る</a>
+    </div>
+
+    <script>
+        // 【完全自動化】ファイル名から自動で保存キーを生成するため、書き換え一切不要！
+        const fileName = window.location.pathname.split('/').pop().replace('.html', '') || 'default';
+        const pagePrefix = fileName + "_"; 
+
+        document.querySelectorAll('input').forEach(input => {
+            const savedValue = localStorage.getItem(pagePrefix + input.id);
+            if (savedValue !== null) {
+                if (input.type === 'checkbox') {
+                    input.checked = (savedValue === 'true');
+                } else {
+                    input.value = savedValue;
+                }
+            }
+            input.addEventListener('input', function() {
+                if (this.type === 'checkbox') {
+                    localStorage.setItem(pagePrefix + this.id, this.checked);
+                } else {
+                    localStorage.setItem(pagePrefix + this.id, this.value);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>【監査論】第６章 第2節　財務諸表監査における不正への対応（自動保存付き）</title>
+    <style>
+        /* スムーズスクロール */
+        html { scroll-behavior: smooth; }
+
+        body {
+            /* ゼロにスラッシュが入るのを防ぐ標準フォント */
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75;
+            color: #333;
+            max-width: 900px; /* 13インチiPad向けゆったりレイアウト */
+            margin: 0 auto;
+            padding: 40px 25px;
+            background-color: #f5f7f9;
+        }
+
+        /* 表紙・目次エリア */
+        .cover-page {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50;
+            font-size: 2.2em;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 1.3em;
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        /* 目次リスト */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: left;
+            max-width: 600px;
+        }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block;
+            text-decoration: none;
+            color: #1e293b;
+            background-color: #f1f5f9;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-left: 6px solid #3498db;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover {
+            background-color: #e2e8f0;
+            transform: translateX(5px);
+        }
+
+        /* 大見出し（テーマごとのブロック） */
+        .topic-section {
+            margin-top: 150px; 
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding-left: 14px;
+            border-left: 6px solid #3498db;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+        }
+        
+        /* スコアボード（日付＋点数） */
+        .score-board {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .attempt-label {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+        
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+        }
+        .date-input {
+            width: 125px;
+            padding: 6px 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .score-input {
+            width: 50px;
+            padding: 6px 8px;
+            font-size: 1.05em;
+            text-align: right;
+        }
+        .score-denominator {
+            font-weight: bold;
+            color: #64748b;
+            font-size: 1.05em;
+        }
+
+        /* Q&Aブロック */
+        .qa-block {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            break-inside: avoid;
+        }
+        
+        /* タップしやすいチェックボックス */
+        .checkbox-area {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+
+        /* 問題文とバッジのレイアウト */
+        .question-header {
+            margin-bottom: 20px;
+        }
+        .q-badge {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.9em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 4px;
+        }
+        .question {
+            font-weight: bold;
+            font-size: 1.15em;
+            color: #1e293b;
+            line-height: 1.7;
+            display: inline;
+        }
+
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            display: inline-block;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ans-row {
+            display: flex;
+            margin-bottom: 14px;
+            font-size: 1.05em;
+        }
+        .label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+        
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 16px;
+            font-size: 0.95em;
+            color: #475569;
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+
+        /* トップに戻るリンク */
+        .back-to-top {
+            display: block;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+
+        /* 印刷用スタイル */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; padding-top: 0; border-top: none; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <div class="cover-page">
+        <h1 class="cover-title">監査論 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">第６章 その他の重要論点 ／ 第２節 財務諸表監査における不正への対応</div>
+        
+        <ul class="toc-list">
+            <li><a href="#topic-2-4">2-4 不正に関する監査人の責任</a></li>
+            <li><a href="#topic-2-5">2-5 不正の監査①－職業的懐疑心の保持と監査チーム内の討議</a></li>
+            <li><a href="#topic-2-6">2-6 不正の監査②－リスク評価手続とこれに関連する活動</a></li>
+            <li><a href="#topic-2-7">2-7 不正の監査③－不正による重要な虚偽表示リスクの識別と評価</a></li>
+            <li><a href="#topic-2-8">2-8 不正の監査④－不正による重要な虚偽表示リスクへの対応</a></li>
+            <li><a href="#topic-2-9">2-9 不正の監査⑤－入手した監査証拠の評価</a></li>
+            <li><a href="#topic-2-10">2-10 不正の監査⑥－識別した不正に関するコミュニケーション</a></li>
+            <li><a href="#topic-2-11">2-11 不正の監査⑦－監査契約の継続の検討</a></li>
+        </ul>
+    </div>
+
+    <div id="topic-2-4" class="topic-section">
+        <h2>2-4 不正に関する監査人の責任</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅱ-ー］①イ</span><div class="question">財務諸表監査の目的は，企業が公表する財務諸表に信頼性を付与することにあり，会計上の不正を摘発することではないが，監査人は，財務諸表に不正による重要な虚偽の表示がないことについて，合理的な保証を得ることが求められている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅰ-①ウ</span><div class="question">監査人は，財務諸表に重要な虚偽の表示をもたらす不正の発見に対して責任を負っており，財務諸表が一般に公正妥当と認められる企業会計の基準に準拠して，会社の財政状態，経営成績及びキャッシュ・フローの状況をすべての重要な点において適正に表示していることを認める旨の監査意見は，監査人がこの責任を果たしたことを意味している。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査人は，不正の防止や発見について責任を負わない。したがって，財務諸表が適正である旨の監査意見は，あくまで，財務諸表には全体として重要な虚偽表示がないということについて合理的な保証を得たことを意味するだけであり，不正を発見する責任を果たしたことを意味しない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅰ-①エ</span><div class="question">財務諸表の重要な虚偽表示を看過して，財務諸表に適正意見を表明した場合，監査人が一般に公正妥当と認められる監査の基準に準拠して当該監査を実施したかどうかは，経営者が不正を隠蔽するために仕組んだスキームの巧妙さ並びに改ざんの頻度及び程度によって判断される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査人が不正を発見できるかどうかは，不正を隠蔽するためのスキームの巧妙さ並びに改ざんの頻度及び程度によって影響を受けるが，監査人が一般に公正妥当と認められる監査の基準に準拠して当該監査を実施したかどうかは，あくまでも監査のプロセスに着目して判断される。👉講義レジュメ①-1-18</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅰ-⑩ウ</span><div class="question">監査人が不正による重要な虚偽の表示を発見できないリスクは，誤謬による重要な虚偽の表示を発見できないリスクよりも高いが，当該不正が共謀により行われている場合には，当該不正による重要な虚偽の表示を発見できないリスクはさらに高まる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-⑳ウ</span><div class="question">監査人が，経営者不正による重要な虚偽の表示を発見できない可能性は，経営者により内部統制が無効化される場合が多いこともあり，従業員不正による重要な虚偽の表示を発見できない可能性よりも一般に高い。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-2-5" class="topic-section">
+        <h2>2-5 不正の監査①－職業的懐疑心の保持と監査チーム内の討議</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅱ-⑰ア</span><div class="question">監査人は，記録や証憑書類を真正なものとして受け入れることができるとされているが，監査の過程で真正性に疑いを抱いた場合には，それらを鑑定する技能を有する専門家を利用することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅰ-⑩ア</span><div class="question">監査チームで，財務諸表に重要な虚偽の表示が行われる可能性があるかどうかについて討議する場合において，過去の経験から経営者，取締役及び監査役が十分に信頼でき，誠実であると考えられるときには，討議すべき内容の一部を省略することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査チームの討議は，経営者や監査役等が信頼でき誠実であるという考えを持たずに行わなければならないため，過去の経験から，経営者や監査役等が十分に信頼でき，誠実であると認識していたとしても，討議すべき内容の一部を省略することはできない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅱ-⑥イ</span><div class="question">監査人は，監査チームのすべての構成員との間で，経営者等は誠実であるという考えを持たずに，不正による重要な虚偽の表示が財務諸表のどこにどのように行われる可能性があるのかについて討議を行い，監査チームのすべての構成員がすべての情報を共有できるようにしなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査人は，討議に参加していない監査チームの構成員がいる場合は，当該構成員に伝達する事項を決定するが，監査チームの全ての構成員に，討議の結論の全てを知らせることは必ずしも必要ではない。👉講義レジュメ③-6-5</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-2-6" class="topic-section">
+        <h2>2-6 不正の監査②－リスク評価手続とこれに関連する活動</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅰ-⑩オ</span><div class="question">監査人は，被監査会社の統制環境を理解する際には，経営者に対して，財務諸表に不正による重要な虚偽の表示が行われるリスクに係る経営者の評価について，質問しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑭ウ</span><div class="question">監査人は，経営者が関与する不正による重要な虚偽表示リスクを客観的に識別及び評価する観点から，被監査会社で想定される不正について，経営者に質問してはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">たしかに，経営者に対する質問で経営者不正に関する有益な情報を入手することは難しいとされるが，経営者に対する質問はリスク評価手続として必須の手続である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑤イ／H30-Ⅰ-⑳エ</span><div class="question">不正リスク要因とは，不正を実行する動機やプレッシャーの存在を示し，不正を実行する機会を与え，又は，不正を実行する際にそれを正当化する事象や状況を指す。不正リスク要因が存在することは，必ずしも不正が行われていることを示すわけではない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅰ-⑪ウ</span><div class="question">アナリストや格付機関の報告書に記載されている被監査会社の業績予測情報は，経営者に業績達成に関するプレッシャーを与え，経営者が財務諸表の虚偽表示を行う動機ともなりうるので，監査人は当該報告書をアナリストや格付機関から直接入手しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">たしかに，本肢が示す被監査会社の業績予測情報は，経営者が不正な財務報告を行う動機やプレッシャー示す情報といえるが，監査人が不正リスク要因を検討する際，アナリストや格付機関の報告書を直接入手することまでは要求されていない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-2-7" class="topic-section">
+        <h2>2-7 不正の監査③－不正による重要な虚偽表示リスクの識別と評価</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-⑱エ</span><div class="question">監査人は，不正による重要な虚偽表示リスクであると評価したリスクがある場合には，それを特別な検討を必要とするリスクとして取り扱うかどうかを判断しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">不正リスクは，ＳＲとして取り扱わなければならない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅱ-⑭イ</span><div class="question">監査人は，不正による重要な虚偽表示のリスクを識別し評価する際，収益の種類や形態にかかわらず，収益認識には不正リスクがあるという推定に基づき，収益認識に関連するアサーションについての重要な虚偽表示のリスクを特別な検討を必要とするリスクとして識別しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">収益の種類や形態等によっては，収益認識に不正リスクがないと判断し，ＳＲとして識別しないこともある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅱ-⑰イ／H25-Ⅰ-⑫オ</span><div class="question">収益認識に関連する不正な財務報告による重要な虚偽表示は，収益の先行認識又は架空計上といった，収益の過大計上によるものを指すことから，収益の過少計上によるものは，不正による重要な虚偽表示リスクの識別対象にはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">不正の多くは収益の過大計上によるものであるが，収益の過少計上を不正リスクとして識別することもある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅰ-②エ／R7-Ⅱ-⑤ウ</span><div class="question">監査人は，収益認識に関係する不正による重要な虚偽表示リスクがないかどうかを判断しなければならないが，当該リスクがないと最終的に判断したときは，リスクがないとの結論のみを監査調書に記録する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">本肢の場合，監査人は，リスクがないという結論のみならず，理由も監査調書に記録しなければならない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-2-8" class="topic-section">
+        <h2>2-8 不正の監査④－不正による重要な虚偽表示リスクへの対応</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑨イ</span><div class="question">監査人は，評価した不正による重要な虚偽表示リスクに応じた全般的対応を決定する際に，例えば，重要な取引の裏付けとなる証憑書類及びその範囲をより注意深く選択するというように，高められた職業的懐疑心を監査全般にどのように反映することができるかを考慮する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑭イ</span><div class="question">監査人は，財務諸表全体に関連する不正による重要な虚偽表示リスクを識別したとしても，財務諸表のどの項目に不正が生じているかは明確ではないため，監査計画に，企業が想定しない要素を組み込んではならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">財務諸表全体に関連する不正によるＲＭＭを識別した場合は，監査計画に，企業が想定しない要素を組み込まなければならない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅱ-⑪イ</span><div class="question">監査人は，職業的専門家としての正当な注意を払い，懐疑心を保持して監査を行わなければならないが，財務諸表全体に関連する不正リスクが識別されない場合には，実施する監査手続の種類，実施の時期及び範囲の決定に当たって，企業が想定しない要素を監査計画に組み込まなくてもよい。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑭エ</span><div class="question">経営者による内部統制の無効化は不正による重要な虚偽表示リスクであり，監査人は，当該リスクを特別な検討を必要とするリスクとしなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅱ-⑭ア</span><div class="question">経営者が内部統制を無効化するリスクは特別な検討を必要とするリスクであり，監査人は，当該リスクの程度にかかわらず，総勘定元帳への仕訳入力や財務諸表を作成する過程における修正についての適切性を検証しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅱ-⑰ウ</span><div class="question">監査人は，財務報告プロセスに関する内部統制の運用評価手続により内部統制が有効に機能していると判断した場合には，総勘定元帳に記録された仕訳入力の適切性を検証する手続を実施しないことがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">総勘定元帳に記録された仕訳入力の適切性を検証する手続は，必ず（内部統制の有効性に関係なく）実施する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-2-9" class="topic-section">
+        <h2>2-9 不正の監査⑤－入手した監査証拠の評価</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑨エ</span><div class="question">監査人は，監査手続を実施した結果，不正による重要な虚偽表示の兆候を示す状況を識別した場合，アサーション・レベルの不正による重要な虚偽表示リスクに関する評価が依然として適切であるかどうかを判断する際に，当該状況を考慮する必要がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅰ-②イ</span><div class="question">監査人は，企業に関する監査人の理解と財務諸表が整合していることについて全般的な結論を形成するために，監査の最終段階で分析的手続を実施し，これまで認識していなかった不正による重要な虚偽表示リスクが存在していないかどうかを評価しなければならない場合がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">細かい引っかけ。本肢が示す監査の最終段階で実施する分析的手続は，実施しなければならない「場合がある」のではなく，「必ず」実施しなければならないものである。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅱ-⑰エ</span><div class="question">監査人は，識別した虚偽表示が経営者による不正に起因するものであれば，それが重要であるかどうかにかかわらず，従業員，経営者又は第三者による共謀の可能性を検討する場合がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">共謀の可能性の検討は，「それまでに入手した証拠の証明力を再検討する場合」に行うものであるため，「検討する場合がある」としている本肢は正しい。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-2-10" class="topic-section">
+        <h2>2-10 不正の監査⑥－識別した不正に関するコミュニケーション</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑲イ</span><div class="question">監査人は，不正が存在するかもしれない証拠を入手した場合には，速やかに，適切な階層の経営者に注意を喚起しなければならない。ただし，当該不正が従業員による少額の使い込みのような些細な事項である場合には，その必要はない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査人は，識別した不正が従業員による少額の使い込みのような些細な事項である場合にも，適切な階層の経営者に注意を喚起しなければならない。また，本肢の状況における報告は，「速やかに」ではなく「適時に」行うものとされている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑨ア</span><div class="question">監査人は，企業に影響を与える不正を識別した場合，当該不正への経営者の関与が疑われるかどうかにかかわらず，監査を完了するため必要となる監査手続の種類，時期及び範囲について監査役等と協議しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">本肢にある協議は，経営者による不正又は不正の疑いを識別した場合にのみ求められるものである。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-⑲エ</span><div class="question">監査人は，財務諸表に重要な影響を及ぼす可能性がある不正への経営者の関与が疑われる場合には，監査役等への報告及び監査を完了するために必要となる監査手続の種類，時期並びに範囲について協議しないことがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">本肢のような不正の疑いがある場合，監査人は，監査役等への報告と監査手続に関する協議をしなければならない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅰ-②ウ</span><div class="question">監査人は被監査会社に対して守秘義務を負うが，不正を認識した場合には，速やかに規制当局等に対して報告する義務がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査人が，認識した不正を規制当局等に報告する場合は，法令等で要求される義務を果たす場合等に限定される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-2-11" class="topic-section">
+        <h2>2-11 不正の監査⑦－監査契約の継続の検討</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅰ-⑩イ</span><div class="question">被監査会社の不正により財務諸表に虚偽の表示が行われた場合において，当該不正の影響が財務諸表にとって重要でなくても，当該不正に関する被監査会社の対応が著しく不適切であるときには，監査人は，監査契約を解除しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">本肢のような状況において，監査人は，監査契約の解除が可能であれば，監査契約の解除の当否も含めて検討することになるが，直ちに監査契約を解除するわけではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pagePrefix = "Kansa_Ch6_Sec2_"; 
+
+            const inputs = document.querySelectorAll('input');
+
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') {
+                        input.checked = savedValue === 'true';
+                    } else {
+                        input.value = savedValue;
+                        if (input.classList.contains('date-input') && savedValue !== "") {
+                            input.type = 'date';
+                        }
+                    }
+                }
+
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') {
+                        localStorage.setItem(storageKey, input.checked);
+                    } else {
+                        localStorage.setItem(storageKey, input.value);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

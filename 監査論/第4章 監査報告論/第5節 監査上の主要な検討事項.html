@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>【監査論】第４章 第5節　監査上の主要な検討事項（自動保存付き）</title>
+    <style>
+        /* スムーズスクロール */
+        html { scroll-behavior: smooth; }
+
+        body {
+            /* ゼロにスラッシュが入るのを防ぐ標準フォント */
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75;
+            color: #333;
+            max-width: 900px; /* 13インチiPad向けゆったりレイアウト */
+            margin: 0 auto;
+            padding: 40px 25px;
+            background-color: #f5f7f9;
+        }
+
+        /* 表紙・目次エリア */
+        .cover-page {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50;
+            font-size: 2.2em;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 1.3em;
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        /* 目次リスト */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: left;
+            max-width: 600px;
+        }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block;
+            text-decoration: none;
+            color: #1e293b;
+            background-color: #f1f5f9;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-left: 6px solid #3498db;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover {
+            background-color: #e2e8f0;
+            transform: translateX(5px);
+        }
+
+        /* 大見出し（テーマごとのブロック） */
+        .topic-section {
+            margin-top: 150px; 
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding-left: 14px;
+            border-left: 6px solid #3498db;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+        }
+        
+        /* スコアボード（日付＋点数） */
+        .score-board {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .attempt-label {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+        
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+        }
+        .date-input {
+            width: 125px;
+            padding: 6px 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .score-input {
+            width: 50px;
+            padding: 6px 8px;
+            font-size: 1.05em;
+            text-align: right;
+        }
+        .score-denominator {
+            font-weight: bold;
+            color: #64748b;
+            font-size: 1.05em;
+        }
+
+        /* Q&Aブロック */
+        .qa-block {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            break-inside: avoid;
+        }
+        
+        /* タップしやすいチェックボックス */
+        .checkbox-area {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+
+        /* 問題文とバッジのレイアウト */
+        .question-header {
+            margin-bottom: 20px;
+        }
+        .q-badge {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.9em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 4px;
+        }
+        .question {
+            font-weight: bold;
+            font-size: 1.15em;
+            color: #1e293b;
+            line-height: 1.7;
+            display: inline;
+        }
+
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            display: inline-block;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ans-row {
+            display: flex;
+            margin-bottom: 14px;
+            font-size: 1.05em;
+        }
+        .label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+        
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 16px;
+            font-size: 0.95em;
+            color: #475569;
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+
+        /* トップに戻るリンク */
+        .back-to-top {
+            display: block;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+
+        /* 印刷用スタイル */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; padding-top: 0; border-top: none; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <div class="cover-page">
+        <h1 class="cover-title">監査論 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">第４章 監査報告論 ／ 第５節 監査上の主要な検討事項</div>
+        
+        <ul class="toc-list">
+            <li><a href="#topic-5-1">5-1 監査上の主要な検討事項ー総論</a></li>
+            <li><a href="#topic-5-2">5-2 各論①－監査上の主要な検討事項の決定</a></li>
+            <li><a href="#topic-5-3">5-3 各論②－監査上の主要な検討事項の報告</a></li>
+            <li><a href="#topic-5-4">5-4 各論③－経営者による開示と監査上の主要な検討事項の報告の関係</a></li>
+            <li><a href="#topic-5-5">5-5 各論④－その他の論点</a></li>
+        </ul>
+    </div>
+
+    <div id="topic-5-1" class="topic-section">
+        <h2>5-1 監査上の主要な検討事項ー総論</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 11</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 11</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 11</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 11</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 11</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 11</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅱ-⑪エ</span><div class="question">平成３０年改訂監査基準は，監査報告書に「監査上の主要な検討事項」の記載を求めたが，その目的は，監査人が実施した監査の透明性を向上させ，監査報告書の情報価値を高めることにある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅱ-⑰ウ</span><div class="question">監査上の主要な検討事項は，監査を実施する上で監査人が特に注意を払った事項であり，財務諸表に表示又は開示されていない事項は，監査上の主要な検討事項とならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">財務諸表に表示又は開示されていない事項（例えば，内部統制の不備等）がＫＡＭとして決定されることもある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-①エ</span><div class="question">監査証明業務は専門的能力や実務経験を有する公認会計士又は監査法人の独占業務であることから，一定水準の監査品質が担保されており，また，監査品質を評価することも困難であることから，企業や株主等が監査品質について評価する必要はない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">そもそも，ＫＡＭで提供される監査のプロセスに関する情報は，企業や株主等が，監査の品質を評価するための新たな検討材料として利用することが想定されている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅱ-⑪イ</span><div class="question">平成３０年の改訂では，監査報告書における「監査上の主要な検討事項」の記載が導入された。この意義は，財務諸表利用者の監査や財務諸表に対する理解を深めるとともに，経営者との対話を促進することにあり，副次的な効果として，監査報告書の情報価値を高めることが期待されている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">説明の関係が逆。監査報告書の情報価値を高めることが，ＫＡＭ記載の意義であり，利用者の理解を深めることや，利用者と経営者の対話を促進することが，ＫＡＭ記載による副次的な効果である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-②イ</span><div class="question">監査報告書における監査上の主要な検討事項の記載の効果として，監査人と経営者の間のみならず，監査人と財務諸表利用者の間の議論を更に充実させることを通じたコーポレート・ガバナンスの強化が期待されている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">ＫＡＭの記載によって更なる充実が期待されているのは，監査人と監査役等の間のコミュニケーションや，監査人と経営者の間の議論である。なお，本肢にある「監査人と財務諸表利用者の間の議論」はそもそも想定されていない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-①エ</span><div class="question">監査人は，監査報告書に監査上の主要な検討事項を記載するため，監査実施の過程において，監査役等とのコミュニケーションや経営者との議論を充実させている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-⑱ア</span><div class="question">監査報告書における監査上の主要な検討事項の記載は，財務諸表利用者に対し，監査人が実施した監査の内容に関する情報を提供するものであり，当該事項について個別に意見を表明するものではない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R3-⑲イ</span><div class="question">監査上の主要な検討事項は，監査人が全体としての財務諸表に対する監査意見を形成した上で行われるものであるため，監査役等との協議は，監査意見の形成段階になってから実施されなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査役等との協議は，監査の期間中を通して実施されるものである。なお，前半の記述は正しい。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R3-④イ</span><div class="question">監査報告書において監査上の主要な検討事項の記載が求められる会社は，金融商品取引法に基づいて開示が行われる会社（ただし，非上場会社のうち資本金５億円未満又は売上高１０億円未満かつ負債総額２００億円未満の会社を除く。）である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅱ-⑲ウ／R5-Ⅱ-⑲ア</span><div class="question">特別目的の財務諸表に対する監査報告書についても，法令により要求されている場合又は任意で契約条件により合意した場合には，一般目的の財務諸表に対する監査報告書の場合と同様に，監査上の主要な検討事項の区分が設けられる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑲ウ</span><div class="question">監査人は，会社法及び金融商品取引法の規定により，監査報告書に「監査上の主要な検討事項」を記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">会社法監査では，ＫＡＭの報告は求められていない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-5-2" class="topic-section">
+        <h2>5-2 各論①－監査上の主要な検討事項の決定</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅱ-⑰イ</span><div class="question">監査人は，当年度の財務諸表の監査において特に注意を払った事項を決定し，決定した事項について監査役等とコミュニケーションを行うことによって，その中で特に重要であると判断した事項を監査上の主要な検討事項として決定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査人が特に注意を払った事項は，監査役等とコミュ二ケーションを行った事項の中から決定する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑳ア</span><div class="question">監査人は，監査の過程で監査役等と協議した事項の中から，特に注意を払った事項を決定し，その決定事項を監査報告書に監査上の主要な検討事項として記載することが求められる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">ＫＡＭとなるのは，特に注意を払った事項のうち，職業的専門家として特に重要であると判断した事項のみである。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-⑱ウ</span><div class="question">監査上の主要な検討事項を決定する際に，監査人が特に注意を払った事項を考慮するのは，監査がリスク・アプローチに基づいて行われるためである。したがって，識別し評価した重要な虚偽表示リスクの中で，監査人が特別な検討を必要とするリスクと判断したものについては，監査上の主要な検討事項としなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">ＳＲであると決定した事項であっても，監査人が特に注意を払った事項に該当しないこともあるため，必ずＫＡＭとして決定するわけではない。なお，前段の記述は正しい。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-⑮エ</span><div class="question">監査人は前年度に識別した監査上の主要な検討事項が，当年度においても引き続き監査上の主要な検討事項であるかどうかを検討することは有用であるが，前年度の監査報告書に記載された監査上の主要な検討事項の内容を当年度の監査報告書において更新することまでは求められていない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-5-3" class="topic-section">
+        <h2>5-3 各論②－監査上の主要な検討事項の報告</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 10</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 10</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 10</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 10</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 10</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 10</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅱ-⑯ウ</span><div class="question">監査人は，監査上の主要な検討事項として決定した事項について，当該事項の内容，当該事項を監査上の主要な検討事項と決定した理由，監査人の対応及び個々の監査上の主要な検討事項に対して表明した意見を監査報告書に記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">ＫＡＭの報告は，当該事項に対して監査人が意見を表明するものではないため，個別の意見を表明しているとの印象を与えないように記載しなければならない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑳ウ</span><div class="question">監査人は，監査上の対応として監査人による手続の結果に関連する記述を行うに当たり，財務諸表に含まれる個別の事項に対する意見を表明することがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">同上</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑲イ</span><div class="question">監査人は，監査上の主要な検討事項の報告が求められる場合において，それに該当する事項がないときでも，監査報告書において，「監査上の主要な検討事項」の見出しを付した区分を設けて，その旨を記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R3-⑬ア</span><div class="question">監査上の主要な検討事項の監査報告書への記載は，業務上知り得た秘密情報を開示又は利用することが認められる正当な理由に該当する。ただし，その記載内容や程度の決定に当たっては，公共の利益についてだけでなく，企業や社会の不利益についても考慮する必要がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-⑱イ</span><div class="question">監査報告書において除外事項付意見を表明する原因となる事項は，その性質上は監査上の主要な検討事項に該当するが，監査報告書上の監査上の主要な検討事項区分には記載しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「除外事項付意見の根拠」区分に記載する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑲エ／H31-Ⅱ-⑯イ</span><div class="question">継続企業の前提に関する重要な不確実性は，「監査上の主要な検討事項」に該当するが，監査人は，当該事項を監査報告書の「監査上の主要な検討事項」区分に記載してはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「継続企業の前提に関する重要な不確実性」区分に記載する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-⑮ウ</span><div class="question">監査人が，十分かつ適切な監査証拠を入手できず，未発見の虚偽表示があるとしても，それが財務諸表に及ぼす可能性のある影響は重要でないと判断して無限定意見を表明する場合がある。この場合において，当該事項は，その性質から監査上の主要な検討事項に該当する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">十分かつ適切な監査証拠を入手できなかったとしても，除外事項付意見を表明する必要がない（重要性がない）のであれば，性質上ＫＡＭに該当するとはいえない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅱ-⑰ア／H31-Ⅱ-⑯ウ</span><div class="question">監査人は，否定的意見を表明する場合に，否定的意見を表明する原因となる事項を監査報告書に記載する。この場合，監査人は，当該事項以外の監査上の主要な検討事項を監査報告書に記載することを求められていない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">否定的意見を表明する原因となる事項以外に，監査人がＫＡＭに該当すると判断した事項がある場合には，当該事項を監査報告書に記載する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑳イ</span><div class="question">監査人は，個別財務諸表の監査報告書には「監査上の主要な検討事項」の見出しを付す必要があるが，連結財務諸表の監査報告書に同一内容の監査上の主要な検討事項が記載されている場合には，その旨を記載することで，監査上の主要な検討事項の内容等の記載を省略することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-⑮ア／R7-Ⅰ-⑲イ／R4-Ⅱ-⑪エ／R5-Ⅰ-④ウ</span><div class="question">監査人が意見を表明しない場合には，監査報告書において除外事項への注意を促すために，意見不表明の原因である事項を「監査上の主要な検討事項」区分に記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">意見を表明しない場合は，ＫＡＭ区分自体を設けてはならない。また，意見不表明の原因（理由等）は，意見不表明の根拠区分に記載する事項である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-5-4" class="topic-section">
+        <h2>5-4 各論③－経営者による開示と監査上の主要な検討事項の報告の関係</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑳ア</span><div class="question">監査人が経営者に要請する追加開示は財務諸表に注記する方法に限定されていないため，経営者が監査人の要請に応じ財務諸表注記以外の箇所に追加開示を行った場合，監査人は，監査上の主要な検討事項において当該箇所における情報への参照を付さなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">ＫＡＭ区分では，関連する注記事項がある場合に，当該注記事項への参照を付す。そのため，経営者が財務諸表注記以外（その他の記載内容等）で追加開示を行った場合は，当該箇所における情報への参照を付す必要はない。👉講義レジュメ④-5-6</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑲ア／R2-Ⅰ-⑱エ</span><div class="question">監査人が被監査会社に関する未公表の情報を「監査上の主要な検討事項」に記載することが必要であると判断し，経営者に追加の情報開示を促したものの，経営者が情報を開示しない場合，監査人が当該情報を「監査上の主要な検討事項」に含めることは，業務上知り得た秘密情報を開示又は利用することが認められる正当な理由となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-5-5" class="topic-section">
+        <h2>5-5 各論④－その他の論点</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-⑮イ</span><div class="question">監査報告書において報告すべき監査上の主要な検討事項がないと監査人が判断した場合には，その旨について監査役等とコミュニケーションを行う必要がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">（特記事項なし）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 他のファイルとデータが混ざらないよう、作成時に一意の文字列に変更します
+            const pagePrefix = "Kansa_Ch4_Sec5_"; 
+
+            const inputs = document.querySelectorAll('input');
+
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                
+                // 保存されている値があれば復元
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') {
+                        input.checked = savedValue === 'true';
+                    } else {
+                        input.value = savedValue;
+                        // 日付入力欄の場合、値が入っていれば type を date に変更して表示
+                        if (input.classList.contains('date-input') && savedValue !== "") {
+                            input.type = 'date';
+                        }
+                    }
+                }
+
+                // 値が変更されるたびに保存
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') {
+                        localStorage.setItem(storageKey, input.checked);
+                    } else {
+                        localStorage.setItem(storageKey, input.value);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

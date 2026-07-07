@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【監査論】第３章 監査実施論 第１節 総論</title>
+    <style>
+        /* スムーズスクロール */
+        html { scroll-behavior: smooth; }
+
+        body {
+            /* ゼロにスラッシュが入るのを防ぐ標準フォント */
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75;
+            color: #333;
+            max-width: 900px; /* 13インチiPad向けゆったりレイアウト */
+            margin: 0 auto;
+            padding: 40px 25px;
+            background-color: #f5f7f9;
+        }
+
+        /* 表紙・目次エリア */
+        .cover-page {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50;
+            font-size: 2.2em;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 1.3em;
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        /* 目次リスト */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: left;
+            max-width: 600px;
+        }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block;
+            text-decoration: none;
+            color: #1e293b;
+            background-color: #f1f5f9;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-left: 6px solid #3498db;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover {
+            background-color: #e2e8f0;
+            transform: translateX(5px);
+        }
+
+        /* 大見出し（テーマごとのブロック） */
+        .topic-section {
+            margin-top: 150px; 
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding-left: 14px;
+            border-left: 6px solid #3498db;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+        }
+        
+        /* スコアボード（日付＋点数） */
+        .score-board {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .attempt-label {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+        
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+        }
+        .date-input {
+            width: 125px;
+            padding: 6px 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .score-input {
+            width: 50px;
+            padding: 6px 8px;
+            font-size: 1.05em;
+            text-align: right;
+        }
+        .score-denominator {
+            font-weight: bold;
+            color: #64748b;
+            font-size: 1.05em;
+        }
+
+        /* Q&Aブロック */
+        .qa-block {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            break-inside: avoid;
+        }
+        
+        /* タップしやすいチェックボックス */
+        .checkbox-area {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+
+        /* 問題文とバッジのレイアウト */
+        .question-header {
+            margin-bottom: 20px;
+        }
+        .q-badge {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.9em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 4px;
+        }
+        .question {
+            font-weight: bold;
+            font-size: 1.15em;
+            color: #1e293b;
+            line-height: 1.7;
+            display: inline;
+        }
+
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            display: inline-block;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ans-row {
+            display: flex;
+            margin-bottom: 14px;
+            font-size: 1.05em;
+        }
+        .label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+        
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 16px;
+            font-size: 0.95em;
+            color: #475569;
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+
+        /* トップに戻るリンク */
+        .back-to-top {
+            display: block;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+
+        /* 印刷用スタイル */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; padding-top: 0; border-top: none; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+        </style>
+</head>
+<body id="top">
+
+    <div class="cover-page">
+        <h1 class="cover-title">監査論 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">第３章 監査実施論 ／ 第１節 監査実施論－総論</div>
+
+        <ul class="toc-list">
+            <li><a href="#topic-1-2">1-2 監査意見の形成プロセス</a></li>
+            <li><a href="#topic-1-3">1-3 監査要点とアサーション</a></li>
+            <li><a href="#topic-1-4">1-4 監査証拠</a></li>
+            <li><a href="#topic-1-5">1-5 十分かつ適切な監査証拠の入手</a></li>
+            <li><a href="#topic-1-7">1-7 手法による分類の監査手続（監査技術）</a></li>
+            <li><a href="#topic-1-8">1-8 監査手続の実施対象となる項目の抽出</a></li>
+        </ul>
+    </div>
+
+
+    <div id="topic-1-2" class="topic-section">
+        <h2>1-2 監査意見の形成プロセス</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅱ-②ア</span><div class="question">財務諸表監査の目的は，財務諸表の適正性に対して，監査人が自らの意見を表明することにある。そのためには，監査人は，経営者が提示する財務諸表項目について立証すべき監査要点を設定し，監査要点ごとに監査手続を実施して監査証拠を入手し，その監査要点に関する立証事項を積み上げて統合化し，財務諸表全体の適正性に関する結論を得る。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">財務諸表全体の適正性は直接立証できないため，監査要点ごとの立証結果を積み上げて統合化し，間接的に立証する。本肢はこの立証構造を正しく述べている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-1-3" class="topic-section">
+        <h2>1-3 監査要点とアサーション</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑬ウ</span><div class="question">監査要点とは，監査における具体的な立証の目標をいう。監査人は，監査計画において，財務諸表項目に対して監査要点を設定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">直接の立証目標を特定化するという監査要点の設定目的に鑑みれば，監査計画において監査要点を設定するとする本肢は正しい。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H23-Ⅱ-⑪ア</span><div class="question">監査人は，勘定残高に関するアサーションと取引に関するアサーションを組み合わせて，一つの監査要点として設定することはできない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査人は，複数のアサーションを組み合わせて，一つの監査要点として設定することができる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-1-4" class="topic-section">
+        <h2>1-4 監査証拠</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅱ-⑭エ</span><div class="question">監査証拠となる企業外の情報源からの情報には，第三者に対する確認等の一定の監査手続の結果得られたものだけではなく，一般に公表されているアナリストのレポートも含まれる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">企業外部の情報源には，確認等の監査手続の結果得られる情報のほか，公表されているアナリストのレポート等も含まれる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑯ウ</span><div class="question">監査人の利用する専門家は，たとえそれが外部の専門家であっても，監査人が監査証拠を入手するに当たっての外部情報源とはみなされない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査人が利用する専門家は，外部の専門家であっても監査人側の資源として扱われ，外部情報源とはみなされない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑬ウ／H25-Ⅱ-⑫イ／H24-Ⅱ-⑭イ</span><div class="question">監査証拠は累積的な性質のものであるが，過年度の監査において入手した監査証拠は，監査人がその継続的な適合性を確かめる監査手続を実施したとしても，当年度の監査証拠にはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">過年度の監査で入手した監査証拠であっても，その継続的な適合性を確かめられれば，当年度の監査証拠として利用することができる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅱ-⑫ア</span><div class="question">監査証拠とは，監査人が意見表明の基礎となる個々の結論を導くために利用する情報であり，監査の過程で実施した監査手続によってのみ入手されるものであるが，ここでいう個々の結論とは財務諸表における個々のアサーションの適否に関する監査人の結論と同義である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査証拠には，監査手続によって入手した情報のみならず，過年度の監査で入手した情報や，監査契約の新規の締結・更新において入手した情報も含まれることがある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅱ-①イ</span><div class="question">監査意見及び監査報告書を裏付けるために必要とされる監査証拠は，アサーションを裏付ける情報と矛盾する情報の両方から構成されるが，アサーションを裏付ける情報がないことそれ自体はアサーションを肯定も否定もすることができないため，監査証拠とは認められない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">情報がないことそれ自体が監査証拠となる場合もある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅱ-①イ（関連）</span><div class="question">監査証拠は主として監査の過程で実施した監査手続から入手されるものであるため，依頼した陳述を経営者が拒んだ場合において，情報がないことそれ自体は監査証拠とはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">依頼した陳述を経営者が拒んだ場合など，情報がないことそれ自体が監査証拠となる場合がある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-1-5" class="topic-section">
+        <h2>1-5 十分かつ適切な監査証拠の入手</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 20</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 20</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 20</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 20</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 20</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 20</span>
+            </div>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-⑬ア</span><div class="question">全ての監査証拠の質は，監査証拠の基礎となる情報の適合性と信頼性により影響されることから，監査人は，監査手続を実施する場合には，これらを考慮しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査証拠の質（適切性）は，基礎となる情報の適合性と信頼性に影響される。監査人はこれらを考慮する必要がある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑯ア／R3-①ウ／H24-Ⅱ-⑭ア</span><div class="question">監査証拠の十分性と適切性は相互に関連しており，監査要点の立証に際して，入手した監査証拠の質が高い場合は必要な監査証拠の量は少なくて済むが，監査証拠の質が低い場合は監査証拠の量によって補わなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">十分性（量）と適切性（質）は相互に関連し量で質を補うことはあるが，量で質の低さを補えないこともあるため，「補わなければならない」と言い切る本肢は誤り。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑬ア</span><div class="question">必要と判断される監査証拠の量は，監査人が評価した虚偽表示リスクの程度のみならず，監査証拠の質によっても影響を受ける。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">必要な監査証拠の量は，評価した虚偽表示リスクの程度だけでなく，監査証拠の質（適切性）によっても左右される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅱ-⑬ウ</span><div class="question">監査証拠の十分性は，監査証拠の量的尺度であり，監査証拠の質的評価が一定であると仮定すると，高い水準に設定された発見リスクのもとで要求される監査証拠の量は相対的に少なくなる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">ＤＲが高い（ＲＭＭが低い）場合は実証手続を緩やかに実施でき，要求される監査証拠の量は相対的に少なくなる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅰ-⑪オ</span><div class="question">監査証拠として利用する情報が監査手続の目的に関連しているかどうかは，主として情報源及び情報の種類，並びに情報を入手する状況によって判断される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「監査手続の目的に関連しているか」は適合性の話。一方「情報源・情報の種類・入手状況によって判断」は信頼性に関わるものであり，両者を取り違えている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-⑤ア／R6-Ⅰ-⑯ウ／H27-Ⅱ-⑮ア／H26-Ⅰ-⑫エ</span><div class="question">買掛金の網羅性に適合する監査証拠は，帳簿上の相手先に対して残高確認を実施するよりも，期末日後の支払，未払の請求書，仕入先の支払通知書を検討することによって得られる場合がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">買掛金の網羅性は，帳簿⇒事実ではなく，事実⇒帳簿の前進法（期末日後の支払・未払請求書・支払通知書の検討）による方が有効な場合がある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅰ-⑫ア</span><div class="question">売掛金の実在性に関する監査要点を立証するためには，期末日後の売掛金の回収に関連した文書の閲覧が実施される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">期末日後の売掛金の回収に関連した文書の閲覧は，売掛金の期末日における実在性の立証に用いられる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅰ-⑩エ／H23-Ⅱ-⑪ウ</span><div class="question">売上の期間帰属の適切性に関する監査要点を直接的に立証するには，期末日後の時点において，当該売上に対応する債権の回収に関連した記録の閲覧が実施される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">期末日後の売掛金の回収に関連した文書の閲覧は，売上（売掛金）の期間帰属の適切性については必ずしも監査証拠を提供しない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅱ-⑮ウ／H23-Ⅱ-⑪エ</span><div class="question">被監査会社から独立した情報源から入手した監査証拠は，一般的には被監査会社内部から入手した監査証拠より強い証明力を有するが，独立した情報源から入手した監査証拠であっても十分な証明力を有していないと判断される場合がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">独立した情報源から入手する監査証拠でも，その情報源が十分な知識を有していない等，情報を入手する状況によっては信頼できないことがある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-⑤エ</span><div class="question">関連当事者等，被監査会社の影響力が及ぶ取引先から入手した監査証拠であっても，被監査会社における情報の作成と管理に関する内部統制が有効であると判断した場合には，必要な監査証拠を入手できることがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">被監査会社の影響力が及ぶ取引先からの監査証拠でも，情報の作成と管理に関する内部統制が有効と判断できれば，必要な監査証拠を入手できることがある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅰ-⑰ア／H26-Ⅰ-⑨ア／H25-Ⅱ-⑫エ</span><div class="question">監査人は経営者の利用する専門家の業務により作成された情報を監査証拠として利用する場合には当該専門家の適性，能力及び客観性を評価しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">経営者の利用する専門家の業務による情報を監査証拠として利用する場合，監査人は当該専門家の適性・能力・客観性を評価しなければならない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-⑤ウ</span><div class="question">監査人は，経営者の利用する専門家の適性，能力及び客観性に問題がないと評価しさえすれば，当該専門家の業務により作成された情報を必要とする財務諸表項目におけるアサーションに適合した監査証拠とみなすことができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">適性・能力・客観性に問題がなくとも，当該専門家が実施した業務が関連するアサーションに照らして適切でないと評価した場合は，監査証拠として利用できない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-⑯ア</span><div class="question">（監査手続の実施として適切か？）監査人は，被監査会社が事業を譲り受けた際の事業価値の評価額について，被監査会社が利用した専門家が作成した報告書が重要であると判断し，経営者が利用した専門家とその業務の評価を行い監査証拠として利用した。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">経営者の利用する専門家の業務が重要と判断し，専門家とその業務を評価したうえで監査証拠として利用しており，手続として適切である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅰ-⑨イ</span><div class="question">企業に雇用されている専門家は，高度な専門的知識を有し，かつ，所属する専門家団体の規制を受けているため，監査人は，当該専門家は当該企業の他の従業員と比べて高い客観性を有しているものと見なすことができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">企業の従業員であることにより生じる客観性への阻害要因は常に存在するため，通常，他の従業員に比べ高い客観性を有しているとはみなせない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅰ-⑪ア</span><div class="question">監査証拠として利用する情報が経営者の利用する専門家により作成されている場合，監査人は，専門家の指摘事項又は結論の合理性，あるいは専門家が採用している重要な仮定や方法の合理性といった事項を検討する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">経営者の利用する専門家の業務の適切性を評価するに当たり，指摘事項・結論や重要な仮定・方法の合理性等を検討する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅱ-①イ</span><div class="question">二重責任の原則の下では，経営者が作成又は収集した情報に基づいて監査人が判断を行うことは適切でない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査人は，監査証拠の入手において，経営者（企業）が作成又は収集した情報を利用することがある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑬エ</span><div class="question">監査人は，手作業により作成された情報か，企業内の情報システムから出力された情報かにかかわらず，企業が作成した情報を監査証拠として利用する場合，監査人の目的に照らして十分な信頼性を有しているかどうかを評価することが必要である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">企業が作成した情報を監査証拠として利用する場合，その作成方法にかかわらず，監査人の目的に照らして十分な信頼性を有するかを評価する必要がある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅱ-⑮イ</span><div class="question">被監査会社が作成した情報を監査証拠として利用するために，当該情報の正確性及び網羅性が十分であることを確かめる場合には，監査人は，当該情報の作成と管理に関する内部統制の運用評価手続を省略することはできない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">情報の正確性及び網羅性を確かめるために，情報の作成と管理に関する内部統制の運用評価手続を実施することもあれば，実施しないこともある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅰ-⑪ウ</span><div class="question">複数の情報源から入手した監査証拠が相互に矛盾する場合，監査人は，当初適用した監査手続とは異なる監査手続を適用しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査証拠の矛盾を識別した場合，必要な監査手続の変更又は追加を判断して対処するが，必ずしも当初と異なる監査手続を適用するわけではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅱ-⑬ア</span><div class="question">複数の情報源から入手した監査証拠に矛盾がない場合に得られる心証の確からしさと，個々に検討された監査証拠から得られる心証の確からしさに，通常，相違はない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">矛盾がない場合，通常，個々に検討された監査証拠に比べ，より確かな心証が得られる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-1-7" class="topic-section">
+        <h2>1-7 手法による分類の監査手続（監査技術）</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 10</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 10</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 10</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 10</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 10</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 10</span>
+            </div>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅰ-⑩ア</span><div class="question">有価証券の実在性に関する監査要点を直接的に立証するには，株券や債券のような文書の閲覧が実施される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">有価証券の実在性は，株券や債券等の文書の閲覧（実査）により直接的に立証できる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅱ-⑭エ</span><div class="question">取引銀行の発行する貸付金に関する残高証明書の閲覧は，帳簿に計上された借入金の実在性を検討する目的に適合するが，借入金残高の網羅性を検討する目的には適合しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">残高証明書は企業が銀行から発行を受けるもので，全てを監査人に見せるとは限らないため，網羅性の検討には適合しないとされる（難問）。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅱ-⑭ウ／H27-Ⅰ-⑩イ</span><div class="question">土地の実査及び登記簿謄本の閲覧は，土地の実在性及び権利の帰属に関する証明力のある監査証拠を提供するが，当該土地の評価に関する監査証拠を提供しないことがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">実査・登記簿謄本の閲覧は実在性や権利の帰属の監査証拠を提供するが，評価（時価等）に関する監査証拠は提供しないことがある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅱ-⑫ウ</span><div class="question">実査は，有形資産の実在性に関する監査証拠を入手するための監査手続であるとともに，無形資産の評価の妥当性に関する監査証拠を入手するための監査手続でもある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">実査は，有形資産に対してのみ実施することができる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H23-Ⅱ-⑭ア</span><div class="question">監査人は，会社の保有する全ての預金証書や有価証券の実査をすることにより，基準日現在の残高の実在性のみならず，網羅性に関する監査要点に適合した監査証拠を入手できる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">監査人は通常「全ての有形資産を実査した」という心証は得られず，実査は実在性に関する監査証拠を入手する手続として位置づけられる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-⑬イ</span><div class="question">監査人は，有価証券や有形固定資産の実査により，これらの資産の実在性に関する証明力のある監査証拠を入手できるが，必ずしも当該資産に係る権利と義務又は評価に関する監査証拠を入手できるわけではない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">実査により実在性の監査証拠は入手できるが，権利と義務や評価に関する監査証拠まで必ずしも入手できるわけではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-⑬イ（関連）</span><div class="question">監査人は，生産設備の視察又は実査により当該設備の実在性や担保の設定状況を検証することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">視察・実査で実在性は検証できるが，担保の設定状況（権利と義務）を検証するには登記簿謄本や抵当権設定関係書類等の閲覧が必要である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R3-⑯イ</span><div class="question">監査人は，観察により，プロセス又は手続の実施に関する監査証拠を入手できるが，入手できる監査証拠は観察を行った時点に関する監査証拠に限定される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">観察はプロセス・手続の実施に関する監査証拠を提供するが，入手できるのは観察を行った時点に関する監査証拠に限られる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅱ-⑬エ</span><div class="question">監査証拠を入手する監査手続には，質問，閲覧，観察，確認，再計算，再実施及び分析的手続があるが，通常，質問のみではアサーション・レベルの重要な虚偽表示がないことについて十分な監査証拠を提供しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">質問は他の手続と組み合わせて用いるものであり，通常，質問のみではアサーション・レベルの十分な監査証拠を提供しない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅰ-⑯エ</span><div class="question">監査人は，質問により被監査会社の内外の関係者に対して情報を求める場合，その回答者が被監査会社の内部者又は外部者のいずれであるかにかかわらず，また，その回答が非公式な口頭によるものであっても，その回答を評価しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">質問の回答は，回答者の内外や非公式な口頭かにかかわらず，監査人が評価しなければならない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-1-8" class="topic-section">
+        <h2>1-8 監査手続の実施対象となる項目の抽出</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H23-Ⅱ-⑬エ</span><div class="question">網羅性という経営者の主張に関連する実証手続としてサンプリングを行う場合には，財務諸表計上額を母集団とし，実在性という経営者の主張に関連する実証手続としてサンプリングを行う場合には，証憑書類を母集団とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">網羅性は前進法（証憑等を母集団），実在性は遡及法（財務諸表計上額を母集団）で実施する必要があり，本肢は母集団の記述が逆になっている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑯ア</span><div class="question">監査人は，取引種類又は勘定残高を構成している項目の母集団全体を検討することが最も適切であると判断した場合には，詳細テストのみならず，内部統制の運用評価手続においても，精査を実施することが求められている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">通常，内部統制の運用評価手続を精査で実施することはない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅰ-⑭ア</span><div class="question">試査には，「サンプリングによる試査」と「特定項目抽出による試査」があるが，一定金額以上のすべての項目を抜き出して調べる場合は，前者に該当する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">一定金額以上の全ての項目を抽出する試査は，特定項目抽出による試査に該当する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-⑰エ／R8-Ⅰ-⑤イ／H24-Ⅰ-⑫ア</span><div class="question">取引種類又は勘定残高から特定項目を抽出する試査は，潜在的に誤謬を含む可能性が高い項目等を母集団から抽出する監査手続であり，発見された誤謬をもとに母集団全体の特性を推定することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">母集団の特性を代表しない項目を抽出する特定項目抽出による試査では，母集団全体の特性を推定することはできない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑬イ</span><div class="question">特定項目抽出による試査では，監査サンプリングによる試査とは異なり，その実施した監査手続の結果からは，母集団の中から抽出されなかった残余部分に関する監査証拠は得られない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">特定項目抽出では残余部分の監査証拠は得られないため，必要に応じて残余部分に対する他の監査手続を実施する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅱ-⑮エ</span><div class="question">期末日の売掛金残高の実在性を確かめるため，実在性に関するリスクが特に高いと評価した相手先に対する残高を抽出して検証した結果，実在性に関して重要な虚偽の表示の存在を示唆する監査証拠が得られなかったとしても，そのことをもって期末日の売掛金残高の実在性に関する結論を導き出すことはできない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">特定項目抽出により抽出項目から虚偽表示が発見されなくても，母集団全体に虚偽表示がないという結論（推定）は導き出せない（難問）。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H23-Ⅱ-⑪オ</span><div class="question">特定項目抽出による試査では，リスクが高いと推定する項目等を抽出して監査手続を実施するため，入手された監査証拠の証明力は，サンプリングによる試査によって入手された監査証拠より相対的に強い。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">特定項目抽出による試査とサンプリングによる試査との間で，入手した監査証拠の証明力の優劣は存在しない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H23-Ⅱ-⑫オ</span><div class="question">サンプリングによる試査では，母集団の一部から項目を抽出して監査手続を適用するため，発見リスクをゼロとすることはできないが，特定項目抽出による試査では，母集団の特定項目すべてに対して監査手続を実施するため，発見リスクをゼロにできる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">特定項目抽出による試査の場合でもノンサンプリングリスクは存在するため，発見リスクをゼロにはできない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R3-②ウ／R6-Ⅰ-①イ／R8-Ⅰ-①エ</span><div class="question">試査に基づく監査が行われる理由は，一般に，監査資源の制約，有効な内部統制の存在，統計技術及び統計理論の発達，並びに財務諸表監査の目的が重要な虚偽表示が存在しないことを合理的な水準で保証することとする社会的な合意にある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">試査が行われる背景として，監査資源の制約，有効な内部統制の存在，統計技術・理論の発達，合理的保証という社会的合意が挙げられる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pagePrefix = "Kansa_Ch3_Sec1_";
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') { input.checked = savedValue === 'true'; }
+                    else {
+                        input.value = savedValue;
+                        if (input.classList.contains('date-input') && savedValue !== "") { input.type = 'date'; }
+                    }
+                }
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') { localStorage.setItem(storageKey, input.checked); }
+                    else { localStorage.setItem(storageKey, input.value); }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

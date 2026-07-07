@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>【財務会計論】第19章 資産除去債務（自動保存付き）</title>
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75; color: #333; max-width: 900px;
+            margin: 0 auto; padding: 40px 25px; background-color: #f5f7f9;
+        }
+        .cover-page {
+            background-color: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+            padding: 50px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50; font-size: 2.2em; border-bottom: 3px solid #3498db;
+            display: inline-block; padding-bottom: 10px; margin-bottom: 20px;
+        }
+        .cover-subtitle { font-size: 1.3em; color: #475569; font-weight: bold; margin-bottom: 10px; }
+        .cover-meta { font-size: 1em; color: #64748b; margin-bottom: 30px; }
+        .toc-list { list-style: none; padding: 0; margin: 0 auto; text-align: left; max-width: 640px; }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block; text-decoration: none; color: #1e293b; background-color: #f1f5f9;
+            padding: 16px 24px; border-radius: 10px; font-weight: bold; font-size: 1.05em;
+            border-left: 6px solid #3498db; transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover { background-color: #e2e8f0; transform: translateX(5px); }
+        .topic-section { margin-top: 150px; margin-bottom: 50px; }
+        h2 {
+            color: #2c3e50; font-size: 1.6em; font-weight: bold; margin-bottom: 30px;
+            padding-left: 14px; border-left: 6px solid #3498db;
+            padding-top: 10px; border-top: 1px solid #cbd5e1;
+        }
+        .score-board {
+            background-color: #fff; border: 1px solid #e2e8f0; padding: 24px; border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 40px;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
+        }
+        .score-item {
+            display: flex; align-items: center; gap: 10px;
+            background-color: #f8fafc; border: 1px solid #cbd5e1; padding: 10px 15px; border-radius: 8px;
+        }
+        .attempt-label { font-weight: bold; color: #4a5568; font-size: 0.95em; }
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155; border: 1px solid #94a3b8; border-radius: 6px;
+        }
+        .date-input { width: 125px; padding: 6px 8px; font-size: 0.95em; cursor: pointer; text-align: center; }
+        .score-input { width: 50px; padding: 6px 8px; font-size: 1.05em; text-align: right; }
+        .score-denominator { font-weight: bold; color: #64748b; font-size: 1.05em; }
+        .qa-block {
+            background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;
+            padding: 30px; margin-bottom: 35px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); break-inside: avoid;
+        }
+        .checkbox-area { margin-bottom: 15px; display: flex; gap: 12px; }
+        .custom-checkbox { width: 24px; height: 24px; cursor: pointer; accent-color: #3498db; margin: 5px; padding: 10px; }
+        .question-header { margin-bottom: 20px; }
+        .q-badge {
+            background-color: #f8fafc; color: #64748b; font-size: 0.9em; padding: 4px 10px;
+            border-radius: 6px; border: 1px solid #cbd5e1; font-weight: bold;
+            margin-right: 8px; display: inline-block; vertical-align: middle; margin-bottom: 4px;
+        }
+        .question { font-weight: bold; font-size: 1.15em; color: #1e293b; line-height: 1.7; display: inline; }
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer; background-color: #3498db; color: #fff; padding: 12px 24px;
+            border-radius: 8px; font-weight: bold; font-size: 1em;
+            display: inline-block; outline: none; transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px; padding-top: 25px; border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+        .ans-row { display: flex; margin-bottom: 14px; font-size: 1.05em; }
+        .label { font-weight: bold; min-width: 80px; color: #64748b; flex-shrink: 0; }
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+        .note-box {
+            background-color: #f8fafc; border-left: 4px solid #cbd5e1;
+            padding: 12px 16px; border-radius: 0 6px 6px 0;
+            margin-top: 16px; font-size: 0.95em; color: #475569;
+        }
+        .memo-box {
+            background-color: #fffbeb; border-left: 4px solid #f59e0b;
+            padding: 16px 20px; border-radius: 0 6px 6px 0; margin-bottom: 40px;
+            font-size: 1.05em; color: #78350f; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+        .memo-title { font-weight: bold; color: #d97706; margin-right: 6px; }
+        .list-answer { margin: 0; padding-left: 1.5em; line-height: 2; }
+        .table-compare { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 0.97em; }
+        .table-compare th, .table-compare td { border: 1px solid #cbd5e1; padding: 8px 12px; text-align: left; }
+        .table-compare th { background-color: #f1f5f9; font-weight: bold; color: #334155; }
+        .back-to-top {
+            display: block; text-align: right; margin-top: 20px; font-size: 1em;
+            color: #3498db; text-decoration: none; font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <div class="cover-page">
+        <h1 class="cover-title">財務会計論 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">第19章 資産除去債務</div>
+        <div class="cover-meta">難易度 ★☆☆ ／ 全26問</div>
+        <ul class="toc-list">
+            <li><a href="#section-1">【第1節】総論 [重要度★☆☆] 問1〜6</a></li>
+            <li><a href="#section-2">【第2節】引当金処理と資産負債の両建処理 [重要度☆☆☆] 問7</a></li>
+            <li><a href="#section-3">【第3節】資産除去債務の会計処理 [重要度★★☆] 問8〜26</a></li>
+        </ul>
+    </div>
+
+
+    <!-- ===== 【第1節】総論 ===== -->
+    <div id="section-1" class="topic-section">
+        
+        <div class="memo-box">
+            <span class="memo-title">【学習メモ】</span>令和以降２度しか出題がないが出題パターンは同じである。つまり，第１節から資産除去債務の定義の知識が１肢問われ，残り３肢は第３節の資産除去債務の会計処理が問われている。また，IFRSとの差異である利息費用の表示や割引率の見直しは，×肢の題材になりやすいため注意しておくこと。
+        </div>
+        <h2>【第1節】総論 [重要度★☆☆] 問1〜6</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+        </div>
+        
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">1(C)</span><div class="question">有形固定資産を対象とする「資産除去債務に関する会計基準」は，建設仮勘定や使用権資産に適用されるが，投資その他の資産である投資不動産には適用されない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：投資不動産には適用されない</span><br><span class="correct-text">正：「資産除去債務に関する会計基準」における有形固定資産にはそれに準じる有形の資産が含まれるため，投資不動産に資産除去債務が存在している場合，適用対象に含まれる</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.1</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">2(B)</span><div class="question">「資産除去債務に関する会計基準」は，有形固定資産を除去する義務の発生原因に関わらず適用される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：有形固定資産を除去する義務の発生原因に関わらず適用される</span><br><span class="correct-text">正：不適切な操業等の異常な原因によって発生した場合，適用されない</span></span></div><div class="note-box"><span class="note-title">【周辺】</span>異常な原因によって発生した場合，引当金の計上や「固定資産の減損に係る会計基準」の適用対象とすべき。<br><span class="note-title">【参照】</span>p.1</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">3(B)</span><div class="question">有形固定資産の除去が企業の自発的な計画のみによって行われる場合は，資産除去債務に該当しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（○）</span></div><div class="ans-row"><span class="label">【解説】</span><span>資産除去債務は法令又は契約で要求される法律上の義務及びこれに準ずるものであるため，有形固定資産の除去が企業の自発的な計画のみによって行われる場合は，資産除去債務に該当しない。</span></div><div class="note-box"><span class="note-title">【参照】</span>p.1</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">4(B)</span><div class="question">有形固定資産自体を除去する義務はなくとも有形固定資産を除去する際に当該資産に使用されている有害物質等を法律等の要求による特別の方法で除去する義務は，有形固定資産の除去費用全体が資産除去債務の計上対象となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：資産除去債務の計上対象となるのは，有形固定資産の除去費用全体である</span><br><span class="correct-text">正：資産除去債務の計上対象となるのは，有害物質の除去に直接関わる費用である</span></span></div><div class="note-box"><span class="note-title">【例示】</span>建物を除去する義務はないが，建物除去時にアスベストを除去する義務がある場合における当該アスベストの除去費用など。<br><span class="note-title">【参照】</span>p.1</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">5(B)</span><div class="question">有形固定資産の使用期間中に実施する環境修復や修繕に係る支出は，資産除去債務に含めて会計処理を行う。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：使用期間中に実施する環境修復や修繕支出は，資産除去債務に含めて処理する</span><br><span class="correct-text">正：使用期間中に実施する環境修復や修繕支出は，資産除去債務に該当しない</span></span></div><div class="note-box"><span class="note-title">【理由】</span>資産除去債務は有形固定資産の使用後の処分に係る支出であるため，使用期間中の支出は含めない。<br><span class="note-title">【参照】</span>p.1</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">6(A)</span><div class="question">有形固定資産が遊休状態になる場合や転用や用途変更を行う場合，除去に該当する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：有形固定資産が遊休状態になる場合や転用や用途変更を行う場合，除去に該当する</span><br><span class="correct-text">正：有形固定資産が遊休状態になる場合や転用や用途変更を行う場合，除去に該当しない</span></span></div><div class="note-box"><span class="note-title">【理由】</span>遊休は用役提供からの一時的な除外であり除去に該当しない。転用や用途変更は自ら使用を継続するため除去に該当しない。<br><span class="note-title">【参照】</span>p.1</div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+    <!-- ===== 【第2節】引当金処理と資産負債の両建処理 ===== -->
+    <div id="section-2" class="topic-section">
+        
+        <h2>【第2節】引当金処理と資産負債の両建処理 [重要度☆☆☆] 問7</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+        </div>
+        
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">7(B)</span><div class="question">引当金処理は資産除去債務の負債計上が不十分となるため，その採用には資産除去債務の金額を注記することが必要となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：資産除去債務の金額を注記すれば引当金処理を採用できる</span><br><span class="correct-text">正：引当金処理の採用は認められていない</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.3</div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+    <!-- ===== 【第3節】資産除去債務の会計処理 ===== -->
+    <div id="section-3" class="topic-section">
+        
+        <h2>【第3節】資産除去債務の会計処理 [重要度★★☆] 問8〜26</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 19</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 19</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 19</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 19</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 19</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 19</span>
+            </div>
+        </div>
+        
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">8(B)</span><div class="question">資産除去債務の発生時に金額を合理的に見積ることができない場合，これを計上せず，合理的に見積ることができるようになった時点で過年度の財務諸表を遡って修正する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：合理的に見積ることができるようになった時点で過年度の財務諸表を遡って修正する</span><br><span class="correct-text">正：合理的に見積ることができるようになった時点で負債計上し，見積りの変更に準じて処理する</span></span></div><div class="note-box"><span class="note-title">【周辺】</span>具体的には将来キャッシュ・フローの増加として，その時点の割引率を適用する。<br><span class="note-title">【参照】</span>p.4</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">9(A)</span><div class="question">資産除去債務に係る割引前の将来キャッシュ・フローは，市場の評価を反映した金額による。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：市場の評価を反映した金額による</span><br><span class="correct-text">正：合理的で説明可能な仮定及び予測に基づく自己の支出見積りによる</span></span></div><div class="note-box"><span class="note-title">【理由】</span>市場の想定する支出額は客観的でないことが多いなどの理由で，自己の支出見積額が用いられる。<br><span class="note-title">【参照】</span>p.3</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">10(B)</span><div class="question">将来キャッシュ・フローの見積方法は，最頻値法又は期待値法によるが，前者の方法による場合，将来キャッシュ・フローが見積値から乖離するリスクを勘案しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：前者（最頻値法）による場合，将来キャッシュ・フローが見積値から乖離するリスクを勘案しない</span><br><span class="correct-text">正：いずれの方法による場合でも，将来キャッシュ・フローが見積値から乖離するリスクを勘案する</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.5</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">11(B)</span><div class="question">将来キャッシュ・フローが見積値から乖離するリスクは，将来キャッシュ・フローと割引率のいずれかに反映させる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：将来キャッシュ・フローと割引率のいずれかに反映させる</span><br><span class="correct-text">正：将来キャッシュ・フローに反映させ，割引率には反映させない</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.5</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">12(C)</span><div class="question">将来キャッシュ・フローが見積値から乖離するリスクは，資産除去債務の見積額を増減させる要素となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：資産除去債務の見積額を増減させる要素となる</span><br><span class="correct-text">正：資産除去債務の見積額を増加させる要素となる</span></span></div><div class="note-box"><span class="note-title">【理由】</span>リスク回避型の経済主体にとってリスクはマイナスの影響を有するため，資産除去債務の見積額を増加させる。<br><span class="note-title">【参照】</span>p.5</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">13(B)</span><div class="question">将来キャッシュ・フローには，有形固定資産の除去に係る作業のために直接要する支出は含めるが，処分に至るまでの保管や管理のための支出は含めない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：処分に至るまでの保管や管理のための支出は含めない</span><br><span class="correct-text">正：処分に至るまでの保管や管理のための支出も含める</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.5</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">14(A)</span><div class="question">将来キャッシュ・フローの見積りには法人税等の影響額を含めず，割引率は貨幣の時間価値を反映した無リスクの税引後の利率とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：割引率は貨幣の時間価値を反映した無リスクの税引後の利率とする</span><br><span class="correct-text">正：割引率は貨幣の時間価値を反映した無リスクの税引前の利率とする</span></span></div><div class="note-box"><span class="note-title">【理由】</span>将来キャッシュ・フローが税引前の数値であることに対応して，割引率も税引前の利率を用いる。<br><span class="note-title">【参照】</span>p.6</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">15(B)</span><div class="question">資産除去債務に対応する除去費用を資産計上する方法として，資産除去債務に関連する有形固定資産と区別して把握し，別の資産として計上することも認められる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：関連する有形固定資産と区別して把握し，別の資産として計上する方法も認められる</span><br><span class="correct-text">正：関連する有形固定資産の帳簿価額に加える方法のみ認められる</span></span></div><div class="note-box"><span class="note-title">【理由】</span>除去費用は稼動にとって不可欠なため，有形固定資産の取得に関する付随費用と同様に，関連する有形固定資産に含める。<br><span class="note-title">【周辺】</span>外部公表用の財務諸表では別の資産として表示することは認められない。<br><span class="note-title">【参照】</span>p.6</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">16(B)</span><div class="question">資産除去債務に対応する金額を有形固定資産の取得原価に含めて資産計上する場合，関連する有形固定資産と区分して別の資産として管理することは認められない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：関連する有形固定資産と区分して別の資産として管理することは認められない</span><br><span class="correct-text">正：関連する有形固定資産と区分して別の資産として管理することは妨げられない</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.6</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">17(B)</span><div class="question">建物が建築されている土地の原状回復費用等は，土地が処分されるまで費用計上されない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：土地の原状回復費用等は，土地が処分されるまで費用計上されない</span><br><span class="correct-text">正：土地に建てられている建物や構築物等の減価償却を通じて各期に費用配分される</span></span></div><div class="note-box"><span class="note-title">【理由】</span>土地の原状回復等は，一般に当該土地上の建物や構築物等の有形固定資産に関連する資産除去債務と考えられるため。<br><span class="note-title">【参照】</span>p.6</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">18(B)</span><div class="question">資産除去債務が有形固定資産の稼動等に従って，使用の都度発生する場合，原則として，資産除去債務に対応する除去費用をいったん資産に計上し，当該計上時期と同一の期間に，資産計上額と同一の金額を費用処理する方法による。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：原則として，除去費用をいったん資産に計上し，当該計上時期と同一の期間に，資産計上額と同一の金額を費用処理する方法による</span><br><span class="correct-text">正：当該方法は除去費用に係る費用配分の著しい偏りを防ぐため，例外的に認められているにすぎない</span></span></div><div class="note-box"><span class="note-title">【原則】</span>除去費用を各期においてそれぞれ資産計上し，関連する有形固定資産の残存耐用年数にわたり，各期に費用配分する。<br><span class="note-title">【参照】</span>p.7</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">19(A)</span><div class="question">時の経過による資産除去債務の調整額は，毎期末に割引率を見直し，期末の負債の帳簿価額を基礎として算定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：毎期末に割引率を見直し，期末の負債の帳簿価額を基礎として算定</span><br><span class="correct-text">正：毎期末に割引率を見直さない・期首の負債の帳簿価額を基礎として算定</span></span></div><div class="note-box"><span class="note-title">【理由】</span>他の負債との整合性及び関連する有形固定資産を規則的に費用配分することとの整合性。なお，IFRSでは割引率を見直す。<br><span class="note-title">【参照】</span>p.7</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">20(C)</span><div class="question">資産除去債務の対象が複数の有形固定資産から構成される場合，主たる資産を除去するまでに行われる，より短い周期で実施される資産の除去及び再取得に係る支出は資産除去債務に含める。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：資産除去債務に含める</span><br><span class="correct-text">正：より短い周期で実施される資産の除去及び再取得に係る支出は資産除去債務に含めず，主たる資産の除去と同時に行われる資産の除去に係る支出を含める</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.8</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">21(C)</span><div class="question">賃借契約に関連する敷金が資産計上されているときは，当該敷金の回収が最終的に見込めないと認められる金額を合理的に見積り，そのうち当期の負担に属する額を費用計上する方法により処理しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：回収が最終的に見込めない金額を合理的に見積り，当期の負担に属する額を費用計上する方法のみ</span><br><span class="correct-text">正：資産除去債務の負債計上及びこれに対応する除去費用の資産計上を行う方法が原則であり，本問の方法は容認されているに過ぎない</span></span></div><div class="note-box"><span class="note-title">【理由】</span>原則法によると敷金と除去費用に係る資産が二重計上されるため，容認法が認められている。<br><span class="note-title">【参照】</span>p.8</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">22(B)</span><div class="question">資産除去債務の見積りの変更に係る会計処理は，資産除去債務に係る負債及び有形固定資産の残高の調整を行い，その調整の効果を一時の損益とするキャッチ・アップ方式による。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：負債及び資産の残高の調整を行い，その効果を一時の損益とするキャッチ・アップ方式による</span><br><span class="correct-text">正：資産除去債務に係る負債及び関連する有形固定資産の帳簿価額に加減して，減価償却を通じて残存耐用年数にわたり費用配分を行うプロスペクティブ方式による</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.9</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">23(A)</span><div class="question">割引前の将来キャッシュ・フローに重要な見積りの増減が生じた場合，当該調整額にその時点の割引率を適用する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：調整額にその時点の割引率を適用する</span><br><span class="correct-text">正：将来キャッシュ・フローが増加する場合，その時点の割引率を適用するが，キャッシュ・フローが減少する場合，負債計上時の割引率を適用する</span></span></div><div class="note-box"><span class="note-title">【区別】</span>過去に見積額が増加し，その後減少した場合，減少部分に適用する割引率を特定できないときは加重平均割引率を適用する。<br><span class="note-title">【参照】</span>p.9</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">24(A)</span><div class="question">資産除去債務は，原則として固定負債に表示し，関連する有形固定資産の耐用年数到来時に流動負債に振り替える。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：原則として固定負債に表示し，関連する有形固定資産の耐用年数到来時に流動負債に振り替える</span><br><span class="correct-text">正：貸借対照表日後１年以内に資産除去債務の履行が見込まれる場合，流動負債の区分に表示し，それ以外の場合は固定負債の区分に表示する</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.9</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">25(A)</span><div class="question">時の経過による資産除去債務の調整額は損益計算書上，営業外費用に計上する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：営業外費用に計上する</span><br><span class="correct-text">正：資産除去債務に関連する有形固定資産の減価償却費と同じ区分に計上する</span></span></div><div class="note-box"><span class="note-title">【IFRS比較】</span>IFRS：資産除去債務の履行に関する資金調達費用とみて財務費用として処理。わが国：実際の資金調達費用ではないため営業費用として処理。<br><span class="note-title">【参照】</span>p.10</div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">26(B)</span><div class="question">資産除去債務の履行時に認識される資産除去債務残高と資産除去債務の決済のために実際に支払われた額との差額は，臨時的な損益として特別損益に計上する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：特別損益に計上する</span><br><span class="correct-text">正：原則として，資産除去債務に対応する除去費用に係る費用配分額と同じ区分に計上する</span></span></div><div class="note-box"><span class="note-title">【理由】</span>将来キャッシュ・フローの見積変更額が営業費用として処理されることの整合性から，履行差額は営業費用に計上する。<br><span class="note-title">【周辺】</span>当初の予定よりも著しく早期に除去する場合等，履行差額が異常な原因で生じた場合，特別損益として処理する。<br><span class="note-title">【参照】</span>p.10</div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pagePrefix = "Zaimu_19_Shisanjokyo_";
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') {
+                        input.checked = savedValue === 'true';
+                    } else {
+                        input.value = savedValue;
+                        if (input.classList.contains('date-input') && savedValue !== "") {
+                            input.type = 'date';
+                        }
+                    }
+                }
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') {
+                        localStorage.setItem(storageKey, input.checked);
+                    } else {
+                        localStorage.setItem(storageKey, input.value);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
