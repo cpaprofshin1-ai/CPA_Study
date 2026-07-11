@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>【財務会計論】第23章 収益認識（自動保存付き）</title>
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75; color: #333; max-width: 900px;
+            margin: 0 auto; padding: 40px 25px; background-color: #f5f7f9;
+        }
+        .cover-page {
+            background-color: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+            padding: 50px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50; font-size: 2.2em; border-bottom: 3px solid #3498db;
+            display: inline-block; padding-bottom: 10px; margin-bottom: 20px;
+        }
+        .cover-subtitle { font-size: 1.3em; color: #475569; font-weight: bold; margin-bottom: 10px; }
+        .cover-meta { font-size: 1em; color: #64748b; margin-bottom: 30px; }
+        .toc-list { list-style: none; padding: 0; margin: 0 auto; text-align: left; max-width: 640px; }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block; text-decoration: none; color: #1e293b; background-color: #f1f5f9;
+            padding: 16px 24px; border-radius: 10px; font-weight: bold; font-size: 1.05em;
+            border-left: 6px solid #3498db; transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover { background-color: #e2e8f0; transform: translateX(5px); }
+        .topic-section { margin-top: 150px; margin-bottom: 50px; }
+        h2 {
+            color: #2c3e50; font-size: 1.6em; font-weight: bold; margin-bottom: 30px;
+            padding-left: 14px; border-left: 6px solid #3498db;
+            padding-top: 10px; border-top: 1px solid #cbd5e1;
+        }
+        .score-board {
+            background-color: #fff; border: 1px solid #e2e8f0; padding: 24px; border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 40px;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
+        }
+        .score-item {
+            display: flex; align-items: center; gap: 10px;
+            background-color: #f8fafc; border: 1px solid #cbd5e1; padding: 10px 15px; border-radius: 8px;
+        }
+        .attempt-label { font-weight: bold; color: #4a5568; font-size: 0.95em; }
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155; border: 1px solid #94a3b8; border-radius: 6px;
+        }
+        .date-input { width: 125px; padding: 6px 8px; font-size: 0.95em; cursor: pointer; text-align: center; }
+        .score-input { width: 50px; padding: 6px 8px; font-size: 1.05em; text-align: right; }
+        .score-denominator { font-weight: bold; color: #64748b; font-size: 1.05em; }
+        .qa-block {
+            background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;
+            padding: 30px; margin-bottom: 35px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); break-inside: avoid;
+        }
+        .checkbox-area { margin-bottom: 15px; display: flex; gap: 12px; }
+        .custom-checkbox { width: 24px; height: 24px; cursor: pointer; accent-color: #3498db; margin: 5px; padding: 10px; }
+        .question-header { margin-bottom: 20px; }
+        .q-badge {
+            background-color: #f8fafc; color: #64748b; font-size: 0.9em; padding: 4px 10px;
+            border-radius: 6px; border: 1px solid #cbd5e1; font-weight: bold;
+            margin-right: 8px; display: inline-block; vertical-align: middle; margin-bottom: 4px;
+        }
+        .question { font-weight: bold; font-size: 1.15em; color: #1e293b; line-height: 1.7; display: inline; }
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer; background-color: #3498db; color: #fff; padding: 12px 24px;
+            border-radius: 8px; font-weight: bold; font-size: 1em;
+            display: inline-block; outline: none; transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px; padding-top: 25px; border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+        .ans-row { display: flex; margin-bottom: 14px; font-size: 1.05em; }
+        .label { font-weight: bold; min-width: 80px; color: #64748b; flex-shrink: 0; }
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+        .note-box {
+            background-color: #f8fafc; border-left: 4px solid #cbd5e1;
+            padding: 12px 16px; border-radius: 0 6px 6px 0;
+            margin-top: 16px; font-size: 0.95em; color: #475569;
+        }
+        .memo-box {
+            background-color: #fffbeb; border-left: 4px solid #f59e0b;
+            padding: 16px 20px; border-radius: 0 6px 6px 0; margin-bottom: 40px;
+            font-size: 1.05em; color: #78350f; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+        .memo-title { font-weight: bold; color: #d97706; margin-right: 6px; }
+        .list-answer { margin: 0; padding-left: 1.5em; line-height: 2; }
+        .table-compare { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 0.97em; }
+        .table-compare th, .table-compare td { border: 1px solid #cbd5e1; padding: 8px 12px; text-align: left; }
+        .table-compare th { background-color: #f1f5f9; font-weight: bold; color: #334155; }
+        .back-to-top {
+            display: block; text-align: right; margin-top: 20px; font-size: 1em;
+            color: #3498db; text-decoration: none; font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+    </style>
+</head>
+<body id="top">
+
+<!-- ══════════ カバー・目次 ══════════ -->
+<div class="cover-page">
+    <h1 class="cover-title">財務会計論 短答対策 Q&amp;A</h1>
+    <div class="cover-subtitle">第23章 収益認識</div>
+    <div class="cover-meta">難易度 ★★★／全46問</div>
+    <ul class="toc-list">
+        <li><a href="#section-1">【第1節】総論 [重要度☆☆☆] 問1〜2</a></li>
+        <li><a href="#section-2">【第2節】契約の識別 [重要度★☆☆] 問3〜9</a></li>
+        <li><a href="#section-3">【第3節】履行義務の識別 [重要度☆☆☆] 問10〜12</a></li>
+        <li><a href="#section-4">【第4節】取引価格の算定 [重要度★★★] 問13〜19</a></li>
+        <li><a href="#section-5">【第5節】取引価格の配分 [重要度★☆☆] 問20〜22</a></li>
+        <li><a href="#section-6">【第6節】履行義務の充足による収益の認識 [重要度★★★] 問23〜28</a></li>
+        <li><a href="#section-7">【第7節】特定の状況又は取引における取扱い等 [重要度★☆☆] 問29〜35</a></li>
+        <li><a href="#section-8">【第8節】工事契約から損失が見込まれる場合 [重要度☆☆☆] 問36〜39</a></li>
+        <li><a href="#section-9">【第9節】開示 [重要度★★☆] 問40〜46</a></li>
+    </ul>
+</div>
+
+
+<div id="section-1" class="topic-section">
+        <div class="memo-box">
+            <span class="memo-title">【学習メモ】</span>出題実績 10/14 を誇る超重要論点である。特定のStepの単独出題は2回にとどまり，複数のStepを横断的に問う形式が主流である。まずは出題頻度が突出して高いStep3とStep5に注力し，次いで散見されるStep1とStep4で周辺知識を補完しよう。また，開示（契約資産・契約負債）からの出題も目立つため併せて押さえよう。
+        </div>
+        <h2>【第1節】総論 [重要度☆☆☆] 問1〜2</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">1(C)</span><div class="question">「収益認識に関する会計基準」は個別財務諸表には適用されない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：個別財務諸表には適用されない。</span><br>
+                        <span class="correct-text">正：連結財務諸表及び個別財務諸表に適用される。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.1</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">2(B)</span><div class="question">「収益認識に関する会計基準」は，顧客との契約から生じる収益のうち，金融商品に係る取引やリースに適用されるが，固定資産の売却には適用されない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：金融商品に係る取引やリースには適用される。</span><br>
+                        <span class="correct-text">正：金融商品に係る取引やリースには適用されない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.1</div>
+                    <div class="note-box"><span class="note-title">【理由】</span>金融商品やリース：IFRSとの整合性、固定資産の売却：顧客との契約（営業活動）ではないため。</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+
+<div id="section-2" class="topic-section">
+        <h2>【第2節】契約の識別 [重要度★☆☆] 問3〜9</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">3(A)</span><div class="question">契約の識別に際しては，当事者が，書面により契約を承認し，それぞれの義務の履行を約束していることが必要となり，口頭や取引慣行等による承認は含まれない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：口頭や取引慣行による承認は含まれない。</span><br>
+                        <span class="correct-text">正：口頭や取引慣行による承認も含まれる。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.4</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">4(B)</span><div class="question">複数の企業を介在させて，各企業の帳簿上通過させるだけの取引は契約として識別されない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（○）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>契約の識別に際しては，経済的実質があることが必要であり，複数の企業を介在させて，各企業の帳簿上通過させるだけの取引（循環取引等）は契約として識別されない。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.4</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">5(A)</span><div class="question">企業が権利を得ることとなる対価を回収する可能性の高さは，取引価格の算定上で考慮されるため，契約の識別要件とされていない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：契約の識別要件とはされていない。</span><br>
+                        <span class="correct-text">正：契約の識別要件とされている。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.4</div>
+                    <div class="note-box"><span class="note-title">【周辺】</span>対価を回収する可能性の評価には，対価の支払期限到来時における顧客が支払う意思と能力を考慮する。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">6(C)</span><div class="question">契約の当事者のそれぞれが，他の当事者に補償することなく完全に未履行の契約を解約する一方的で強制力のある権利を有している場合には，「収益認識に関する会計基準」を適用しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（○）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>契約とは，法的な強制力のある権利及び義務を生じさせる複数の当事者間における取決めをいうため，契約の当事者のそれぞれが，他の当事者に補償することなく完全に未履行の契約を解約する一方的で強制力のある権利を有している場合には，「収益認識に関する会計基準」を適用しない。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.4</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">7(C)</span><div class="question">顧客との契約が識別要件を満たさない場合には，当該要件を事後的に満たすかどうかを引き続き評価する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（○）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>顧客との契約が識別要件を満たさない場合には，当該要件を事後的に満たすかどうかを引き続き評価し，当該要件を満たしたときに「収益認識に関する会計基準」を適用する。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.4</div>
+                    <div class="note-box"><span class="note-title">【周辺】</span>識別要件を満たさない契約の対価を受け取った場合，残りの履行義務がない等により返金不要であれば収益を認識する。</div>
+                    <div class="note-box"><span class="note-title">【対比】</span>契約の識別要件を満たす場合，事実及び状況の重要な変化の兆候がない限り，見直しを行わない。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">8(B)</span><div class="question">同一の顧客と同時又はほぼ同時に締結した複数の契約について，一定の要件に該当する場合，簡便な処理として複数の契約を結合し，単一の契約とみなして処理することが容認される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：単一の契約とみなして処理することが容認される。</span><br>
+                        <span class="correct-text">正：単一の契約とみなして処理する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.5</div>
+                    <div class="note-box"><span class="note-title">【理由】</span>複数の契約は，区分処理するか単一契約として処理するかで収益認識の時期及び金額が異なるため，結合して処理する。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">9(B)</span><div class="question">別個の財又はサービスの追加により範囲が拡大される契約変更について，空欄を埋めなさい。<br><br><table class="table-compare"><tr><th></th><th>未だ移転していない財又はサービスと契約変更日以前に移転した財又はサービスの関係</th><th>処理</th></tr><tr><td rowspan="1">増額される価格が追加的に約束した財又はサービスに対する独立販売価格に適切な調整を加えた金額を反映している場合</td><td>—</td><td>①</td></tr><tr><td rowspan="2">上記以外</td><td>別個である</td><td>②</td></tr><tr><td>別個でない</td><td>③</td></tr></table></div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（○）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>
+                            <ul class="list-answer">
+                            <li>① 契約変更を独立した契約として処理する。</li>
+                            <li>② 契約変更を既存の契約を解約して新しい契約を締結したものと仮定して処理する。</li>
+                            <li>③ 契約変更を既存の契約の一部であると仮定して処理する。</li>
+                            </ul>
+                        </span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.5</div>
+                    <div class="note-box"><span class="note-title">【理由】</span>①は独立した契約を締結した場合と取引の実態に相違がないため，独立した契約として処理する。</div>
+                    <div class="note-box"><span class="note-title">【理由】</span>②は新たな事実及び状況に基づくものと考えられるため，将来に向かって処理する。</div>
+                    <div class="note-box"><span class="note-title">【理由】</span>③は既存契約とは別個の財サービスを移転しないため，進捗度及び取引価格を変更し，累積的な影響に基づき収益を修正する。</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+
+<div id="section-3" class="topic-section">
+        <h2>【第3節】履行義務の識別 [重要度☆☆☆] 問10〜12</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">10(B)</span><div class="question">履行義務は，別個の財又はサービス（あるいは別個の財又はサービスの束），又は一連の別個の財又はサービスのいずれかを顧客に移転する約束をいう。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（○）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>履行義務は，別個の財又はサービス，別個の財又はサービスの束，一連の別個の財又はサービスのいずれかを顧客に移転する約束をいう。<table class="table-compare"><tr><th>区分</th><th>例</th></tr>
+                        <tr><td>別個の財又はサービス</td><td>商品販売</td></tr>
+                        <tr><td>別個の財又はサービスの束</td><td>工事契約</td></tr>
+                        <tr><td>一連の別個の財又はサービス</td><td>定期清掃契約</td></tr></table></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.7</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">11(B)</span><div class="question">顧客に約束した財又はサービスは，①財又はサービスが別個のものとなる可能性があること，②財又はサービスを顧客に移転する約束が契約の観点において別個のものとなることのいずれかを満たす場合，別個のものとする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：①及び②の要件のいずれかを満たす場合，別個のものとする。</span><br>
+                        <span class="correct-text">正：①及び②の要件のいずれも満たす場合，別個のものとする。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.8</div>
+                    <div class="note-box"><span class="note-title">【周辺】</span>①の要件は「財又はサービスから単独で顧客が便益を享受することができること，あるいは，当該財又はサービスと顧客が容易に利用できる他の資源を組み合わせて顧客が便益を享受することができること」，②の要件は「財又はサービスを顧客に移転する約束が，契約に含まれる他の約束と区分して識別できること」と表記される可能性があるため注意すること。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">12(C)</span><div class="question">特性が実質的に同じ複数の別個の財又はサービスを提供する場合，当該複数の別個の財又はサービスを複数の履行義務として識別する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：複数の履行義務として識別する。</span><br>
+                        <span class="correct-text">正：単一の履行義務として識別する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.7</div>
+                    <div class="note-box"><span class="note-title">【理由】</span>本問の履行義務は一連の別個の財又はサービスであり，コストと比較して便益が小さいため単一の履行義務とされる。</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+
+<div id="section-4" class="topic-section">
+        <h2>【第4節】取引価格の算定 [重要度★★★] 問13〜19</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">13(A)</span><div class="question">取引価格の算定上，顧客から受け取った又は受け取る対価の一部あるいは全部を顧客に返金すると見込む場合，受け取った又は受け取る対価の額のうち，企業が権利を得ると見込まない額について，契約負債を認識する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：契約負債を認識する。</span><br>
+                        <span class="correct-text">正：返金負債を認識する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.11</div>
+                    <div class="note-box"><span class="note-title">【周辺】</span>返金負債の額は毎期見直す。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">14(B)</span><div class="question">変動対価の額の見積りにあたっては，原則として期待値による方法を用いる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：原則として期待値による方法を用いる。</span><br>
+                        <span class="correct-text">正：最頻値による方法又は期待値による方法のいずれかのうち，企業が権利を得ることとなる対価の額より適切に予測できる方法を用いる。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.11</div>
+                    <div class="note-box"><span class="note-title">【例示】</span>最頻値は，割増金の条件を達成するか否かのように契約において生じ得る結果が2つしかない場合に適合し，期待値は，特性の類似した多くの契約を有している場合に適合する。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">15(A)</span><div class="question">見積られた変動対価の額については，変動対価の額に関する不確実性が事後的に解消された際に取引価格に含める。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：不確実性が事後的に解消された際に取引価格に含める。</span><br>
+                        <span class="correct-text">正：不確実性が事後的に解消される際に，計上された収益の著しい減額が発生しない可能性が高い部分を取引価格に含める。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.11</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">16(A)</span><div class="question">顧客との契約に重要な金融要素が含まれる場合，顧客との契約から生じる収益は約束した対価の額で認識する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：顧客との契約から生じる収益は約束した対価の額で認識する。</span><br>
+                        <span class="correct-text">正：顧客との契約から生じる収益は現金販売価格を反映する金額で認識する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.13</div>
+                    <div class="note-box"><span class="note-title">【周辺】</span>契約における取引開始日において，約束した財又はサービスを顧客に移転する時点と顧客が支払を行う時点の間が1年以内であると見込まれる場合，重要な金融要素の影響について約束した対価の額を調整しないことができる。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">17(B)</span><div class="question">契約における対価が現金以外の場合の取引価格の算定にあたっては，当該対価を時価により算定するが，契約の履行に資するため顧客が企業に提供する財又はサービスは，支配を獲得しない場合，当該対価に含める。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：顧客が企業に提供する財又はサービスは，支配を獲得しない場合，当該対価に含める。</span><br>
+                        <span class="correct-text">正：顧客が企業に提供する財又はサービスは，支配を獲得する場合，当該対価に含める。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.14</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">18(B)</span><div class="question">顧客に支払われる対価は，企業が顧客に対して支払う現金の額であり，クーポンのように顧客が企業に対する債務額に充当できるものは含まない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：顧客が企業に対する債務額に充当できるものの額は含まない。</span><br>
+                        <span class="correct-text">正：顧客が企業に対する債務額に充当できるものの額を含む。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.15</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">19(B)</span><div class="question">顧客に支払われる対価を取引価格から減額する場合には，①関連する財又はサービスの移転に対する収益を認識する時，又は，②企業が対価を支払うか又は支払を約束する時のいずれか早い方が発生した時点で（又は発生するにつれて），収益を減額する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：いずれか早い方</span><br>
+                        <span class="correct-text">正：いずれか遅い方</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.15</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+
+<div id="section-5" class="topic-section">
+        <h2>【第5節】取引価格の配分 [重要度★☆☆] 問20〜22</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">20(B)</span><div class="question">取引価格は，財又はサービスの独立販売価格の比率に基づき配分するが，独立販売価格を直接観察できない場合，当該価格の見積りを要しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：独立販売価格を直接観察できない場合，見積りを要しない。</span><br>
+                        <span class="correct-text">正：市場の状況，企業固有の要因，顧客に関する情報等，合理的に入手できるすべての情報を考慮し，観察可能な入力数値を最大限利用して，独立販売価格を見積もる。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.17</div>
+                    <div class="note-box"><span class="note-title">【方法】</span>調整した市場評価アプローチ，予想コストに利益相当額を加算するアプローチ，残余アプローチなどの方法で見積もる。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">21(C)</span><div class="question">取引価格が事後的に変動した場合，取引開始日後の独立販売価格の変動を考慮し，その時点の独立販売価格の比率で取引価格を履行義務に配分する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：取引開始日後の独立販売価格の変動を考慮し，その時点の独立販売価格の比率で取引価格を配分する。</span><br>
+                        <span class="correct-text">正：取引開始日後の独立販売価格の変動を考慮せず，取引開始日と同じ基礎により配分する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.19</div>
+                    <div class="note-box"><span class="note-title">【状況】</span>顧客が一定量を超えて購入すると価格を遡及的に減額する定めがあり，顧客の規模拡大により取引価格が変動する場合が該当する。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">22(B)</span><div class="question">取引価格の事後的な変動のうち，既に充足した履行義務に配分された額については，過去の収益の額を遡及修正する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：過去の収益の額を遡及修正する。</span><br>
+                        <span class="correct-text">正：取引価格が変動した期の収益の額を修正する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.19</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+
+<div id="section-6" class="topic-section">
+        <h2>【第6節】履行義務の充足による収益の認識 [重要度★★★] 問23〜28</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 6</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">23(A)</span><div class="question">企業は資産を顧客に移転することにより履行義務を充足した時に又は充足するにつれて，収益を認識する。資産が移転するのは，企業が当該資産に対する支配を喪失した時又は喪失するにつれてである。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：資産が移転するのは，企業が当該資産に対する支配を喪失した時又は喪失するにつれてである。</span><br>
+                        <span class="correct-text">正：資産が移転するのは，顧客が当該資産に対する支配を獲得した時又は獲得するにつれてであり，顧客の観点から支配の移転を検討する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.20</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">24(B)</span><div class="question">顧客が資産を物理的に占有する場合には，顧客が当該資産の使用を指図し，当該資産からの残りの便益のほとんどすべてを享受する能力又は他の企業が当該便益を享受することを制限する能力を有しており，資産に対する支配を獲得する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：顧客が資産を物理的に占有する場合，資産に対する支配を獲得する。</span><br>
+                        <span class="correct-text">正：顧客が資産を物理的に占有する場合，資産に対する支配を獲得するとは限らない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.23</div>
+                    <div class="note-box"><span class="note-title">【例示】</span>買戻契約，委託販売契約，請求済未出荷契約等，物理的占有が資産に対する支配と一致しない場合がある。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">25(B)</span><div class="question">一時点で充足される履行義務に該当するための3要件を満たさない場合，一定の期間にわたり充足される履行義務として収益を認識する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：一時点で充足される履行義務に該当するための3要件を満たさない場合，一定の期間にわたり充足される履行義務として収益を認識する。</span><br>
+                        <span class="correct-text">正：一定期間で充足される履行義務に該当するための3要件を満たさない場合，一時点で充足される履行義務として収益を認識する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.23</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">26(B)</span><div class="question">定期清掃契約や顧客の土地の上に建設を行う工事契約は，一定の期間にわたり充足される履行義務と判定される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（○）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>定期清掃契約は，企業が顧客との契約における義務を履行するにつれて顧客が便益を享受し，顧客の土地の上に建設を行う工事契約は，顧客は企業の履行から生じる仕掛品を支配するため，一定の期間にわたり充足される履行義務と判定される。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.21</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">27(B)</span><div class="question">企業が顧客との契約における義務を履行することにより別の用途に転用することができない資産が生じる，又は企業が顧客との契約における義務の履行を完了した部分について，対価を収受する強制力のある権利を有している場合，一定期間にわたって充足される履行義務と判定される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：又は</span><br>
+                        <span class="correct-text">正：かつ</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.21</div>
+                    <div class="note-box"><span class="note-title">【例示】</span>本問の要件を満たし，一定期間にわたって充足される履行義務とされる例は，コンサルティング・サービスである。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">28(B)</span><div class="question">履行義務の充足に係る進捗度を合理的に見積ることができないが，当該履行義務を充足する際に発生する費用を回収することが見込まれる場合，履行義務の充足に係る進捗度を合理的に見積ることができる時まで，収益を認識しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：履行義務の充足に係る進捗度を合理的に見積ることができる時まで，収益を認識しない。</span><br>
+                        <span class="correct-text">正：原価回収基準により発生する費用のうち，回収が見込まれる費用の金額で収益を認識する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.22</div>
+                    <div class="note-box"><span class="note-title">【理由】</span>原価回収基準は，履行義務の充足が進捗している事実を反映するため一定の額の収益を認識すべきことを論拠とする。</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+
+<div id="section-7" class="topic-section">
+        <h2>【第7節】特定の状況又は取引における取扱い等 [重要度★☆☆] 問29〜35</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">29(B)</span><div class="question">約束した財に対する保証が，当該財が合意された仕様に従っているという保証に加えて，顧客にサービスを提供する保証を含む場合，保証サービスは引当金として処理する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：保証サービスは引当金として処理する。</span><br>
+                        <span class="correct-text">正：保証サービスは履行義務であり，取引価格を財及び保証サービスに配分する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.24</div>
+                    <div class="note-box"><span class="note-title">【対比】</span>合意された仕様に従っているという保証は，引当金として処理する。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">30(A)</span><div class="question">顧客との契約において，既存の契約に加えて追加の財又はサービスを取得するオプションを顧客に付与する場合，当該オプションが当該契約を締結しなければ顧客が受け取れない重要な権利を顧客に提供するときにのみ，当該オプションから履行義務が生じる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（○）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>顧客との契約において，既存の契約に加えて追加の財又はサービスを取得するオプションを顧客に付与する場合，当該オプションが当該契約を締結しなければ顧客が受け取れない重要な権利を顧客に提供するときにのみ，当該オプションから履行義務が生じる（例えば，購入ポイント）。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.26</div>
+                    <div class="note-box"><span class="note-title">【区別】</span>無料配布クーポンや来店ポイントは契約を締結しなければ受け取れない重要な権利ではないため，履行義務ではない。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">31(B)</span><div class="question">当社は仕入先との間で消化仕入契約を行っており，顧客への商品販売時に，商品の法的所有権は仕入先から当社に移転し，同時に顧客に移転する。この場合，当社は商品について顧客に提供される前に支配しているため，本人に該当するものとして収益を総額で計上する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：商品が顧客に提供される前に支配しているため，本人に該当するものとして収益を総額で認識する。</span><br>
+                        <span class="correct-text">正：法的所有権が瞬時に顧客に移転する場合，当社は商品を支配していることにはならないため，代理人に該当するものとして収益を純額で計上する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.25</div>
+                    <div class="note-box"><span class="note-title">【周辺】</span>企業が約束の履行に対して主たる責任を有しておらず，在庫リスク及び価格裁量権を有しない場合，代理人と判定する。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">32(C)</span><div class="question">契約負債における非行使部分（顧客から企業に返金不要な前払いがされたが，顧客により行使されない部分）については，顧客が残りの権利を行使する可能性が極めて低くなった時に収益を認識する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>非行使部分の収益認識は以下の通りである。<table class="table-compare"><tr><th>区分</th><th>収益認識の取扱い</th></tr>
+                        <tr><td>企業が将来において権利を得ると見込む場合</td><td>顧客による権利行使のパターンと比例的に収益を認識する。</td></tr>
+                        <tr><td>企業が将来において権利を得ると見込まない場合</td><td>顧客が残りの権利を行使する可能性が極めて低くなった時に収益を認識する。</td></tr></table></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.27</div>
+                    <div class="note-box"><span class="note-title">【例示】</span>企業が販売した航空券で行使が見込まれない部分が該当する。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">33(C)</span><div class="question">企業が商品のコール・オプションを有しており，商品の買戻価格が当初の販売価格以上の場合には，リース取引として処理する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>企業が商品のコール・オプションを有している場合の処理は以下の通りである。<table class="table-compare"><tr><th>買戻価格と当初販売価格の関係</th><th>処理</th></tr>
+                        <tr><td>買戻価格 ＜ 当初販売価格</td><td>リース取引（支配が移転していないため収益を認識しない）</td></tr>
+                        <tr><td>買戻価格 ≧ 当初販売価格</td><td>金融取引（当初販売価格を収入，買戻価格を支出とし，差額を金利相当額として処理）</td></tr></table></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.30</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">34(B)</span><div class="question">企業が商品を最終顧客に販売するために販売業者に引き渡す場合，当該引渡時に収益を認識する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：引渡時に収益を認識する。</span><br>
+                        <span class="correct-text">正：企業が商品の返還を要求することあるいは第三者に商品を販売することができるなど，契約が委託販売契約に該当する場合，販売業者への引渡時に収益を認識しない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.31</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">35(B)</span><div class="question">請求済未出荷契約においては，企業は履行義務を充足しておらず，顧客が資産に対する支配を獲得したとは認められないため，収益の認識は認められない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：収益の認識は認められない。</span><br>
+                        <span class="correct-text">正：請求済未出荷契約を締結した合理的な理由があること，資産が顧客に属するものとして区分されていること等の一定の要件を満たす場合，顧客が資産の支配を獲得するため企業は収益を認識する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.31</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+
+<div id="section-8" class="topic-section">
+        <h2>【第8節】工事契約から損失が見込まれる場合 [重要度☆☆☆] 問36〜39</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">36(B)</span><div class="question">工事契約を締結した当初から損失が見込まれる場合，契約締結時点では引当金の計上対象とならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：契約締結時点では引当金の計上対象とならない。</span><br>
+                        <span class="correct-text">正：契約締結時点で引当金の計上対象となる。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.33</div>
+                    <div class="note-box"><span class="note-title">【理由】</span>損失の発生は工事契約を締結したという過去の事象に起因しており，引当金の設定要件を満たすためである。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">37(B)</span><div class="question">工事契約について，工事原価総額等が工事収益総額を超過する可能性が高く，かつ，その金額を合理的に見積ることができる場合には，その超過すると見込まれる額を，工事損失が見込まれた期の損失として処理し，工事損失引当金を計上する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：工事原価総額等が工事収益総額を超過すると見込まれる額を工事損失引当金として計上する。</span><br>
+                        <span class="correct-text">正：工事原価総額等が工事収益総額を超過すると見込まれる額のうち，当該工事契約に関して既に計上された損益の額を控除した残額を工事損失引当金として計上する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.33</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">38(B)</span><div class="question">工事損失引当金の繰入額は販売費及び一般管理費に含め，工事損失引当金の残高は貸借対照表に流動負債として計上する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：工事損失引当金の繰入額は販売費及び一般管理費に含める。</span><br>
+                        <span class="correct-text">正：工事損失引当金の繰入額は売上原価に含める。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.33</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">39(B)</span><div class="question">同一の工事契約に関する棚卸資産と工事損失引当金がともに計上される場合には，貸借対照表の表示上，相殺して表示しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：相殺して表示しなければならない。</span><br>
+                        <span class="correct-text">正：相殺して表示することができる。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.33</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+
+<div id="section-9" class="topic-section">
+        <div class="memo-box">
+            <span class="memo-title">【学習メモ】</span>契約資産，債権，契約負債，問題46の重要性が高い。
+        </div>
+        <h2>【第9節】開示 [重要度★★☆] 問40〜46</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">40(B)</span><div class="question">「収益認識に関する会計基準」では，財の販売から生じる収益を「売上高」，サービスの提供から生じる収益を「営業収益」，代理人として獲得する収益を「手数料収益」などの科目で表示する指針が示されている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：顧客との契約から生じる収益の表示科目を決定するための指針が示されている。</span><br>
+                        <span class="correct-text">正：顧客との契約から生じる収益の表示科目を決定するための具体的な指針は示されていない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.34</div>
+                    <div class="note-box"><span class="note-title">【理由】</span>一定の表示科目に統一することのコンセンサスを得ることは難しいものと考えられるためである。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">41(B)</span><div class="question">顧客との契約から生じる収益については，それ以外の収益と区分して損益計算書に表示しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：区分して損益計算書に表示しなければならない。</span><br>
+                        <span class="correct-text">正：区分して損益計算書に表示せず，顧客との契約から生じる収益の額を注記することも認められる。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.34</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">42(B)</span><div class="question">重要な金融要素の影響は顧客との契約から生じる収益に含めて計上して，当該影響を注記することが認められている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：重要な金融要素の影響は顧客との契約から生じる収益に含めて計上して，当該影響を注記することが認められている。</span><br>
+                        <span class="correct-text">正：顧客との契約から生じる収益と金融要素の影響（受取利息又は支払利息）を損益計算書において区分して表示する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.34</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">43(A)</span><div class="question">契約資産とは，企業が顧客に移転した財又はサービスと交換に受け取る対価に対する企業の権利をいい，顧客との契約から生じた債権を含む。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：顧客との契約から生じた債権を含む。</span><br>
+                        <span class="correct-text">正：顧客との契約から生じた債権は含まれない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.33</div>
+                    <div class="note-box"><span class="note-title">【区別】</span>顧客との契約から生じた債権とは，企業が顧客に移転した財又はサービスと交換に受け取る対価に対する権利のうち無条件のものをいう。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">44(A)</span><div class="question">契約資産と顧客との契約から生じた債権は，貸借対照表の他の資産と区分して表示しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：貸借対照表の他の資産と区分して表示しなければならない。</span><br>
+                        <span class="correct-text">正：他の資産と区分して表示せず，それぞれの残高を注記することも認められる。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.34</div>
+                    <div class="note-box"><span class="note-title">【対比】</span>契約負債についても他の負債と区分して表示するか，区分して表示せず残高を注記することが認められている。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">45(A)</span><div class="question">財又はサービスを顧客に移転する前に顧客から対価を受け取る場合，顧客から対価を受け取った時又は対価を受け取る期限が到来した時のいずれか遅い時点で，顧客から受け取る対価について契約負債を計上する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：いずれか遅い時点</span><br>
+                        <span class="correct-text">正：いずれか早い時点</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.33</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">46(A)</span><div class="question">次の①〜⑦の取扱いは，「収益認識に関する会計基準」に照らして適切か指摘しなさい。適切でない場合は訂正すること。<ol style="margin-top:10px;"><li>返品権付商品販売において，顧客から受け取った対価の額で収益を計上するとともに，将来の返品に備えて返品調整引当金を計上した。</li><li>消費税の会計処理に関して税込方式を採用し，収益を計上した。</li><li>商品の割賦販売について，割賦金の回収期限の到来の日又は入金の日をもって収益を計上した。</li><li>メーカーである当社は顧客である小売チェーンと製品の販売契約を締結し，製品の保管コストとして支払った現金を販売費及び一般管理費に計上した。</li><li>製品を出荷してから国内の顧客による検収時までの期間が通常の期間である場合において，出荷時に収益を計上した。</li><li>当社は商品を顧客が購入するごとにポイントを付与しており，将来，権利行使が見込まれるポイントについてポイント引当金を計上した。</li><li>有償支給取引において，企業が支給品を買い戻す義務を負っている場合，連結財務諸表上，当該支給品の消滅を認識するとともに，譲渡に係る収益を計上した。</li></ol></div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><table class="table-compare">
+<tr><th>番号</th><th>結論</th><th>訂正</th></tr>
+<tr><td>①</td><td>適切ではない</td><td>権利を得ると見込む対価の額で収益を計上し，返品が見込まれる部分を返金負債に計上する。顧客から商品を回収する権利を返品資産に計上する。</td></tr>
+<tr><td>②</td><td>適切ではない</td><td>第三者のために回収する額であるため，税抜方式を採用し，収益を計上しない。</td></tr>
+<tr><td>③</td><td>適切ではない</td><td>一時点で充足される履行義務に該当するため，商品に対する支配が顧客に移転する販売時に収益を計上する。</td></tr>
+<tr><td>④</td><td>適切ではない</td><td>顧客に支払われる対価に該当するため，取引価格（収益）から減額する。</td></tr>
+<tr><td>⑤</td><td>適切である</td><td>（備考）従来の実務に配慮し，国内における販売を前提とし，製品出荷時から顧客による検収時までの期間が通常の期間である場合，出荷時（着荷時）に収益を計上できる。</td></tr>
+<tr><td>⑥</td><td>適切ではない</td><td>購入ポイントは履行義務に該当するため，契約負債を計上する。</td></tr>
+<tr><td>⑦</td><td>適切ではない</td><td>支給品に対する支配の移転が認められないため，当該支給品の消滅を認識せず，譲渡に係る収益も計上しない。</td></tr>
+</table></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.29〜p.32</div>
+                    <div class="note-box"><span class="note-title">【周辺】</span>有償支給取引において，支給品の買戻義務がある場合は個別財務諸表上は支給品の消滅認識が可能だが，連結財務諸表上は支給品譲渡に係る収益・消滅認識のいずれも行わない。買戻義務がない場合は支配の移転が認められるため消滅認識を行うが，収益の二重計上防止のため譲渡に係る収益は認識しない。</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const pagePrefix = "Zaimu_23_Shuekininshiki_";  // ← 章ごとに変更する
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach((input, index) => {
+            const storageKey = pagePrefix + 'input_' + index;
+            const savedValue = localStorage.getItem(storageKey);
+            if (savedValue !== null) {
+                if (input.type === 'checkbox') {
+                    input.checked = savedValue === 'true';
+                } else {
+                    input.value = savedValue;
+                    if (input.classList.contains('date-input') && savedValue !== "") {
+                        input.type = 'date';
+                    }
+                }
+            }
+            input.addEventListener('change', () => {
+                if (input.type === 'checkbox') {
+                    localStorage.setItem(storageKey, input.checked);
+                } else {
+                    localStorage.setItem(storageKey, input.value);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
