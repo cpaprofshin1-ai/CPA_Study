@@ -1,0 +1,2653 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>【財務会計論】第22章 連結財務諸表（自動保存付き）</title>
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75; color: #333; max-width: 900px;
+            margin: 0 auto; padding: 40px 25px; background-color: #f5f7f9;
+        }
+        .cover-page {
+            background-color: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+            padding: 50px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50; font-size: 2.2em; border-bottom: 3px solid #3498db;
+            display: inline-block; padding-bottom: 10px; margin-bottom: 20px;
+        }
+        .cover-subtitle { font-size: 1.3em; color: #475569; font-weight: bold; margin-bottom: 10px; }
+        .cover-meta { font-size: 1em; color: #64748b; margin-bottom: 30px; }
+        .toc-list { list-style: none; padding: 0; margin: 0 auto; text-align: left; max-width: 640px; }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block; text-decoration: none; color: #1e293b; background-color: #f1f5f9;
+            padding: 16px 24px; border-radius: 10px; font-weight: bold; font-size: 1.05em;
+            border-left: 6px solid #3498db; transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover { background-color: #e2e8f0; transform: translateX(5px); }
+        .topic-section { margin-top: 150px; margin-bottom: 50px; }
+        h2 {
+            color: #2c3e50; font-size: 1.6em; font-weight: bold; margin-bottom: 30px;
+            padding-left: 14px; border-left: 6px solid #3498db;
+            padding-top: 10px; border-top: 1px solid #cbd5e1;
+        }
+        .score-board {
+            background-color: #fff; border: 1px solid #e2e8f0; padding: 24px; border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 40px;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
+        }
+        .score-item {
+            display: flex; align-items: center; gap: 10px;
+            background-color: #f8fafc; border: 1px solid #cbd5e1; padding: 10px 15px; border-radius: 8px;
+        }
+        .attempt-label { font-weight: bold; color: #4a5568; font-size: 0.95em; }
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155; border: 1px solid #94a3b8; border-radius: 6px;
+        }
+        .date-input { width: 125px; padding: 6px 8px; font-size: 0.95em; cursor: pointer; text-align: center; }
+        .score-input { width: 50px; padding: 6px 8px; font-size: 1.05em; text-align: right; }
+        .score-denominator { font-weight: bold; color: #64748b; font-size: 1.05em; }
+        .qa-block {
+            background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;
+            padding: 30px; margin-bottom: 35px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); break-inside: avoid;
+        }
+        .checkbox-area { margin-bottom: 15px; display: flex; gap: 12px; }
+        .custom-checkbox { width: 24px; height: 24px; cursor: pointer; accent-color: #3498db; margin: 5px; padding: 10px; }
+        .question-header { margin-bottom: 20px; }
+        .q-badge {
+            background-color: #f8fafc; color: #64748b; font-size: 0.9em; padding: 4px 10px;
+            border-radius: 6px; border: 1px solid #cbd5e1; font-weight: bold;
+            margin-right: 8px; display: inline-block; vertical-align: middle; margin-bottom: 4px;
+        }
+        .question { font-weight: bold; font-size: 1.15em; color: #1e293b; line-height: 1.7; display: inline; }
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer; background-color: #3498db; color: #fff; padding: 12px 24px;
+            border-radius: 8px; font-weight: bold; font-size: 1em;
+            display: inline-block; outline: none; transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px; padding-top: 25px; border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+        .ans-row { display: flex; margin-bottom: 14px; font-size: 1.05em; }
+        .label { font-weight: bold; min-width: 80px; color: #64748b; flex-shrink: 0; }
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+        .note-box {
+            background-color: #f8fafc; border-left: 4px solid #cbd5e1;
+            padding: 12px 16px; border-radius: 0 6px 6px 0;
+            margin-top: 16px; font-size: 0.95em; color: #475569;
+        }
+        .memo-box {
+            background-color: #fffbeb; border-left: 4px solid #f59e0b;
+            padding: 16px 20px; border-radius: 0 6px 6px 0; margin-bottom: 40px;
+            font-size: 1.05em; color: #78350f; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+        .memo-title { font-weight: bold; color: #d97706; margin-right: 6px; }
+        .list-answer { margin: 0; padding-left: 1.5em; line-height: 2; }
+        .table-compare { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 0.97em; }
+        .table-compare th, .table-compare td { border: 1px solid #cbd5e1; padding: 8px 12px; text-align: left; }
+        .table-compare th { background-color: #f1f5f9; font-weight: bold; color: #334155; }
+        .back-to-top {
+            display: block; text-align: right; margin-top: 20px; font-size: 1em;
+            color: #3498db; text-decoration: none; font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+    </style>
+</head>
+<body id="top">
+
+<div class="cover-page">
+    <h1 class="cover-title">財務会計論 短答対策 Q&amp;A</h1>
+    <div class="cover-subtitle">第22章 連結財務諸表</div>
+    <div class="cover-meta">難易度 ★★★ ／ 全74問</div>
+    <ul class="toc-list">
+            <li><a href="#section-1">【第１節】連結財務諸表総論 [重要度★☆☆] 問1〜5</a></li>
+            <li><a href="#section-3">【第３節】連結財務諸表の一般基準 [重要度★★☆] 問6〜17</a></li>
+            <li><a href="#section-4">【第４節】連結貸借対照表 [重要度★★★] 問18〜24</a></li>
+            <li><a href="#section-5">【第５節】子会社株式の追加取得及び一部売却等 [重要度★★★] 問25〜46</a></li>
+            <li><a href="#section-6">【第６節】連結損益計算書 [重要度☆☆☆] 問47〜50</a></li>
+            <li><a href="#section-7">【第７節】連結損益・包括利益計算書の表示 [重要度★☆☆] 問51〜52</a></li>
+            <li><a href="#section-8">【第８節】連結財務諸表の注記事項 [重要度☆☆☆] 問53〜55</a></li>
+            <li><a href="#section-9">【第９節】持分法総論 [重要度★★☆] 問56〜59</a></li>
+            <li><a href="#section-10">【第10節】持分法の適用範囲 [重要度★★☆] 問60〜62</a></li>
+            <li><a href="#section-11">【第11節】持分法の会計処理 [重要度★★★] 問63〜74</a></li>
+    </ul>
+</div>
+
+    <div id="section-1" class="topic-section">
+
+        <div class="memo-box"><span class="memo-title">【学習メモ】</span>本章は出題実績12/14を誇る<b>最頻出分野</b>。１節は連結基礎概念（親会社説・経済的単一体説）がもたらす相違を整理しよう。３節の子会社判定は解説まで含めて体系を押さえること（関連会社も同じ）。４，５節は連結B/Sや持分変動を扱う最大の山場。９節以降の持分法も7/14と頻出のため，最後まで集中力を切らさず乗り切ろう。<br><b>【鉄則】〇✖の判断だけで満足しない。「正」をアウトプットできるまで繰り返すこと！！</b></div>
+
+        <h2>【第１節】連結財務諸表総論 [重要度★☆☆] 問1〜5</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">1(Ａ)</span><div class="question">経済的単一体説は，出資者から独立した企業集団そのものを会計主体とみる考え方に基づいている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：企業集団そのものを会計主体とみる。</span><br>
+                        <span class="correct-text">正：親会社株主及び非支配株主を会計主体とみる。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【周辺】</span>親会社説と経済的単一体説はいずれも株主を重視しており，個別会計主体における資本主理論の系統に属する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.1,2</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">2(Ｂ)</span><div class="question">支配獲得日後に生じた子会社の利益剰余金及び評価・換算差額等は，連結貸借対照表上，利益剰余金及びその他の包括利益累計額として処理する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：利益剰余金及びその他の包括利益累計額として処理する。</span><br>
+                        <span class="correct-text">正：親会社に帰属する部分は，利益剰余金及びその他の包括利益累計額として処理し，非支配株主に帰属する部分は，非支配株主持分として処理する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【区別】</span>包括利益計算書上は，非支配株主に帰属する部分も含めて当期純利益及びその他の包括利益として処理する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.3</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">3(Ｂ)</span><div class="question">親会社説と経済的単一体説のいずれにおいても，単一の指揮下にある企業集団全体の資産・負債と収益・費用を表示する点で変わりはない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（〇）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>親会社説と経済的単一体説のいずれにおいても，単一の指揮下にある企業集団全体の資産・負債と収益・費用を表示する点で変わりはない。<b>資本に関して</b>，親会社説は連結財務諸表を親会社の財務諸表の延長線上に位置づけて，親会社の株主の持分のみを反映させるのに対し，経済的単一体説は連結財務諸表を企業集団全体の財務諸表と位置づけて，すべての連結会社の株主の持分を反映させる点で異なる。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.1</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">4(Ａ)</span><div class="question">子会社の欠損のうち，非支配株主持分に割り当てられる額が非支配株主の負担すべき額を超える場合，当該超過額は持分比率に応じて親会社の持分と非支配株主持分に負担させる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：持分比率に応じて親会社の持分と非支配株主持分に負担させる。</span><br>
+                        <span class="correct-text">正：非支配株主持分に割り当てられる額が非支配株主の負担すべき額を超える場合，当該超過額は，親会社の持分に負担させる（負担させた場合，欠損が回収されるまで利益の全額を親会社持分に加算）。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>親会社は子会社の債権者に保証債務等の責任を負う場合が多いだけでなく，経営責任や信用保持のための経営判断等から債務の肩代わりなどを行う可能性も高いため，出資を超えた負担が合意されている場合等を除き，損失は親会社が負担する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.3</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">5(Ｂ)</span><div class="question">次の①～⑦について制度会計上，親会社説と経済的単一体説のいずれと整合的な方法が採用されているか説明しなさい。<br>①のれんの計上範囲／②非支配株主持分の表示／③当期純利益の構成要素／④子会社の資産及び負債の評価／⑤未実現損益の消去／⑥支配獲得後の持分変動／⑦子会社の欠損</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span class="correct-text">①親会社説　②親会社説　③経済的単一体説　④経済的単一体説　⑤経済的単一体説　⑥経済的単一体説　⑦親会社説</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><table class="table-compare">
+                            <tr><th>項目</th><th>親会社説</th><th>経済的単一体説</th></tr>
+                            <tr><td>①のれんの計上範囲</td><td>買入のれん</td><td>全部のれん</td></tr>
+                            <tr><td>②非支配株主持分の表示</td><td>株主資本以外の区分に表示</td><td>株主資本の区分に表示</td></tr>
+                            <tr><td>③当期純利益の構成要素</td><td>親会社株主に帰属する部分</td><td>親会社株主及び非支配株主に帰属する部分</td></tr>
+                            <tr><td>④子会社の資産及び負債の評価</td><td>部分時価評価法</td><td>全面時価評価法</td></tr>
+                            <tr><td>⑤未実現損益の消去</td><td>部分消去・親会社負担方式</td><td>（ダウン）全額消去・親会社負担方式<br>（アップ）全額消去・持分按分負担方式</td></tr>
+                            <tr><td>⑥支配獲得後の持分変動</td><td>損益取引</td><td>資本取引</td></tr>
+                            <tr><td>⑦子会社の欠損</td><td>親会社負担</td><td>親会社と非支配株主で持分比率に応じて負担</td></tr>
+                        </table></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.1</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="section-3" class="topic-section">
+
+        <h2>【第３節】連結財務諸表の一般基準 [重要度★★☆] 問6〜17</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">6(Ｂ)</span><div class="question">更生会社，破産会社その他これらに準ずる企業は，子会社に該当しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：更生会社，破産会社その他これらに準ずる企業は，子会社に該当しない。</span><br>
+                        <span class="correct-text">正：更生会社，破産会社その他これらに準ずる企業であって，かつ，有効な支配従属関係が存在しないと認められる企業は，子会社に該当しない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【周辺】</span>清算株式会社のように継続企業と認められない企業は，意思決定機関を支配していると認められる場合，子会社に該当する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.8</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">7(Ｂ)</span><div class="question">一定の要件を満たす特別目的会社については，当該特別目的会社に出資した企業の子会社に該当しないものと推定される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：特別目的会社に出資した企業の子会社に該当しない。</span><br>
+                        <span class="correct-text">正：特別目的会社に資産を譲渡した企業の子会社に該当しない。【改正】</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【背景】</span>特別目的会社はバブル崩壊によって生じた不良債権をオフバランスするためのスキームであり，資産を譲渡した特別目的会社が連結されるとこの目的を達成できないため，資産を譲渡した企業の子会社に該当しないものと推定される。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.8</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">8(Ｃ)</span><div class="question">連結の範囲に含めた特別目的会社におけるノンリコース債務は，連結貸借対照表上，他の項目と区別して記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：他の項目と区別して記載しなければならない。</span><br>
+                        <span class="correct-text">正：他の項目と区別して記載する方法のほか，注記によることもできる。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>ノンリコース債務は，責任財産が限定される特殊な債務であるため特別な表示が要求されている。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.8</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">9(Ａ)</span><div class="question">以下のＡ社～Ｅ社がＰ社の子会社に該当するかどうかを判定しなさい。「→」は資本所有関係を，％は発行済株式総数に占める所有割合を示している。</div>
+            <table class="table-compare">
+                <tr><th>会社</th><th>資本所有関係（→は資本所有，％は発行済株式総数に占める所有割合）</th><th>その他の事実</th></tr>
+                <tr><td>Ａ社</td><td>Ｐ社→Ａ社 35％／Ｘ社→Ａ社 15％</td><td>Ｘ社はＰ社と同一の内容の議決権を行使することに同意している。Ｐ社はＡ社の重要な財務及び営業の方針決定を支配する契約をＡ社との間で結んでいる。</td></tr>
+                <tr><td>Ｂ社</td><td>Ｐ社→Ｂ社 40％／Ｐ社→Ｙ社 60％／Ｙ社→Ｂ社 20％</td><td>—</td></tr>
+                <tr><td>Ｃ社</td><td>Ｐ社→Ｃ社 40％</td><td>Ｐ社はＣ社の資金調達額の７割に相当する融資を行っている。</td></tr>
+                <tr><td>Ｄ社</td><td>Ｐ社→Ｄ社 46％</td><td>株式所有の名義はＰ社の役員であるが，当該株式は会社が自己の計算で所有している。またＤ社は自己株式を発行済株式の10％保有している。</td></tr>
+                <tr><td>Ｅ社</td><td>Ｐ社→Ｅ社 42％／Ｅ社→Ｚ社 37％／Ｚ社→Ｅ社 17％</td><td>—</td></tr>
+            </table>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span class="correct-text"><b>子会社に該当するもの：Ｂ社，Ｃ社，Ｄ社，Ｅ社</b></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><ul class="list-answer">
+                            <li><b>Ａ社：子会社に該当しない。</b><br>Ｐ社のＡ社株式の保有が40％未満の場合，Ｐ社と同一の内容の議決権を行使することに同意しているＸ社の保有する議決権比率と合わせて50％超保有している必要があり，その上で重要な財務及び営業の方針決定を支配する契約の存在等の要件を充たす必要がある（35％＋15％＝50％で50％超とならない）。</li>
+                            <li><b>Ｂ社：子会社に該当する。</b><br>Ｂ社株式はＰ社が40％を直接所有し，Ｐ社の子会社であるＹ社が株式の20％を間接所有している。よってＰ社とＹ社で議決権の過半数を所有しているため，Ｂ社は子会社に該当する。</li>
+                            <li><b>Ｃ社：子会社に該当する。</b><br>Ｃ社株式はＰ社が40％以上所有し，かつ，Ｐ社による融資額がＣ社の資金調達額の70％（過半）を占めている。よって，Ｃ社は子会社に該当する。</li>
+                            <li><b>Ｄ社：子会社に該当する。</b><br>Ｐ社がＤ社株式の46％を自己の計算で所有しており，また，Ｄ社が自己株式を10％保有しているため，行使し得る議決権の総数が100％－10％＝90％となり，Ｐ社の議決権の所有割合が46％÷90％＝約51.1％となる。よって，Ｄ社は子会社に該当する。</li>
+                            <li><b>Ｅ社：子会社に該当する。</b><br>Ｅ社とＺ社は株式の相互持合関係にあり，Ｅ社はＺ社の議決権の25％以上を保有しているため，Ｚ社はＥ社に対する17％の議決権を行使できない。よって，Ｐ社の議決権の所有割合を算定するに当たっては，Ｅ社の議決権の総数からＺ社が所有する議決権の数を除く。つまり，Ｐ社が所有しているＥ社株式は42％であるが，議決権所有割合は50％超｛42％÷(100％－17％)≒50.6％｝となるため，Ｅ社は子会社に該当する。</li>
+                        </ul></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【補足】</span>＜子会社判定のまとめ＞　※議決権は連結会社（Ｐ社＋Ｓ社）で計算する（以下同じ）
+                        <table class="table-compare">
+                            <tr><th colspan="2">子会社と判定する場合</th></tr>
+                            <tr><td colspan="2">・議決権の50％超を保有</td></tr>
+                            <tr><td colspan="2">・議決権の40％以上50％以下を保有＋下記①②のいずれかを満たす</td></tr>
+                            <tr><td>①緊密者又は同意者の議決権と合わせて50％超を保有</td><td>②役員派遣，支配契約，過半融資等のいずれかの要件を満たす</td></tr>
+                            <tr><td colspan="2">・議決権の40％未満を保有（0％保有を含む）→ 緊密者又は同意者の議決権と合わせて50％超を保有＋上記②を満たす</td></tr>
+                            <tr><th colspan="2">子会社と判定しない場合</th></tr>
+                            <tr><td colspan="2">・財務上又は営業上若しくは事業上の関係からみて他の会社の意思決定機関を支配していないことが明らかと認められる場合<br>　１．当社のほかに他の企業の議決権の過半数を所有している株主が存在している場合（複数企業がそれぞれ支配することはない）<br>　２．共同支配企業の形成における共同支配企業に該当する場合（関連会社に該当する）<br>　３．ベンチャーキャピタルなどの投資先の企業（投資企業がキャピタルゲイン獲得を目的とする場合）</td></tr>
+                            <tr><td colspan="2">・更生会社，破産会社その他これらに準ずる企業であって，かつ，有効な支配従属関係が存在しないと認められる場合<br>　※清算株式会社のように，継続企業と認められない企業も，意思決定機関を支配していると認められる場合，子会社に該当する</td></tr>
+                            <tr><td colspan="2">・一定の要件を満たす特別目的会社に資産を譲渡している場合（当社が出資者を兼ねている場合も含む。）</td></tr>
+                            <tr><th colspan="2">議決権の所有割合の計算から除かれるもの</th></tr>
+                            <tr><td colspan="2">自己株式，完全無議決権株式，相互保有株式（1/4以上の議決権所有に伴って発生）</td></tr>
+                        </table></div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.7〜9</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">10(Ｂ)</span><div class="question">支配が一時的であると認められる企業は，その旨を注記により開示したうえで連結の範囲に含めることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：連結の範囲に含めることができる。</span><br>
+                        <span class="correct-text">正：連結の範囲に含めることができない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【IFRS比較】</span>IFRSによれば支配が一時的と認められる企業は，非継続事業として継続事業に係る損益と区分して表示する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.10</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">11(Ｃ)</span><div class="question">連結の範囲から除いても，企業集団の財政状態及び経営成績等に関する合理的な判断を妨げない程度に重要性が乏しい子会社かどうかは，企業集団における個々の特性並びに，少なくとも「資産」「売上高」「利益」の３項目に与える影響をもって判断すべきと考えられる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：「資産」「売上高」「利益」の３項目</span><br>
+                        <span class="correct-text">正：「資産」「売上高」「利益」「利益剰余金」の４項目</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【周辺】</span>従来と異なり，重要性を判断するための具体的な数値基準は規定されていない。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.10</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">12(Ｃ)</span><div class="question">親会社と事業内容が著しく異なる子会社は，利害関係者の判断を著しく誤らせるおそれがあるため，連結の範囲から除外する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：利害関係者の判断を著しく誤らせるおそれがあるため，連結の範囲から除外する。</span><br>
+                        <span class="correct-text">正：利害関係者の判断を著しく誤らせる子会社に該当しないため，連結の範囲から除外しない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.10</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">13(Ｃ)</span><div class="question">国際会計基準審議会の基準（IFRS）を適用している海外子会社を連結の範囲から除いてはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：国際会計基準審議会の基準を適用している海外子会社を連結の範囲から除いてはならない。</span><br>
+                        <span class="correct-text">正：原則：同一環境下で行われた同一の性質の取引等について，会計方針を統一して連結の範囲に含める。当面の取扱い：IFRSで作成された財務諸表を利用して連結の範囲に含めることができる。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.12</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">14(Ｂ)</span><div class="question">親会社と連結子会社の決算日の差異が６か月を超えない場合には，子会社の正規の決算を基礎として連結決算を行うことができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：親会社と連結子会社の決算日の差異が６か月を超えない場合</span><br>
+                        <span class="correct-text">正：親会社と連結子会社の決算日の差異が３か月を超えない場合</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.11</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">15(Ａ)</span><div class="question">同一環境下で行われた同一の性質の取引等について，親会社及び子会社が採用する会計方針は，原則として，子会社の会計処理を親会社の会計処理に合わせなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：子会社の会計処理を親会社の会計処理に合わせなければならない。</span><br>
+                        <span class="correct-text">正：親会社の会計処理を子会社の会計処理に合わせることも認められる。【改正】</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【周辺】</span>棚卸資産の評価方法（先入先出法と平均法），減価償却方法（定額法と定率法等）は重要な影響がないため統一を要しない。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.11</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">16(Ｂ)</span><div class="question">親会社及び子会社の会計処理の統一は，各個別財務諸表の作成段階で行うのが原則である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（〇）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>個別財務諸表基準性の原則により，親会社及び子会社の会計処理の統一は，各個別財務諸表の作成段階で行うのが原則である。なお，連結財務諸表の作成段階で統一することも容認される。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【補足】</span>再利用が想定される過去問の類題であり，酷似した問題が出題されることを想定しておけばよい。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.11</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">17(Ｂ)</span><div class="question">在外子会社の財務諸表が国際財務報告基準又は米国会計基準に準拠して作成されている場合，連結決算手続上，当該在外子会社等の会計処理の修正が要求されているのは，のれんの償却，退職給付会計における数理計算上の差異の費用処理，会計方針の変更に関する遡及適用，投資不動産の時価評価及び固定資産の再評価，資本性金融商品の組替調整の５つである。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：会計方針の変更に関する遡及適用</span><br>
+                        <span class="correct-text">正：研究開発費の支出時費用処理【改正】</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>会計方針の変更に関する遡及適用は，国際的な会計基準との差異がなくなったため，修正項目から除外された。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.12</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="section-4" class="topic-section">
+
+        <h2>【第４節】連結貸借対照表 [重要度★★★] 問18〜24</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 7</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">18(Ｃ)</span><div class="question">部分時価評価法は，親会社が子会社を支配した結果，子会社が企業集団に含まれることになった事実を重視している。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：部分時価評価法</span><br>
+                        <span class="correct-text">正：全面時価評価法</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【対比】</span>部分時価評価法は，親会社が投資を行った際の親会社の持分を重視している。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.13</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">19(Ｂ)</span><div class="question">子会社の資本と相殺消去の対象となる投資に持分法を適用していた場合，持分法評価額に含まれていたのれんを引き継ぐ処理が行われる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：持分法評価額に含まれていたのれんを引き継ぐ処理が行われる。</span><br>
+                        <span class="correct-text">正：持分法評価額に含まれていたのれんも含めて，のれん又は負ののれんが新たに計算される。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>支配獲得により投資の清算・再投資が擬制され，支配獲得日の投資の時価と対応する資本の差額としてのれん又は負ののれんが新たに計算される。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.14</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">20(Ｂ)</span><div class="question">支配獲得日，株式の取得日又は売却日等が子会社の決算日以外の日である場合，当該日の前後いずれかの決算日に支配獲得，株式の取得又は売却等が行われたものとみなして処理することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（〇）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>支配獲得日，株式の取得日又は売却日等が子会社の決算日以外の日である場合，当該日の前後いずれかの決算日に支配獲得，株式の取得又は売却等が行われたものとみなして処理することができる。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.13</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">21(Ａ)</span><div class="question">子会社の取得が複数の取引により達成された場合，資本連結に係る親会社の子会社に対する投資の金額は，支配を獲得するに至った個々の取引ごとの原価の合計額に基づいて算定される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：支配を獲得するに至った個々の取引ごとの原価の合計額</span><br>
+                        <span class="correct-text">正：支配獲得日の時価【改正】</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【対比】</span>個別財務諸表における投資の金額は，支配を獲得するに至った個々の取引ごとの原価の合計額で算定する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.13</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">22(Ａ)</span><div class="question">資本連結手続上，投資と相殺消去の対象となる子会社の資本には，子会社の個別貸借対照表の純資産の部における株主資本及び評価・換算差額等及び新株予約権と評価差額が含まれる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：新株予約権</span><br>
+                        <span class="correct-text">正：新株予約権は含まれない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>子会社の資本は従来の取扱いが踏襲されており，負債として扱われていた新株予約権は含まれない。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.13</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">23(Ｂ)</span><div class="question">子会社相互間の投資とこれに対応する他の子会社の資本については，連結財務諸表の作成上，相殺消去しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：相殺消去しない。</span><br>
+                        <span class="correct-text">正：親会社の子会社に対する投資と対応する子会社の資本との相殺消去に準じて相殺消去する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.13</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">24(Ｃ)</span><div class="question">親会社の個別財務諸表上，子会社株式を減損処理した場合，もはや超過収益力は失われていると考えられるため，連結財務諸表上ののれんを全額償却する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：のれんを全額償却する。</span><br>
+                        <span class="correct-text">正：親会社の個別財務諸表上，子会社株式の簿価を減損処理したことにより，減損処理後の簿価が連結上の子会社の資本の親会社持分額とのれん未償却額の合計額を下回った場合，子会社株式の減損処理後の簿価と，連結上の子会社の資本の親会社持分額とのれん未償却額との合計額との差額のうち，のれん未償却額に達するまでの金額についてのれん償却額として計上しなければならない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【例示】</span><table class="table-compare">
+                            <tr><th>子会社株式の減損処理後の簿価（時価）</th><th>連結上の子会社の資本の親会社持分額＋のれん未償却額</th></tr>
+                            <tr><td>2,000</td><td>1,800＋500＝2,300（うちのれん未償却残高500）</td></tr>
+                            <tr><td colspan="2">差額300 → のれん未償却残高500を超えない範囲で<b>一時償却額300</b>をのれん償却額として計上</td></tr>
+                        </table></div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.17</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="section-5" class="topic-section">
+
+        <h2>【第５節】子会社株式の追加取得及び一部売却等 [重要度★★★] 問25〜46</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 22</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 22</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 22</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 22</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 22</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 22</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">25(Ａ)</span><div class="question">支配獲得後に，親会社が子会社株式を追加取得した場合，追加取得した株式に対応する持分を非支配株主持分から減額し，追加取得持分を追加投資額と相殺消去する。追加取得持分と追加投資額との間に生じた差額は，のれん又は負ののれんとして処理する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：のれん又は負ののれん</span><br>
+                        <span class="correct-text">正：資本剰余金【改正】</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【対比】</span>親会社説によればのれん又は負ののれんが計上され，経済的単一体説によれば資本剰余金が計上される。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.18</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">26(Ａ)</span><div class="question">子会社株式を一部売却したが，親会社と子会社の支配関係が継続している場合，支配獲得時に計上したのれんの未償却額のうち売却した子会社株式に対応する額を売却による親会社の持分の減少額と同様に売却価額から控除し，これらの差額を資本剰余金とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：のれんの未償却額のうち売却した子会社株式に対応する額を売却による親会社の持分の減少額と同様に売却価額から控除する。</span><br>
+                        <span class="correct-text">正：のれんの未償却額のうち，売却した株式に対応する額を売却価額から控除せず，売却持分と売却価額の差額を資本剰余金として処理する。【改正】</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【周辺】</span>支配関係を喪失する場合，のれんを減額し，売却損益を修正する。また残存投資は以下のように評価する。
+                        <table class="table-compare">
+                            <tr><th>関連会社に該当する場合</th><th>関連会社にも該当しない場合</th></tr>
+                            <tr><td>持分法評価額</td><td>個別貸借対照表上の帳簿価額</td></tr>
+                        </table></div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.19</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">27(Ｂ)</span><div class="question">子会社株式の一部売却（支配関係は継続）において，関連する法人税等は，利益剰余金から控除する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：関連する法人税等は，利益剰余金から控除する。</span><br>
+                        <span class="correct-text">正：関連する法人税等は，資本剰余金から控除する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>支配関係が継続する一部売却は資本取引であるため，損益取引に係る法人税等は資本剰余金に振り替える。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.19</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">28(Ａ)</span><div class="question">子会社の時価発行増資によって生じた差額は，原則として資本剰余金に計上するが，利害関係者の判断を著しく誤らせるおそれがあると認められる場合，利益剰余金に直接加減できる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：利益剰余金に直接加減できる。</span><br>
+                        <span class="correct-text">正：利益剰余金に直接加減する処理は認められない。【改正】</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.19</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">29(Ａ)</span><div class="question">子会社株式の一部売却により，被投資会社が子会社及び関連会社に該当しなくなった場合，連結財務諸表上，残存する投資は個別貸借対照表上の帳簿価額をもって評価する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（〇）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>子会社株式の一部売却により，被投資会社が子会社及び関連会社に該当しなくなった場合，連結財務諸表上，残存する投資は個別貸借対照表上の帳簿価額をもって評価する。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【IFRS比較】</span>IFRSは残存投資を時価評価する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.19</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">30(Ｂ)</span><div class="question">子会社株式の一部売却等の会計処理の結果，その他資本剰余金が負の値となる場合，連結会計年度末において，その他資本剰余金を零とし，当該負の値を利益剰余金から減額する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：その他資本剰余金が負の値となる場合，連結会計年度末において，その他資本剰余金を零とする。</span><br>
+                        <span class="correct-text">正：資本剰余金が負の値となる場合，連結会計年度末において，資本剰余金を零とする。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>連結上は資本剰余金の内訳を示さず，一括表示するためである。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.19</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">31(Ｂ)</span><div class="question">連結貸借対照表上，当期に発生した「負ののれん」は計上されない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（〇）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>当期に発生した「負ののれん」は，発生した事業年度の利益として処理されるため，連結貸借対照表に計上されない。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【補足】</span>再利用が想定される過去問の類題であり，酷似した問題が出題されることを想定しておけばよい。</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">32(Ｂ)</span><div class="question">子会社株式の一部売却等により，連結子会社が持分法適用会社となった場合，支配を喪失する日までに計上した取得後利益剰余金及びその他の包括利益累計額並びにのれん償却累計額の合計額等（投資の修正額）のうち，売却後持分額を加減し，持分法による投資評価額に修正する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（〇）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>子会社株式の一部売却等により，連結子会社が持分法適用会社となった場合，支配を喪失する日までに計上した投資の修正額のうち，売却後持分額を加減し，持分法による投資評価額に修正する。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【例示】</span>関連会社株式の取得原価が100，取得後利益剰余金80，のれん償却累計額20，取得後に生じたその他の包括利益累計額40（持分比率100％→20％）の場合，持分法評価額は120＝100＋(80－20＋40)×20％となる。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.21</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">33(Ｂ)</span><div class="question">子会社株式を一部売却し，支配を喪失して持分法適用関連会社になった場合，その他の包括利益累計額を含む売却前の投資の修正額と売却後の株式に対応する部分の差額について，個別財務諸表で計上した子会社株式売却損益の修正として処理する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：その他の包括利益累計額を含む売却前の投資の修正額と売却後の株式に対応する部分の差額</span><br>
+                        <span class="correct-text">正：その他の包括利益累計額を除く売却前の投資の修正額と売却後の株式に対応する部分の差額</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【例示】</span>取得後利益剰余金80，のれん償却累計額20，取得後に生じたその他の包括利益累計額40（持分比率100％→30％）の場合，売却損益の修正額は18＝(80－20)×30％となる。</div>
+                    <div class="note-box"><span class="note-title">【理由】</span>その他の包括利益累計額を売却損益の修正に含めないのは，個別で計上した売却損益が連結上も実現しているためである。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.21</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">34(Ａ)</span><div class="question">子会社株式の一部売却により，被投資会社が子会社及び関連会社に該当しなくなった場合，売却後の投資の修正額の取崩額を損益に計上する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：損益に計上</span><br>
+                        <span class="correct-text">正：連結株主資本等変動計算書の利益剰余金とその他の包括利益累計額に計上（連結除外に伴う増減等）。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.21</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">35(Ｂ)</span><div class="question">支配を喪失して連結範囲から除外する場合，子会社株式の追加取得及び一部売却等によって生じた資本剰余金は，連結財務諸表上，資本剰余金から控除する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：連結財務諸表上，資本剰余金から控除する。</span><br>
+                        <span class="correct-text">正：引き続き，連結財務諸表上，資本剰余金として計上する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>支配継続中の持分変動は親会社と子会社の非支配株主との取引であり，取引に係る資本剰余金は子会社に帰属しないため。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.21</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">36(Ｂ)</span><div class="question">連結子会社における親会社株式の取得及び売却は，損益取引であると考えられる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：連結子会社における親会社株式の取得及び売却は，損益取引である。</span><br>
+                        <span class="correct-text">正：連結子会社における親会社株式の取得及び売却は，資本取引である。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>連結子会社における親会社株式は，企業集団の観点からは自己株式であり，取得及び売却は資本取引となる。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.23</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">37(Ｂ)</span><div class="question">部分所有の連結子会社が保有する親会社株式は，当該株式の取得原価を自己株式として純資産の部の株主資本から控除する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：取得原価を自己株式として純資産の部の株主資本から控除する。</span><br>
+                        <span class="correct-text">正：取得原価のうち親会社の持分相当額を自己株式として純資産の部の株主資本から控除し，非支配株主持分相当額は非支配株主持分から控除する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.23</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">38(Ｂ)</span><div class="question">連結子会社における親会社株式の売却損益（内部取引によるものを除いた親会社持分相当額）は，連結財務諸表上，有価証券の売却損益と同様に処理する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：有価証券の売却損益と同様に処理する。</span><br>
+                        <span class="correct-text">正：親会社における自己株式処分差額と同様に処理する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.23</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">39(Ｂ)</span><div class="question">持分法適用関連会社が当該会社に対して持分法を適用する投資会社の株式を保有している場合，当該投資会社株式は連結の対象とならないため，会計処理を要しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：投資会社株式は連結の対象とならないため，会計処理を要しない。</span><br>
+                        <span class="correct-text">正：投資会社の持分相当額を自己株式として純資産の部の株主資本から控除し，当該会社に対する投資勘定を同額減額する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.23</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">40(Ｂ)</span><div class="question">持分法の適用対象となっている子会社における親会社株式の売却損益（内部取引によるものを除いた親会社の持分相当額）は持分法による投資損益として計上する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：持分法による投資損益として計上する。</span><br>
+                        <span class="correct-text">正：親会社における自己株式処分差額と同様に処理し，当該会社に対する投資勘定を同額加減する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【補足】</span>（借）投　資　××／（貸）持分法損益　××<br>（借）持分法損益　××／（貸）資本剰余金　××</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.23</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">41(Ｃ)</span><div class="question">連結子会社が自己株式を非支配株主から取得した段階では，処分又は消却までの暫定的な状態に過ぎないため，親会社の持分比率の変動を認識しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：連結子会社が自己株式を非支配株主から取得した段階で親会社の持分比率の変動を認識しない。</span><br>
+                        <span class="correct-text">正：連結子会社が自己株式を非支配株主から取得した段階で親会社の持分比率の変動を認識する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>連結子会社が自己株式を非支配株主から取得した段階で，実際に連結子会社の純資産の変動が生じるとともに，非支配株主が有する株式数が減少しているため，当該段階で持分比率の変動を認識する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.22</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">42(Ｂ)</span><div class="question">連結子会社が保有する自己株式を消却した場合，連結貸借対照表上，資産の部，負債の部及び純資産の部に変動は生じない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（〇）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>連結子会社が保有する自己株式を消却した場合，子会社の資本の変動及び親会社の持分比率の変動はないため，連結貸借対照表上，資産の部，負債の部及び純資産の部に変動は生じない。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>自己株式の取得時点で持分変動を既に認識しているため。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.22</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">43(Ｂ)</span><div class="question">連結会社が振り出した手形を他の連結会社が銀行割引した場合には，受取手形が消滅するため，債権債務の相殺消去は行われず，連結貸借対照表上，支払手形が計上される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：支払手形が計上される。</span><br>
+                        <span class="correct-text">正：借入金に振り替える。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.24</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">44(Ｂ)</span><div class="question">連結会社が発行した社債を親会社が所有する場合，連結会社相互間の債権債務として相殺消去しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：相殺消去しなければならない。</span><br>
+                        <span class="correct-text">正：連結会社が発行した社債で一時所有のものは，相殺消去の対象としないことができる。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.24</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">45(Ｃ)</span><div class="question">非連結子会社及び関連会社に対する投資は，他の項目と区別して記載し，又は注記の方法により明瞭に表示する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（〇）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>非連結子会社及び関連会社に対する投資は，他の項目と区別して記載し，又は注記の方法により明瞭に表示する。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.24</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">46(Ｂ)</span><div class="question">利益剰余金のうち，減債積立金等外部者との契約による特定目的のために積み立てられたものがあるときは，独立掲記する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：独立掲記する。</span><br>
+                        <span class="correct-text">正：独立掲記せず，その内容及び金額を注記する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>連結貸借対照表上，利益剰余金は一括表示するため，積立金等の情報は注記によって開示する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.24</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="section-6" class="topic-section">
+
+        <h2>【第６節】連結損益計算書 [重要度☆☆☆] 問47〜50</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">47(Ｂ)</span><div class="question">連結会社相互間取引が連結会社以外の企業を通じて行われている場合，相殺消去の対象とならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：相殺消去の対象とならない。</span><br>
+                        <span class="correct-text">正：実質的に連結会社間取引であることが明確である場合，連結会社間の取引とみなして相殺消去する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.24</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">48(Ｂ)</span><div class="question">未実現損益の消去にあたり，制度上，親会社説と整合する方法は採用されていない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（〇）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>ダウン・ストリームの場合は全額消去・親会社負担方式，アップ・ストリームの場合は全額消去・持分按分負担方式が採用されており，親会社説と整合する部分消去・親会社負担方式は採用されていない。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>部分消去が採用されないのは，取引高を全額消去することとの整合性を図るためである。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.25</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">49(Ｂ)</span><div class="question">連結会社間において棚卸資産を時価で売買することにより生じる内部損失について，消去する方法と消去しない方法の双方が認められる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：消去する方法と消去しない方法の双方が認められる。</span><br>
+                        <span class="correct-text">正：連結会社間において棚卸資産を時価で売買することにより生じる内部損失（未実現損失）については，回収不能と認められる部分は，消去しない。【改正】</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.26</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">50(Ｂ)</span><div class="question">未実現利益の消去に伴う減価償却費の修正計算方法については，毎期修正せずに固定資産の除却時又は連結会社以外の会社への売却時に一括して修正する方法が認められている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：一括して修正する方法が認められている。</span><br>
+                        <span class="correct-text">正：毎期修正する方法による。【改正】</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.26</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="section-7" class="topic-section">
+
+        <h2>【第７節】連結損益・包括利益計算書の表示 [重要度★☆☆] 問51〜52</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">51(Ａ)</span><div class="question">連結損益計算書における当期純利益は，連結貸借対照表における株主資本と連携している。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：当期純利益は，連結貸借対照表における株主資本と連携している。</span><br>
+                        <span class="correct-text">正：親会社株主に帰属する当期純利益は，連結貸借対照表における株主資本と連携している。【改正】</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>親会社株主に帰属する当期純利益は，一計算書方式では当期純利益の内訳として付記され，二計算書方式では区分表示する。これにより親会社株主に帰属する当期純利益と株主資本（親会社株主持分）との間で連携関係が成立している。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.27</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">52(Ａ)</span><div class="question">連結損益計算書における純損益計算の区分では，非支配株主損益調整前当期純利益に非支配株主に帰属する当期純利益を加減して，当期純利益を表示する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：非支配株主損益調整前当期純利益に非支配株主に帰属する当期純利益を加減して，当期純利益を表示する。</span><br>
+                        <span class="correct-text">正：当期純利益に非支配株主に帰属する当期純利益を加減して，親会社株主に帰属する当期純利益を表示する。【改正】</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【背景】</span>非支配株主損益調整前当期純利益は改正前の表示科目であり，現在は用いられていない。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.27</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="section-8" class="topic-section">
+
+        <h2>【第８節】連結財務諸表の注記事項 [重要度☆☆☆] 問53〜55</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">53(Ｃ)</span><div class="question">連結財務諸表には，重要な資産の評価基準及び減価償却方法を注記することが要求されているが，のれんの償却方法及び償却期間の注記は要しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：のれんの償却方法及び償却期間の注記は要しない。</span><br>
+                        <span class="correct-text">正：のれんの償却方法及び償却期間を注記する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.28</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">54(Ｂ)</span><div class="question">事業年度の末日が連結決算日と異なる連結子会社及び持分法適用会社については，連結決算日後に発生した重要な後発事象を連結財務諸表に注記しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：連結決算日後に発生</span><br>
+                        <span class="correct-text">正：当該連結子会社及び持分法適用会社の貸借対照表日後に発生</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.28</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">55(Ｃ)</span><div class="question">連結財務諸表の作成義務がある親会社であっても，当該親会社が他の企業の子会社であり，連結財務諸表を作成しないことに非支配株主が同意している場合には，当該親会社は連結財務諸表を作成しないことが認められる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：非支配株主が同意している場合には，親会社は連結財務諸表を作成しないことが認められる。</span><br>
+                        <span class="correct-text">正：このような規制は存在しない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【補足】</span>再利用が想定される過去問の類題であり，酷似した問題が出題されることを想定しておけばよい。</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="section-9" class="topic-section">
+
+        <h2>【第９節】持分法総論 [重要度★★☆] 問56〜59</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">56(Ａ)</span><div class="question">持分法適用会社の資産及び負債の時価評価方法は部分時価評価法によらなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：部分時価評価法によらなければならない。</span><br>
+                        <span class="correct-text">正：関連会社の場合，部分時価評価法によるが，非連結子会社の場合，全面時価評価法による。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>非連結子会社は親会社が支配しているため，連結子会社と整合的に全面時価評価法を適用する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.33</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">57(Ａ)</span><div class="question">持分法において，投資が段階的に行われている場合には，原則として，投資日ごとの原価とこれに対応する被投資会社の資本との差額は，段階取得に係る損益として処理する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：段階取得に係る損益として処理する。</span><br>
+                        <span class="correct-text">正：のれん又は負ののれんとして処理する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【補足】</span>段階取得の計算結果が原則法と著しく相違しないときは，持分法適用開始日における時価を基準として，関連会社の資産及び負債のうち投資会社の持分に相当する部分を一括して評価することができる（部分時価評価法の簡便法）。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.29</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">58(Ａ)</span><div class="question">被投資会社が持分法の適用範囲に含まれる場合，連結財務諸表上，個別財務諸表上で当該被投資会社の株式の取得原価に含まれた付随費用は，発生した連結会計年度の費用として処理する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：発生した連結会計年度の費用</span><br>
+                        <span class="correct-text">正：投資原価に含まれる。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【対比】</span>連結子会社に係る取得関連費用は発生した連結会計年度の費用として処理する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.29</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">59(Ａ)</span><div class="question">持分法適用関連会社株式の追加取得や一部売却等の場合に，追加取得持分と追加取得額との差額又は売却（減少）持分と売却価額（払込額）との差額は，資本剰余金として処理する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：差額は，資本剰余金として処理する。</span><br>
+                        <span class="correct-text">正：差額は，のれん若しくは負ののれん又は売却損益の調整として処理する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【対比】</span>連結子会社の場合，支配関係を喪失しない持分変動は資本取引として処理するため，差額は資本剰余金として処理する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.29</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="section-10" class="topic-section">
+
+        <h2>【第10節】持分法の適用範囲 [重要度★★☆] 問60〜62</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">60(Ａ)</span><div class="question">連結会社が子会社以外の他の企業の議決権の20％以上を所有する場合，人事，資金，技術，取引等の関係を通じて，財務及び営業又は事業の方針決定に対して重要な影響を与えることができることを条件に関連会社と判定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：20％以上の議決権に加え，財務及び営業又は事業の方針決定に重要な影響を与えられることが条件</span><br>
+                        <span class="correct-text">正：20％以上の議決権があればよい。【改正】</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.31</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">61(Ａ)</span><div class="question">連結会社が子会社以外の他の企業の議決権の15％を所有する場合，緊密な者及び同意している者が所有している議決権と合わせて，当該他の企業の議決権の20％以上を占める場合，関連会社と判定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：関連会社と判定する。</span><br>
+                        <span class="correct-text">正：関連会社と判定しない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【周辺】</span>連結会社の15％以上の議決権に加え，役員派遣，重要な融資，技術提供，営業上の取引等のいずれかの要件が必要となる。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.31</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">62(Ｂ)</span><div class="question">投資会社における持分法の適用範囲には，持分法適用会社の子会社又は関連会社が含まれる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：持分法適用会社の子会社又は関連会社が含まれる。</span><br>
+                        <span class="correct-text">正：非連結子会社である持分法適用会社の子会社又は関連会社は含まれるが，関連会社である持分法適用会社の子会社又は関連会社は含まれない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【補足】</span>＜関連会社判定のまとめ＞　※議決権は連結会社（Ｐ社＋Ｓ社）で計算する
+                        <table class="table-compare">
+                            <tr><th>関連会社と判定する場合</th></tr>
+                            <tr><td>・議決権の20％以上を保有</td></tr>
+                            <tr><td>・議決権の15％以上20％以下を保有＋下記◆の要件を満たす<br>　◆役員派遣，重要な融資，重要な技術提供，重要な営業上の取引等</td></tr>
+                            <tr><td>・議決権の15％未満を保有（0％保有を含む）→ 緊密者又は同意者の議決権と合わせて20％以上を保有＋上記◆を満たす<br>　<b>※子会社と異なり，緊密者等保有とあわせて20％のみでは×（◆が必要）</b></td></tr>
+                            <tr><th>関連会社と判定しない場合</th></tr>
+                            <tr><td>・財務上又は営業上若しくは事業上の関係からみて重要な影響を与えることができない場合<br>　例えば，ベンチャーキャピタルなどの投資先の企業（投資企業がキャピタルゲイン獲得を目的とする場合）が該当する。</td></tr>
+                            <tr><td>・更生会社，破産会社等であって，かつ，財務及び営業又は事業の方針に重要な影響を与えることができない場合</td></tr>
+                            <tr><th>議決権の所有割合の計算から除かれるもの</th></tr>
+                            <tr><td>自己株式，完全無議決権株式，相互保有株式（1/4以上の議決権所有に伴って発生）</td></tr>
+                        </table></div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.32</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="section-11" class="topic-section">
+
+        <h2>【第11節】持分法の会計処理 [重要度★★★] 問63〜74</h2>
+
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">63(Ｂ)</span><div class="question">持分法の適用にあたって，投資会社と被投資会社の決算日の差異が３ヵ月を超える場合，被投資会社は連結決算日に正規の決算に準ずる合理的な手続による決算を行う。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：被投資会社は連結決算日に正規の決算に準ずる合理的な手続により決算（仮決算）を行う。</span><br>
+                        <span class="correct-text">正：投資会社は，被投資会社の直近の財務諸表を使用する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【対比】</span>連結子会社で決算日の差異が３ヵ月を超える場合，連結決算日に仮決算が要求される。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.34</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">64(Ｂ)</span><div class="question">投資会社と持分法適用会社の決算日に差異があり，その差異の期間内に重要な取引又は事象が発生しているときには，持分法適用会社の財務諸表を修正しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：持分法適用会社の財務諸表を修正しなければならない。</span><br>
+                        <span class="correct-text">正：必要な修正又は注記を行う。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.34</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">65(Ｂ)</span><div class="question">投資会社の会計処理をその連結子会社に合わせている場合には，持分法の適用上，被投資会社の会計処理についても，当該連結子会社に合わせる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（〇）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>投資会社の会計処理をその連結子会社に合わせている場合には，持分法の適用上，被投資会社の会計処理についても，当該連結子会社に合わせる。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.34</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">66(Ａ)</span><div class="question">持分法の適用上，投資会社の投資日における投資と対応する被投資会社の資本との間に差額がある場合，当該差額はのれん又は負ののれんとし，のれんは投資勘定と区別して処理する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：のれんは投資勘定と区別して処理する。</span><br>
+                        <span class="correct-text">正：のれんは投資勘定に含めて処理する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.35</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">67(Ａ)</span><div class="question">投資会社は，持分法適用日以降における持分法適用会社の当期純利益及びその他の包括利益のうち，投資会社の持分に見合う額は「持分法による投資損益」として親会社株主に帰属する当期純利益の計算に含める。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：持分法適用日以降における持分法適用会社のその他の包括利益のうち，投資会社の持分に見合う額は「持分法による投資損益」として親会社株主に帰属する当期純利益の計算に含める。</span><br>
+                        <span class="correct-text">正：持分法適用日以降における持分法適用会社のその他の包括利益のうち，投資会社の持分に見合う額は「持分法適用会社に対する持分相当額」として包括利益の計算に含める。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【補足】</span>当期純利益の説明は正しい。誤りは「その他の包括利益」の取扱い。</div>
+                    <div class="note-box"><span class="note-title">【対比】</span>連結会社のその他の包括利益は，包括利益計算書上，その他有価証券評価差額金等の各科目に区分して表示する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.35</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">68(Ｂ)</span><div class="question">被投資会社から配当金を受け取った場合には，持分法の適用上，当該配当金に相当する額を投資の額から減額する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（〇）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>被投資会社から配当金を受け取った場合には，持分法の適用上，当該配当金に相当する額を投資の額から減額する。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.35</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">69(Ｂ)</span><div class="question">持分法の適用上，売手側の投資会社に生じた未実現損益は，買手側が関連会社である場合には原則として全額を消去する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：買手側が関連会社である場合には原則として全額を消去する。</span><br>
+                        <span class="correct-text">正：買手側が非連結子会社である場合には全額消去し，関連会社である場合には原則として当該関連会社に対する投資会社の持分相当額を消去する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>非連結子会社は親会社が支配しており，連結子会社と整合的に全額消去する。関連会社は，他の支配株主等が存在するか，又は共同支配を行っているため，第三者の持分部分については実現したものと考え，部分消去する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.36</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">70(Ａ)</span><div class="question">売手側である持分法適用会社に生じた未実現損益は，持分法適用会社が非連結子会社であるか関連会社であるかに関わらず，投資会社の持分相当額を消去する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（〇）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>売手側である持分法適用会社に生じた未実現損益は，持分法適用会社が非連結子会社であるか関連会社であるかに関わらず，投資会社の持分相当額を消去する。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>未実現損益のうち持分相当額を持分法による投資損益として計上するため，投資会社の持分相当額が消去対象となる。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.36</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">71(Ａ)</span><div class="question">持分法を適用する被投資会社に係るのれんの減損処理額と負ののれんについては，特別損益に含めて表示する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：特別損益に含めて表示する。</span><br>
+                        <span class="correct-text">正：持分法による投資損益に含めて営業外損益に表示する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【対比】</span>連結会社に係るのれんの減損処理額と負ののれんは特別損益に表示する。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.36</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">72(Ｂ)</span><div class="question">投資会社の持分に負担させた関連会社の欠損は，連結貸借対照表上，「投資有価証券」をゼロとした後は，当該関連会社に貸付金等がある場合には，投資の額を超える部分について当該貸付金等を減額する。債務超過持分相当額が投資及び貸付金等の額を超える場合，当該超過部分は「持分法適用に伴う引当金」等適切な科目をもって負債の部に計上する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：当該超過部分は「持分法適用に伴う引当金」等適切な科目をもって負債の部に計上する。</span><br>
+                        <span class="correct-text">正：当該超過部分は「持分法適用に伴う負債」等適切な科目をもって負債の部に計上する。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【理由】</span>引当金の科目が認められないのは，持分法適用会社の債務超過額は，当該持分法適用会社の各決算期の確定損失が累積されてきたものであり，将来の特定の費用又は損失に該当しないためである。</div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.37</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">73(Ｃ)</span><div class="question">持分法適用後に追加取得を行って，引き続き持分法の適用範囲に含まれる場合，株式取得日の異なるのれんがあるときには，追加取得時において償却期間の決定に影響する要因が既取得分の取得時と同様であれば，追加取得分の償却期間は，既取得分の残存償却期間とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span><span class="incorrect-text">誤：追加取得分の償却期間は，既取得分の残存償却期間とする。</span><br>
+                        <span class="correct-text">正：追加取得分の償却期間は，既取得分の取得時に決定した償却期間と同一の期間としなければならない。</span></span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【例示】</span>当初10年で償却開始し，３年後（X4年）に追加取得した場合
+                        <table class="table-compare">
+                            <tr><th>区分</th><th>償却期間</th></tr>
+                            <tr><td>既取得分</td><td>当初の償却期間：10年間</td></tr>
+                            <tr><td>（×）残存期間とした場合</td><td>残存期間：７年間</td></tr>
+                            <tr><td>（〇）同一期間とした場合</td><td>既取得時と同じ期間を適用：10年間</td></tr>
+                        </table></div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.35</div>
+                </div>
+            </details>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">74(Ｂ)</span><div class="question">連結財務諸表を作成していない会社は，関連会社に対する投資の金額並びに当該投資に対して持分法を適用した場合の投資の金額及び投資利益又は投資損失の金額を個別財務諸表に注記する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（〇）</span></div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span>連結財務諸表を作成していない会社は，関連会社に対する投資の金額並びに当該投資に対して持分法を適用した場合の投資の金額及び投資利益又は投資損失の金額を個別財務諸表に注記する。</span>
+                    </div>
+                    <div class="note-box"><span class="note-title">【参照】</span>p.37</div>
+                </div>
+            </details>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pagePrefix = "Zaimu_22_Renketsu_";
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') {
+                        input.checked = savedValue === 'true';
+                    } else {
+                        input.value = savedValue;
+                        if (input.classList.contains('date-input') && savedValue !== "") {
+                            input.type = 'date';
+                        }
+                    }
+                }
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') {
+                        localStorage.setItem(storageKey, input.checked);
+                    } else {
+                        localStorage.setItem(storageKey, input.value);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
