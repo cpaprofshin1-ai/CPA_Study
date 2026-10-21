@@ -1,0 +1,3063 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>【管理会計論】第6章 標準原価計算（自動保存付き）</title>
+    <style>
+        /* スムーズスクロール */
+        html { scroll-behavior: smooth; }
+
+        body {
+            /* ゼロにスラッシュが入るのを防ぐ標準フォント */
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75;
+            color: #333;
+            max-width: 900px; /* 13インチiPad向けゆったりレイアウト */
+            margin: 0 auto;
+            padding: 40px 25px;
+            background-color: #f5f7f9;
+        }
+
+        /* 表紙・目次エリア */
+        .cover-page {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50;
+            font-size: 2.2em;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 1.3em;
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        /* 目次リスト */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: left;
+            max-width: 600px;
+        }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block;
+            text-decoration: none;
+            color: #1e293b;
+            background-color: #f1f5f9;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-left: 6px solid #3498db;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover {
+            background-color: #e2e8f0;
+            transform: translateX(5px);
+        }
+
+        /* 大見出し（テーマごとのブロック） */
+        .topic-section {
+            margin-top: 150px; 
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding-left: 14px;
+            border-left: 6px solid #3498db;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+        }
+        
+        /* スコアボード（日付＋点数） */
+        .score-board {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .attempt-label {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+        
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+        }
+        .date-input {
+            width: 125px;
+            padding: 6px 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .score-input {
+            width: 50px;
+            padding: 6px 8px;
+            font-size: 1.05em;
+            text-align: right;
+        }
+        .score-denominator {
+            font-weight: bold;
+            color: #64748b;
+            font-size: 1.05em;
+        }
+
+        /* Q&Aブロック */
+        .qa-block {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            break-inside: avoid;
+        }
+        
+        /* タップしやすいチェックボックス */
+        .checkbox-area {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+
+        /* 問題文とバッジのレイアウト */
+        .question-header {
+            margin-bottom: 20px;
+        }
+        .q-badge {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.9em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 4px;
+        }
+        .question {
+            font-weight: bold;
+            font-size: 1.15em;
+            color: #1e293b;
+            line-height: 1.7;
+            display: inline;
+        }
+
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            display: inline-block;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ans-row {
+            display: flex;
+            margin-bottom: 14px;
+            font-size: 1.05em;
+        }
+        .label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+        
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 16px;
+            font-size: 0.95em;
+            color: #475569;
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+
+        /* トップに戻るリンク */
+        .back-to-top {
+            display: block;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+
+        /* 印刷用スタイル */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; padding-top: 0; border-top: none; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <div class="cover-page">
+        <h1 class="cover-title">管理会計論 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">第６章 標準原価計算</div>
+        
+        <ul class="toc-list">
+            <li><a href="#topic-6-1">6-1 標準原価計算の目的・標準原価管理の特徴</a></li>
+            <li><a href="#topic-6-2">6-2 標準原価の算定(直接費と間接費の標準・間接費予算・標準原価カード)</a></li>
+            <li><a href="#topic-6-3">6-3 標準原価の改訂</a></li>
+            <li><a href="#topic-6-4">6-4 標準原価の指示</a></li>
+            <li><a href="#topic-6-5">6-5 原価差異の算定および分析</a></li>
+            <li><a href="#topic-6-6">6-6 標準原価計算における勘定記入法と原価差異の把握方法</a></li>
+            <li><a href="#topic-6-7">6-7 実際原価計算制度における原価差異</a></li>
+            <li><a href="#topic-6-8">6-8 標準原価計算制度における原価差異</a></li>
+            <li><a href="#topic-6-9">6-9 原価差異の解釈</a></li>
+            <li><a href="#topic-6-10">6-10 原価差異の会計処理</a></li>
+            </ul>
+    </div>
+
+
+    <div id="topic-6-1" class="topic-section">
+        <h2>6-1 標準原価計算の目的・標準原価管理の特徴</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H19-⑦ア</span><div class="question">標準原価計算は原価管理や予算管理を効果的に行うことに役立つが，実際原価の計算も行うことや，原価差異を算定する必要があるため，記帳の簡略化，迅速化を図ることは困難である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」40</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価計算制度では，勘定組織のある時点で実際原価の流れを切断し，以降は予め設定した標準原価で計算・記帳手続が行われる。このような非通算方式の計算システムによれば，一方において実際原価を計算し，他方においてその集計を待たずに同時並行的に標準原価による計算・記帳手続が可能となるため，実際原価計算制度に比して計算・記帳手続は著しく簡略化・迅速化されることになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R3-⑦エ</span><div class="question">標準原価計算の目的は複数あるが，複式簿記と有機的に結合して行われる標準原価計算制度の最大のメリットは，実際原価の偶然的な変動を排除し，原価管理の規範としての信頼性を高めることである。反面，標準原価計算制度では，実際原価の集計に加えて，製品の標準原価の計算が追加的に必要となることから，計算・記帳手続が煩雑化するというデメリットがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」40</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価計算制度では，勘定組織のある時点で実際原価の流れを切断し，以降は予め設定した標準原価で計算・記帳手続が行われる。このような非通算方式の計算システムによれば，一方において実際原価を計算し，他方においてその集計を待たずに同時並行的に標準原価による計算・記帳手続が可能となるため，実際原価計算制度に比して計算・記帳手続は著しく簡略化・迅速化されることになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑬ア</span><div class="question">標準原価管理における原価標準とは，製品単位当たりの目標となる原価であり，完成品の標準原価は，原価標準に標準生産量を乗じて求める。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価管理における原価標準とは，製品単位当たりの目標となる原価であり，完成品の標準原価は，原価標準に実際生産量を乗じて求められる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-④イ</span><div class="question">標準原価計算では，達成目標である標準原価と実際原価とを比較し，その差異を分析することで原価統制に役立たせられる。それにより経営管理者は部下に権限と責任を委譲し，自らは差異が多く出た箇所に注目して，差異の少ない箇所にはそれほど注意を向けずに済む目標管理の実施が可能になる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">差異が多く出た箇所に注目し，差異が少ない箇所にはそれほど注意を向けない管理手法は，目標管理ではなく例外管理である。なお，目標管理とは，従業員に自ら目標を設定させ，その達成状況や達成度を測定・評価することで自律的な業務遂行を促し，モチベーションと業績の向上を図る管理手法をいう。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅰ-⑯エ</span><div class="question">標準原価管理では，例外管理の考え方が適用されているため，例外なく原価差異が厳密に分析され，必要な是正措置がとられるべきである。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">例外管理とは，管理の対象を例外的事項に絞ることで焦点を明確にし，効率的，効果的な管理活動を促進する考え方をいう。この考え方に従えば，許容範囲を超える差異が生じた場合にのみ，その原因分析が行われ，改善策が検討・指示されることになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅰ-⑯オ</span><div class="question">標準原価管理では，事前に設定した原価標準に基づき，標準原価と実際原価とが比較され，許容範囲以上の差異が生じた場合には，その原因の分析が行われ，改善策が検討・指示される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">インプット法を前提とすれば，原価差異の原因分析は経常的調査として実施されるため，本肢の内容にはやや問題がある。ただし，より一般的なアウトプット法を前提とすれば，原価差異の原因分析は特別調査として実施されるため，本肢の内容に誤りはない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅱ-④ア</span><div class="question">我が国の「原価計算基準」によれば，標準原価は，予算とくに見積財務諸表の作成に，信頼しうる基礎を提供する。ここでいう標準原価とは，製品単位当たりの標準原価である原価標準を意味する。また，原価予算編成の基礎として用いられる原価標準として，正常原価が利用される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2，40⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正常原価は，過去の統計に将来の趨勢を加味して設定される長期平均的な標準原価であるため，短期を前提とする予算編成には全く馴染まない。したがって，原価予算編成の基礎として，正常原価が利用されることはない。原価予算編成の基礎として利用されるのは現実的標準原価であり，予想される不利差異相当分を期待差異として加味することで，予算原価が算定される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅱ-④エ</span><div class="question">使用材料，製造方法等を標準化しなければ，原価標準を設定することができない。したがって作業条件を標準化する際，より有利な作業条件の可能性を探求することもあり，この場合には原価低減が行われる。そして，製造現場の管理者たちの目標を設定し，原価目標達成意欲を奮い起こさせる管理は，事前原価管理と呼ばれる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価標準の設定に当たっては，作業条件の標準化(マニュアル化)が必須となる。この場合，期別原価改善の成果を反映し，より有利な作業条件を選択して標準化すれば，結果として原価標準の引き下げ(原価低減)が行われることになる。また，原価標準の設定と改訂は，現場管理者の目標達成意欲を喚起する事前原価管理(事前統制)の一環として行われる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-6-2" class="topic-section">
+        <h2>6-2 標準原価の算定(直接費と間接費の標準・間接費予算・標準原価カード)</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 14</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 14</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 14</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 14</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 14</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 14</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑦イ</span><div class="question">標準直接材料費は，直接材料の種類ごとに，製品単位当たりの標準消費量と標準価格とを定め，両者を乗じて算定する。その際に用いる標準価格は，予定価格又は正常価格とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」41⑴</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">直接材料費の標準は，製品原価計算用の標準と原価管理用の標準の区別なく，製品単位当たりで算定する。標準価格は，現実的標準原価の場合は短期予想価格としての予定価格，正常原価の場合は長期平均価格としての正常価格とする。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅰ-⑧イ 他複数</span><div class="question">標準直接材料費を算定する上での製品単位当たり標準消費量については，製品の生産に必要な各種素材，部品等の種類，品質，加工の方法および順序等を定め，科学的，統計的調査により製品単位当たりの各種材料の標準消費量を定める。標準消費量には，通常生ずると認められる程度の減損，仕損等の消費余裕を含めてはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」41⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価管理を効果的に実施するためには，まず現場管理者や作業員を動機づける必要があり，短期目標としての原価の標準は，達成不可能な目標(理想標準)であってはならない。正しくは，「標準消費量は，通常生ずると認められる程度の減損，仕損等の消費余裕を含む」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-⑦イ</span><div class="question">標準直接労務費は，直接作業の区分ごとに，製品単位当たりの直接作業の標準時間と標準賃率とを定め，両者を乗じて算定する。その際に用いる標準賃率は，予定賃率又は正常賃率とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」41⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">直接労務費の標準は，製品原価計算用の標準と原価管理用の標準の区別なく，製品単位当たりで算定する。標準賃率は，現実的標準原価の場合は短期予想賃率としての予定賃率，正常原価の場合は長期平均賃率としての正常賃率とする。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅱ-⑦ウ 他複数</span><div class="question">標準直接労務費は，直接作業の区分ごとに，製品単位当たりの直接作業の標準時間と標準賃率とを定め，両者を乗じて算定する。標準直接作業時間については，製品の生産に必要な作業の種類別，使用機械工具，作業の方法および順序，各作業に従事する労働の等級等を定め，作業研究，時間研究その他経営の実情に応ずる科学的，統計的調査により製品単位当たりの各区分作業の標準時間を定める。標準時間は，通常生ずると認められる程度の疲労，身体的必要，手待等の時間的余裕を含まない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」41⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">動機づけの見地からすれば，作業時間標準は達成不可能な目標(理想標準)であってはならない。正しくは，「標準時間は，通常生ずると認められる程度の疲労，身体的必要，手待等の時間的余裕を含む」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅱ-⑦エ</span><div class="question">部門別製造間接費予算は，固定予算又は変動予算として設定する。変動予算の算定を実査法による場合には，一定の基準となる操業度を中心として，予期される範囲内の種々の操業度を，一定間隔に設け，各操業度に応ずる複数の製造間接費予算をあらかじめ算定列記する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」41⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">間接費の標準としての部門間接費予算には固定予算と変動予算があり，両者の選択が認められる。このうち，間接費の管理により有効とされるのは変動予算であり，その算定方法には実査法と公式法がある。実査法では種々の操業度における予算額を個別的に実査して算定するのに対し，公式法では一次関数の公式に当てはめてこれを算定する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑦ウ</span><div class="question">部門間接費予算には変動予算と固定予算があり，変動予算の算定方法の一つに公式法がある。公式法による場合には，製造間接費要素を固定費と変動費とに分け，固定費は，操業度の増減にかかわりなく一定とし，変動費は，操業度の増減との関連における各変動費要素又は変動費要素群の変動費率をあらかじめ測定しておき，これにその都度の関係操業度を乗じて算定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」41⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">間接費の標準としての部門間接費予算には固定予算と変動予算があり，両者の選択が認められる。このうち，間接費の管理により有効とされるのは変動予算であり，その算定方法には実査法と公式法がある。実査法では種々の操業度における予算額を個別的に実査して算定するのに対し，公式法では一次関数の公式に当てはめてこれを算定する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅰ-⑨ウ</span><div class="question">製造間接費の標準は，部門別に算定して部門間接費予算を用いる。部門間接費予算には，固定予算と変動予算があるが，固定費の管理を重視して，変動予算より固定予算の方が有用であるとされている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」41⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」では「製造間接費の管理をさらに有効にするために，変動予算を設定する」としており，固定予算より変動予算の方が有用とされている。なお，固定費の予算は固定予算を使用する場合も変動予算を使用する場合も同じであり，「固定費の管理を重視するから固定予算が有用」とする論理構成自体がそもそもおかしい。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅱ-⑧ウ</span><div class="question">製造間接費の標準は，部門別に部門間接費予算として算定され，その部門間接費予算には変動予算と固定予算がある。各部門別の変動予算は，一定の限度内において原価管理に役立つのみでなく，製品に対する標準間接費配賦率算定の基礎となる。固定予算とは，製造間接費予算を予算期間に予期される範囲内における種々の操業度に対応して算定した予算をいい，実際間接費額を当該操業度の予算と比較して，部門の業績を管理することを可能にする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」41⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">一定の限度内において原価管理に役立つのみでなく，製品に対する標準配賦率算定の基礎となるのが固定予算，予算期間に予期される範囲内における種々の操業度に対応して算定した予算が変動予算である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H18-⑤エ</span><div class="question">生産設備が常に基準操業度水準で稼動している場合，製造間接費予算について公式法変動予算を使用しても固定予算を使用しても，その予算差異の金額は等しくなる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」41⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">フル操業が常態であり，生産設備が常に基準操業度水準で稼動し，実際操業度が基準操業度に一致する場合には，実際操業度における発生予定額である変動予算が，基準操業度における発生予定額である固定予算に一致する。したがって，いずれの予算を管理標準としても，予算差異の金額は等しくなる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H23-Ⅱ-②ウ</span><div class="question">実際原価の計算において，操業度との関連における分類とは，操業度の増減に対する原価発生の態様による分類である。原価要素は，これによって，固定費と変動費とに分類できる。ここで，操業度とは，生産設備を一定とした場合における利用度をいう。「原価計算基準」によれば，製造間接費を正常配賦する際に変動予算を利用する場合，固定費の実際発生額と基準操業度における予算額との差額を操業度差異といい，変動費の実際発生額と実際操業度における予算額との差額を予算差異という。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡８⑷，41⑶，45⑸，46⑷</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">製造間接費は固定費を多く含むため，製造間接費を製品別に集計することと，製造間接費という原価を管理することとは全くの別問題であり，製造間接費の正常配賦(予定配賦)に際して変動予算という概念はない。また，変動予算による製造間接費差異の分析において，正しくは，固定費の正常配賦額と基準操業度における予算額との差額を操業度差異といい，変動費及び固定費の実際発生額と実際操業度における予算額(変動予算)の差を予算差異という。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-③ア</span><div class="question">製造間接費の予算は固定予算又は変動予算によって設定する。変動予算には実査法と公式法があるが，実査法による場合には，製造間接費要素を固定費と変動費とに分け，固定費は，操業度の増減にかかわりなく一定とし，変動費は，操業度の増減との関連における各変動費要素又は変動費要素群の変動費率をあらかじめ測定しておき，これにそのつどの関係操業度を乗じて算定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」41⑶-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">変動予算とは，予算期間において予期される範囲内における種々の操業度に対応して算定した予算をいい，その算定方法には実査法と公式法がある。この点，製造間接費要素を固定費と変動費に分け，「固定費額＋変動費率×関係操業度」によって変動予算を算定するのは，実査法ではなく公式法による場合である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅰ-⑧ウ</span><div class="question">標準製品原価は，製品の一定単位につき標準直接材料費，標準直接労務費等を集計し，これに標準間接費配賦率に基づいて算定した標準間接費配賦額を加えて算定する。標準間接費配賦率は変動予算算定の基礎となる操業度ならびにこの操業度における標準間接費を基礎として算定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」41⑷</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">固定予算は，予算期間において予期される一定の操業度に基づいて算定した予算であり，一定の限度内において原価管理に役立つものの，本来は製品に対する標準間接費配賦率算定の基礎としての役割を担っている。正しくは，「標準間接費配賦率は固定予算算定の基礎となる操業度ならびにこの操業度における標準間接費を基礎として算定する」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H22-Ⅰ-⑦カ</span><div class="question">標準原価カードにおいて，材料標準消費量の中に減損や仕損の正常量をあらかじめ含める方法と含めない方法がある。減損や仕損が工程の途中で生じる場合には，月初仕掛品や月末仕掛品に正常減損費や正常仕損費が計上できるので，あらかじめ含める方法のほうが含めない方法よりも正確な計算になる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">減損や仕損が工程の途中で生じる場合，月初仕掛品や月末仕掛品に正常減損費や正常仕損費を計上すべきか否かは，減損や仕損の発生点の加工費進捗度と月初仕掛品や月末仕掛品の加工費進捗度とを比較して決定するのが理論的である。その意味では，減損や仕損の正常量をあらかじめ含めない方法(いわゆる第２法)の方が，含める方法(いわゆる第１法)よりも正確な計算になる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅱ-④ウ</span><div class="question">原価標準は，技術部門が製品や製造工程について詳細な統計的，科学的調査を行い，その結果に会計記録から得られた過去の経験を加味して設定される。特許権使用料，外注加工賃，特殊機械の賃借料等を直接経費として計上する場合，契約条件が直接経費標準を設定する上での基礎となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」41⑷</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価標準の設定に当たって，特許権使用料や外注加工賃などの直接経費を計上する場合，その価格標準は，取引先との契約条件に依存する。したがって，当該契約条件が，直接経費標準を設定する上での基礎となる。なお，「原価計算基準」では，原価標準に相当する標準製品原価の算定に当たって，「製品の一定単位につき標準直接材料費，標準直接労務費等を集計し…」と規定しており，この「等」に直接経費が含まれると解釈できる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-6-3" class="topic-section">
+        <h2>6-3 標準原価の改訂</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-⑦ア</span><div class="question">原価標準には，様々な種類があるが，原価標準を適用する期間，つまり改訂の頻度によって，基準標準原価と当座標準原価が区別される。基準標準原価は，設定した標準を長期間にわたって適用し，生産条件や経営環境の大きな変化がない限り，改訂されない。これに対して，当座標準原価は，標準原価が実状に即しているかを頻繁に検討し，必要に応じて改訂される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」42</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価標準は，その適用期間あるいは改訂頻度により，短期可変的な当座標準原価と長期固定的な基準標準原価とに区別される。両者の相違は，短期的な価格水準や能率水準の変化を反映するか否かという点にあり，当座標準原価の代表例が現実的標準原価，基準標準原価の代表例が理想標準原価である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅰ-⑦ア</span><div class="question">我が国の「原価計算基準」において想定される標準原価は，原価管理や予算編成，また，たな卸資産価額や売上原価算定のために現状に即した標準となるよう，しばしば改訂されることが要求されるが，このような標準原価を当座標準原価という。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」40，42</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」では，原価管理，予算編成，棚卸資産価額算定という各種の目的に応えるためには，現状に即した標準でなければならないという認識の下に，当座標準原価の採用を規定している。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-⑦エ 他複数</span><div class="question">標準原価計算の目的としては，原価管理，たな卸資産価額および売上原価算定，予算編成，記帳の簡略化および迅速化などがあげられる。これらの目的を達するには標準原価は，現状に即した標準でなければならないため，常にその適否を吟味し，機械設備，生産方式等の生産の基本条件および材料価格，賃率等に重大な変化が生じた場合には，現状に即するようにこれを改訂する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」40，42</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」では，原価管理，予算編成，棚卸資産価額算定という各種の目的に応えるためには，現状に即した標準でなければならないという認識の下に，当座標準原価の採用を規定している。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑦イ</span><div class="question">標準原価は，内部経営管理にも外部報告にも使用されるが，外部報告のみを目的として使用する場合，継続性の原則が適用され，生産の諸条件が変化したとしても，改訂することは認められない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」42</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価を外部報告のみを目的として使用する場合でも，製造環境の現状に即して棚卸資産価額や売上原価を算定することが求められる。したがって，常にその適否を吟味し，生産の諸条件が変化した場合には，現状に即するように標準を改訂することが求められる。なお，標準原価の改訂を怠り，現実の製造環境と乖離すれば，比較的多額の原価差異が生じるため，その場合には原価差異を売上原価と期末棚卸資産に配賦することで，外部報告用に実際原価への修正を図る必要が生じる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-6-4" class="topic-section">
+        <h2>6-4 標準原価の指示</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅰ-⑨イ 他複数</span><div class="question">標準原価は，一定の文書に表示されて原価発生に責任を持つ各部署に指示される。指示する文書の種類について，標準製品原価表，材料明細表，標準作業表および製造間接費予算表の四つが例として取り上げられている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」41，43</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」41(標準原価の算定)における①標準直接材料費，②標準直接労務費，③製造間接費の標準（部門間接費予算），④標準製品原価に対応する形で，「原価計算基準」43(標準原価の指示)では，標準原価を指示する文書として①材料明細表，②標準作業表，③製造間接費予算表，④標準製品原価表を列挙している。このうち標準製品原価表は，一定単位の製品について，標準直接材料費，標準直接労務費等を集計し，これに標準間接費配賦率に基づいて算定した標準間接費配賦額を加えて算定した標準製品原価を指示する文書であり，いわゆる標準原価カードに相当する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅱ-⑧エ</span><div class="question">標準原価は，一定の文書に表示されて原価発生について責任をもつ各部署に指示されるとともに，この種の文書は，標準原価会計機構における補助記録となる。この種の文書には標準製品原価表，材料明細表，標準作業表，製造間接費予算表などがある。このうち標準製品原価表とは，製造指図書に指定された製品の一定単位当たりの標準原価を構成する各種直接材料費の標準，作業種類別の直接労務費の標準および部門別製造間接費配賦額の標準を数量的および金額的に表示指定する文書をいうのである。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」41，43</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」41(標準原価の算定)における①標準直接材料費，②標準直接労務費，③製造間接費の標準（部門間接費予算），④標準製品原価に対応する形で，「原価計算基準」43(標準原価の指示)では，標準原価を指示する文書として①材料明細表，②標準作業表，③製造間接費予算表，④標準製品原価表を列挙している。このうち標準製品原価表は，一定単位の製品について，標準直接材料費，標準直接労務費等を集計し，これに標準間接費配賦率に基づいて算定した標準間接費配賦額を加えて算定した標準製品原価を指示する文書であり，いわゆる標準原価カードに相当する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑦ウ</span><div class="question">標準原価を指示する文書としては，製造指図書に指定された製品の一定単位当たりの標準原価を構成する各種直接材料費の標準，作業種類別の直接労務費の標準および部門別製造間接費配賦額の標準を数量的および金額的に表示指定する標準製品原価表があげられる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」41，43</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」41(標準原価の算定)における①標準直接材料費，②標準直接労務費，③製造間接費の標準（部門間接費予算），④標準製品原価に対応する形で，「原価計算基準」43(標準原価の指示)では，標準原価を指示する文書として①材料明細表，②標準作業表，③製造間接費予算表，④標準製品原価表を列挙している。このうち標準製品原価表は，一定単位の製品について，標準直接材料費，標準直接労務費等を集計し，これに標準間接費配賦率に基づいて算定した標準間接費配賦額を加えて算定した標準製品原価を指示する文書であり，いわゆる標準原価カードに相当する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-6-5" class="topic-section">
+        <h2>6-5 原価差異の算定および分析</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 1</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H23-Ⅰ-⑧イ</span><div class="question">「原価計算基準」によれば，標準原価計算制度において，原価差異が生ずる場合には，その大きさを算定記録し，これを分析する。その目的は，原価差異を財務会計上適正に処理して製品原価及び損益を確定することと，その分析結果を各階層の経営管理者に提供することによって，原価の管理に資するためである。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」44</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価差異を算定・分析する目的には①財務諸表作成目的と②原価管理目的の２つがあり，①財務諸表作成目的から原価差異を「算定」し(分析の必要はない)，②原価管理目的から原価差異を「分析」する(算定するだけでは足りない)。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-6-6" class="topic-section">
+        <h2>6-6 標準原価計算における勘定記入法と原価差異の把握方法</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 18</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 18</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 18</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 18</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 18</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 18</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-⑦イ</span><div class="question">標準原価計算制度は，標準原価をどの段階で複式簿記機構の中に組み入れるかによってパーシャル・プランとシングル・プランとに大別される。パーシャル・プランでは，実際生産量（完成品量と期末仕掛品の完成品換算量）に原価標準を乗じて標準原価を計算し，これを複式簿記機構に組み入れる。シングル・プランは，資源の消費時点で標準原価を計算し，これを複式簿記機構の中に組み入れる方法である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」２</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">勘定組織と結合して標準原価計算を実施する標準原価計算制度は，標準原価を勘定組織に組み入れるタイミングによって，シングル・プランとパーシャル・プランに大別される。シングル・プランは，製品の生産量が事前に確定していることを前提として，資源の投入時点でその投入高を標準原価で計算するため，仕掛品勘定の借方は貸方と同じように標準原価で記入される。これに対して，パーシャル・プランは，製品の実際生産量が原価計算期末に事後的に確定することを前提として，資源の投入高を実際原価で計算するため，仕掛品勘定の借方は実際原価で記入される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R3-⑦イ</span><div class="question">標準原価計算制度では，標準原価をどの計算段階で複式簿記機構の中に組み入れるかによって，原則として，パーシャル・プランとシングル・プランに大別される。シングル・プランでは，仕掛品勘定の借方は標準原価で記入される。これに対して，パーシャル・プランでは，仕掛品勘定の借方は実際原価で記入される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」２</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">勘定組織と結合して標準原価計算を実施する標準原価計算制度は，標準原価を勘定組織に組み入れるタイミングによって，シングル・プランとパーシャル・プランに大別される。シングル・プランは，製品の生産量が事前に確定していることを前提として，資源の投入時点でその投入高を標準原価で計算するため，仕掛品勘定の借方は貸方と同じように標準原価で記入される。これに対して，パーシャル・プランは，製品の実際生産量が原価計算期末に事後的に確定することを前提として，資源の投入高を実際原価で計算するため，仕掛品勘定の借方は実際原価で記入される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑦イ</span><div class="question">仕掛品勘定の記帳方法としては，投入段階で原価財の標準原価を仕掛品勘定の借方に記帳するインプット法と，期末に完成品や期末仕掛品の標準原価を仕掛品勘定の貸方に記帳するアウトプット法がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">仕掛品勘定の記帳方法のうち，投入段階で原価財の標準原価を仕掛品勘定の借方に記帳する方法はシングル・プラン，期末に完成品や期末仕掛品の標準原価を仕掛品勘定の貸方に記帳する方法はパーシャル・プランである。シングル・プランとインプット法，パーシャル・プランとアウトプット法はほぼ１対１で対応するが，インプット法とアウトプット法はあくまでも原価差異を把握するタイミングに基づく分類であり，標準原価を複式簿記に組み入れるタイミングに基づくシングル・プランとパーシャル・プランの分類とは，概念上区別される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-④エ</span><div class="question">標準原価計算制度とは，標準原価計算を複式簿記機構と結合させ常時継続的におこなう方法で，どの計算段階で標準原価を複式簿記機構に組み入れるかで大別される。このうちパーシャル・プランとは，原価財の消費について標準原価を計算し，これを複式簿記機構に組み入れる方法をいう。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価財の消費について標準原価を計算し，これを複式簿記機構に組み入れる場合，原価財の投入仕訳を標準原価で切ることになるため，仕掛品勘定は貸借ともに標準原価で記入されることになる。したがって，その方法は，パーシャル・プランではなくシングル・プランである。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H22-Ⅰ-⑦ア</span><div class="question">総合原価計算が適用される製品の場合には，一般的にパーシャル・プランや修正パーシャル・プランが採用され，そのとき仕掛品勘定(製造勘定)の借方には実際原価だけが記入される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">パーシャル・プランや修正パーシャル・プランにおいて，仕掛品勘定の借方には実際原価が記入されるが，通常は月初仕掛品が存在し，それは標準原価で借方記入される。したがって，必ずしも実際原価だけが記入されるわけではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-⑦ウ</span><div class="question">修正パーシャル・プランとは，直接材料費および直接労務費の各仕掛品勘定の借方に，直接材料費と直接労務費の実際消費量を実際価格でなく，標準価格で評価した金額を計上する方法である。責任会計の見地から，材料の価格差異，労働の賃率差異は管理不能であるために，こうした外部要因による差異を原価業績報告書に含めることのない修正パーシャル・プランは，通常のパーシャル・プランよりも優れている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">工程管理者の業績評価のための原価業績報告書は，仕掛品勘定に基づいて作成される。そのため，工程管理者にとって管理不能な価格差異や賃率差異は，仕掛品勘定から予め排除されていることが望ましい。その意味では，責任会計の見地において，修正パーシャル・プランはパーシャル・プランよりも優れている（パーシャル・プランは修正パーシャル・プランに劣っている）といえる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅱ-⑦ア</span><div class="question">直接材料費に関する原価差異のうち価格差異は，工程管理者にとっては多くの場合管理不能であり，原価報告書に含めるべきではなく，この点において，パーシャル・プランは修正パーシャル・プランに劣っている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">工程管理者の業績評価のための原価業績報告書は，仕掛品勘定に基づいて作成される。そのため，工程管理者にとって管理不能な価格差異や賃率差異は，仕掛品勘定から予め排除されていることが望ましい。その意味では，責任会計の見地において，修正パーシャル・プランはパーシャル・プランよりも優れている（パーシャル・プランは修正パーシャル・プランに劣っている）といえる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H20-⑧ウ</span><div class="question">修正パーシャル・プランにおける仕掛品勘定の借方において，直接材料費は実際消費量と実際価格をもとに記帳されるため，工程管理者にとって管理不能な価格差異が原価業績報告書から排除されることとなり，この点において，パーシャル・プランより優れているといえる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">修正パーシャル・プランにおける仕掛品勘定の借方において，直接材料費は実際消費量と標準価格をもとに記帳される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑦ア</span><div class="question">仕掛品勘定の借方に記入される実際原価の金額について，パーシャル・プランによる金額は修正パーシャル・プランによる金額未満となることはない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">仕掛品勘定の借方に記入される実際原価について，パーシャル・プランでは実際価格や実際賃率に基づいて計算するのに対し，修正パーシャル・プランでは標準価格や標準賃率に基づいて計算する。したがって，それらの大小関係は，価格差異や賃率差異の有利・不利に依存し，有利差異を前提とすれば，パーシャル・プランによる借方記入額は修正パーシャル・プランによる借方記入額よりも小さくなる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H19-⑦ウ</span><div class="question">標準原価差異の把握方法には，直接材料や直接作業の投入時に算出する方法と，ある期間の実際生産量が確定してから算出する方法があり，前者をシングル・プランといい，後者をパーシャル・プランという。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価差異を直接材料や直接作業の投入時に把握する方法はインプット法，ある期間の実際生産量が確定してから算出する方法はアウトプット法である。シングル・プランとパーシャル・プランは，標準原価計算制度において標準原価を複式簿記機構に組み込むタイミングに基づく区別である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R3-⑦ウ</span><div class="question">標準原価差額の把握方法には，インプット法とアウトプット法がある。期末に実際生産量に原価標準を乗じて，標準原価を算定し，実際原価と比較することによって，標準原価差額を把握する方法をインプット法という。このとき，標準原価差額は，原価計算期末まで判明しない。原価管理を推進するためには，アウトプット法よりもインプット法のほうが望ましい。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価差額の把握方法にはインプット法とアウトプット法があるが，期末に実際生産量に原価標準を乗じて標準原価を算定し，実際原価と比較することによって標準原価差額を把握する方法をアウトプット法という。なお，アウトプット法を採用する場合，標準原価差額は原価計算期末まで判明しないため，原価管理を推進するためには，期中統制が可能なインプット法を採用するのが望ましい。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-⑦ア</span><div class="question">原価計算期末にその期間の産出量（完成品量と期末仕掛品の完成品換算量）に基づき原価差異を把握する方法を一般にアウトプット法という。これに対して，資源投入時点で差異を把握する方法を一般にインプット法という。インプット法は，標準原価差額の把握と分析を迅速に実施できるとともに，計算事務量を節約できるという長所を有している。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">インプット法(シングル・プラン)は，資源の投入時点でその都度差異(不利差異)を把握する方法であるから，標準原価差異の把握と分析を迅速に実施できるという長所を有する反面，超過材料庫出請求票など証憑類の整備も含め，計算事務が煩雑になるという短所を有している。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H20-⑧ア</span><div class="question">標準原価計算における記帳方法はパーシャル・プランとシングル・プランに大別されるが，後者は原価財の投入時点において原価差異が計算されるため，前者に比べ，原価差異の把握と分析を迅速に行うことができ，計算事務量の負担も少ないという長所をもっている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">インプット法(シングル・プラン)は，資源の投入時点でその都度差異(不利差異)を把握する方法であるから，標準原価差異の把握と分析を迅速に実施できるという長所を有する反面，超過材料庫出請求票など証憑類の整備も含め，計算事務が煩雑になるという短所を有している。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅱ-⑧ア</span><div class="question">パーシャル・プランでは，労働時間差異について，作業時間報告書上に，①標準作業時間，②実際作業時間，③差異，④差異の発生原因などを日々記録する。これらが日報として作成され，現場の管理者へ提出され，原価管理の資料となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価管理のために差異の発生原因などを日々記録するのは，パーシャル・プランではなくシングル・プランである。また，出題者は「正しくはシングル・プラン」という思考で本肢を作成していると推測されるが，シングル・プランは勘定記入法であるから，厳密にはインプット法が正しい。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅰ-⑦ウ</span><div class="question">多くの連続生産型企業では月末段階で材料の数量差異を把握し，パーシャル・プランを採用しているが，材料の投入段階で数量差異を把握することも可能であり，そのための方法が修正パーシャル・プランである。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">連続生産を行う場合であっても，生産の平準化を図り，一定期間の生産量と標準投入量を事前に確定させることが出来れば，材料の投入段階で数量差異を把握することも理論上は可能である。ただし，そのための方法とは，修正パーシャル・プランではなく，インプット法である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑦ア</span><div class="question">インプット法の特徴は原価財の投入段階で差異を把握できる点にあるが，全ての差異を原価財の投入段階で把握できるわけではない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">直接労務費の賃率差異の把握には直接労務費の実際発生額を，製造間接費の予算差異と操業度差異の把握には製造間接費の実際発生額と実際操業度又は標準操業度の合計を必要とし，それらが確定するのは原価計算期末以降となる。したがって，賃率差異，予算差異，操業度差異の把握はアウトプット法によらざるを得ず，全ての差異を原価財の投入段階で把握できるわけではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-⑦エ</span><div class="question">原価差異をいつ把握するかという差異把握のタイミングと勘定記入法の区別は，必ずしも一対一で対応するものではないが，シングル・プランはインプット法，パーシャル・プランはアウトプット法と結び付きやすい。なお，製造間接費差異のうち，操業度差異および予算差異は，アウトプット法で把握することはできない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">製造間接費差異のうち，操業度差異及び予算差異をインプット法で把握することはできず，それらの把握はアウトプット法によらざるを得ない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅱ-④イ</span><div class="question">製造指図書別の原価計算を行う場合，原価要素の実際投入量が標準投入量を超えるときには，直ちにこの超過量を標準原価差異として把握する方法が適用される。この差異把握方法をインプット法という。インプット法と結びつくシングル・プランを採用すると，すべての原価差異がインプット時に把握される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">事前に製品の生産量が確定しており，原価財の投入時点で標準原価を複式簿記に組み込むシングル・プランを採用する場合，原価差異についても，原価財の投入時点でインプット法により把握するのが通常である。ただし，賃率差異，予算差異，操業度差異を把握するための要支払額(実際賃率)，実際発生額，実際操業度又は標準操業度の合計が確定するのは原価計算期末になるため，全ての原価差異がインプット時に把握されるわけではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-6-7" class="topic-section">
+        <h2>6-7 実際原価計算制度における原価差異</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R3-①イ</span><div class="question">材料受入価格差異とは，材料の受入価格を予定価格等をもって計算することによって生ずる原価差異をいい，一期間におけるその材料の受入金額と実際受入金額との差額に実際受入数量を乗じて算定する。また，材料消費価格差異とは，材料の消費価格を予定価格等をもって計算することによって生ずる原価差異をいい，一期間におけるその材料費額と実際発生額との差額として算定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」45⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">材料受入価格差異の算定に関する記述に問題がある。正しくは，「一期間におけるその材料の受入金額と実際受入金額との差額として算定する」であり，仮に実際受入数量を乗じて算定するのであれば，それは予定価格等と実際受入価格との差に対してである。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R3-①ウ</span><div class="question">加工費配賦差異とは，部門加工費を予定配賦率をもって製品に配賦することによって生ずる原価差異をいい，一期間におけるその製造間接費の配賦額と実際額との差額として算定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」34，45⑹</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">加工費配賦差異は，部門別の直接労務費と製造間接費とを合わせた加工費を予定配賦する場合に生ずる差異であり，製造間接費配賦差異とは区別される。正しくは，「一期間におけるその加工費の配賦額と実際額との差額として算定する」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R3-①エ</span><div class="question">振替差異とは，工程間に振り替えられる工程製品の価額を予定原価又は正常原価をもって計算することによって生ずる原価差異をいい，一期間におけるその工程製品の振替価額と実際額との差額として算定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2，25，45⑻</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">累加法による工程別総合原価計算において，工程間に振り替えられる工程製品の計算は，予定原価又は正常原価によることが認められている。この場合，予定原価又は正常原価による振替価額と実際額との差において，振替差異が生じることになる。なお，この振替差異は，後工程(次工程)から見れば「管理不能な前工程の能率の良否の影響」に相当し，これを取り除くことによって，後工程(次工程)の原価業績を純粋に判断することが可能となる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-6-8" class="topic-section">
+        <h2>6-8 標準原価計算制度における原価差異</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 19</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 19</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 19</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 19</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 19</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 19</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-⑦エ 他複数</span><div class="question">標準原価計算制度における材料受入価格差異とは，材料の受入価格を標準価格をもって計算することによって生ずる原価差異をいい，標準受入価格と実際受入価格との差異に実際消費数量を乗じて算定する。この差異は当年度の材料の払出高と期末在高に配賦する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」46⑴</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">材料受入価格差異とは，消費材料の価格差異ではなく，購入材料の価格差異に相当する。正しくは，「標準受入価格と実際受入価格との差異に，実際受入数量を乗じて算定する」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-⑦ウ</span><div class="question">直接材料費差異とは，標準原価による直接材料費と直接材料費の実際発生額との差額をいい，これを材料種類別に価格差異と数量差異とに分析する。このうち数量差異とは，材料の標準消費数量と実際消費数量との差異に基づく直接材料費差異をいい，直接材料の標準消費数量と実際消費数量との差異に，標準消費価格を乗じて算定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」46⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」では，原価管理の観点から，価格差異と数量差異の混合差異を価格差異に含めて分析する立場を採用している。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H20-⑧オ</span><div class="question">直接材料費差異は，理論的には，「価格差異」と「数量差異」と「混合差異」に３分されるが，一般的には管理可能な数量差異を正確に把握することを重視するため，混合差異を数量差異に含めて計算することが多くなされている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」46⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">一般的には，管理可能な数量差異を純粋に把握することを重視するため，混合差異を価格差異に含めて計算することが多くなされている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H23-Ⅰ-⑧ア</span><div class="question">標準原価計算制度における直接材料費差異は消費価格と消費数量に基づいて，通常，価格差異と数量差異の二つに分解される。この場合の価格差異は，直接材料の標準消費価格と実際消費価格との差異に，実際消費数量を乗じて算定されるが，この価格差異には一部数量差異の影響が含まれる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」46⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">混合差異を価格差異に含めて分析する場合，歩留の良否が実際消費量の増減を通じて価格差異に影響するため，その中には，一部数量差異の影響が含まれることになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅱ-⑧イ</span><div class="question">標準原価計算制度における直接材料費差異は消費価格と消費数量に基づいて，価格に起因する差異と数量に起因する差異の２つに分解される。通常，価格差異は，直接材料の標準消費価格と実際消費価格の差に，標準消費数量を乗じて計算される。このようにして算出される価格差異には，一部，数量に起因する差異の影響が混入している。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」46⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正しくは，「価格差異は，直接材料の標準消費価格と実際消費価格の差に，実際消費数量を乗じて計算される」である。なお，この場合，実際歩留を前提とする以上，価格差異の中に数量に起因する差異の影響が混入するという点は正しい。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑦エ</span><div class="question">直接材料費差異を消費価格差異と消費数量差異に分解する際，価格と数量の両方の要因による混合差異が生じ，一般に，混合差異は消費価格差異に含められるが，これは材料購買部門の材料購買活動に関する責任を明確化するためである。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」46⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">直接材料費差異を消費価格差異と消費数量差異に分解する際，混合差異は消費価格差異に含めるのが一般的であるが，これは，管理不能な価格変動の影響を排除することで管理可能な消費数量差異を純粋に把握し，製造部門の製造活動に関する責任を明確化することを意図したものである。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H19-⑦オ</span><div class="question">化学薬品を生産している工場では，原料の数量差異を配合差異と歩留差異に区分して把握することは有効な原価管理の一方法といえる。このうち歩留差異を，原料別標準消費量から，当該原料の標準配合割合とすべての原料の実際消費量合計を乗じたものを控除したものに，標準価格を乗じて算出した場合に，この値が正(プラス)のときは，その原料の歩留は良好であったことを示しているといえる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">一般に，歩留差異は，標準歩留・標準配合消費量と実際歩留・標準配合消費量の差に対して，標準価格を乗じることで計算される。この値が正のときは有利差異であり，歩留は良好と判定される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H20-⑧カ</span><div class="question">化学製品などを生産している場合に原料配合差異を把握することは原価管理にとって有効である。原料配合差異は，実際消費量合計に原料別標準配合割合を乗じたものから原料別実際消費量を控除したものに，原料別標準価格を乗じて計算することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">一般に，配合差異は，実際歩留・標準配合消費量と実際歩留・実際配合消費量の差に対して，標準価格を乗じることで計算される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅱ-⑧イ</span><div class="question">ある製品を製造するために複数の原料が必要となり，それらの原料が代替可能であるとき，原料配合差異と原料歩留差異を計算することがある。この場合，原料配合差異は原料の標準単価，標準配合と実際歩留を使用することによって，原料歩留差異は原料の標準単価，標準配合と標準歩留を使用することによって計算する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原料配合差異の計算には実際歩留・実際配合消費量も使用するし，原料歩留差異の計算には実際歩留・標準配合消費量も使用する。したがって，言葉足らずではあるが，記述内容自体に誤りはない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅰ-⑦イ</span><div class="question">実際生産量と標準歩留率から計算された原料投入量を標準配合割合で分けた原料別投入量と，実際配合割合で分けた原料別投入量の差に，原料別標準価格を乗じたものが原料配合差異である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">配合割合の変更は，実際の原料投入量の中で行われるため，原料配合差異の分析は実際歩留を前提とする。正しくは，実際生産量と実際歩留率から計算された原料投入量を標準配合割合で分けた原料別投入量と，実際配合割合で分けた原料別投入量の差に，原料別標準価格を乗じたものが原料配合差異である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑦イ</span><div class="question">加重平均標準価格を用いて原料配合差異と原料歩留差異を計算する場合，各原料の標準消費量(実際生産量から標準歩留率と標準配合割合を用いて計算された標準消費量)と実際消費量の差が両方の差異の計算に必要となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">加重平均標準価格を媒介とする方法により原料配合差異と原料歩留差異を計算する場合には，いずれの差異の計算においても，各原料の標準歩留・標準配合消費量と実際歩留・実際配合消費量の差が必要となる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑦エ</span><div class="question">直接労務費差異とは，標準原価による直接労務費と直接労務費の実際発生額との差額をいい，これを部門別又は作業種類別に賃率差異と作業時間差異とに分析する。この賃率差異とは，標準賃率と実際賃率との差異に基づく直接労務費差異をいい，標準賃率と実際賃率との差異に，標準作業時間を乗じて算定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」46⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」では，原価管理の観点から，賃率差異と作業時間差異の混合差異を賃率差異に含めて分析する立場を採用している。正しくは，「標準賃率と実際賃率との差異に，実際作業時間を乗じて算定する」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅱ-⑦イ</span><div class="question">直接労務費差異は，理論的には，賃率差異，作業時間差異および混合差異に三分されるが，一般的には管理可能な作業時間差異を正確に把握することを重視するため，混合差異を作業時間差異に含めて計算することが多くなされている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」46⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">一般的には，管理可能な作業時間差異を純粋に把握することを重視するため，混合差異を賃率差異に含めて計算することが多くなされている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-⑦エ</span><div class="question">製造間接費差異とは，製造間接費の標準額と実際発生額との差額をいい，原則として一定期間における製品別間接費差異として算定して，これを能率差異，操業度差異等に適当に分析する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」41⑶，46⑷</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">製造間接費の標準は部門間接費予算として算定するため，これに照応して，製造間接費差異もまた，製品ではなく責任区分としての部門と結び付けて算定することになる。正しくは，「一定期間における部門間接費差異として算定して…」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H19-⑦カ</span><div class="question">製造間接費差異のうち予算差異は，通常，変動費から生ずるが，固定費から生ずることもある。また，操業度差異の計算上，変動費の発生額は操業度差異の額に影響を与えることはない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">予算差異は通常変動費から生ずるが，保険料の改訂等により固定費から生ずることもある。また，操業度差異は実際操業度又は標準操業度と基準操業度の差に対して固定費標準配賦率や標準配賦率を乗じて計算するため，変動費の発生額自体が影響することはない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅱ-⑧ウ 他複数</span><div class="question">公式法変動予算に基づく，三分法による製造間接費差異分析で，操業度差異を標準作業時間と基準操業度となる作業時間(以下，基準作業時間)の差に固定費率を乗じて計算する場合，能率差異は変動費部分と固定費部分の両方を含む。また，操業度差異を実際作業時間と基準作業時間の差に固定費率を乗じて計算する場合，能率差異は変動費部分だけで構成される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">三分法において，操業度差異を標準作業時間と基準作業時間の差に固定費率を乗じて計算する場合，固定費能率差異は操業度差異に含まれるため，能率差異は変動費部分だけで構成される。また，操業度差異を実際作業時間と基準作業時間の差に固定費率を乗じて計算する場合，固定費能率差異は能率差異に含まれるため，能率差異は変動費部分と固定費部分の両方を含む。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅱ-⑧エ 他複数</span><div class="question">公式法変動予算による製造間接費の差異分析には，複数の方法がある。二分法における管理可能差異と四分法における予算差異との差額は，操業度差異を基準操業度となる作業時間と標準作業時間との差によって計算するタイプの三分法における能率差異の金額と一致する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">二分法における管理可能差異と四分法における予算差異との差額は，変動費能率差異に相当する。したがって，操業度差異を基準作業時間と標準作業時間の差によって計算し，固定費能率差異を操業度差異に含めるタイプの三分法における能率差異の金額と一致する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅱ-⑦ウ</span><div class="question">操業度を直接作業時間で測定しているとき，変動予算による製造間接費の差異分析において，二分法における操業度差異と，四分法における操業度差異との差額は，操業度差異を基準(正常)作業時間と標準作業時間との差として求める場合の三分法における能率差異の金額と一致する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">二分法における操業度差異と四分法における操業度差異との差額は固定費能率差異に相当し，操業度差異を基準作業時間と標準作業時間との差として求める場合の三分法における能率差異は変動費能率差異に相当する。したがって，両者は一致しない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅱ-⑦ア</span><div class="question">製造間接費の差異を公式法変動予算の三分法によって分解する場合，能率差異は標準配賦率によって計算する方法と変動費率によって計算する方法がある。なお，前者の方法による場合の操業度差異は実際原価計算でも求められるが，後者の方法による操業度差異は実際原価計算では求めることができず，能率差異とともに標準原価計算固有の差異となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">三分法において，能率差異を標準配賦率によって計算する場合，操業度差異は実際操業度と基準操業度の差に基づいて計算するため，それは実際原価計算でも求められる差異である。一方，能率差異を変動費率によって計算する場合，操業度差異は標準操業度と基準操業度の差に基づいて計算するため，それは能率差異とともに標準原価計算固有の差異となる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-6-9" class="topic-section">
+        <h2>6-9 原価差異の解釈</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H22-Ⅰ-⑦イ</span><div class="question">材料費の価格差異は，輸入材料に関する為替レートの変動のように，外部要因によるものなので管理不能である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">価格差異の多くは外部要因によって発生するが，不適当な購買先の選択など内部要因によって発生する場合もあり，その管理可能性は発生原因，管理職能等に依存する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H20-⑧エ</span><div class="question">賃率差異は工程管理者にとって管理不能な原因によって発生することが多くあるが，不適切な人員配置など管理可能な原因により発生することもある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">賃率差異は工程管理者にとって管理不能な原因によって発生することが多いが，人員配置計画の不手際，機械当たり標準人員以上の工員の配置など，管理可能な原因によって発生する場合もある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-6-10" class="topic-section">
+        <h2>6-10 原価差異の会計処理</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 16</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 16</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 16</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 16</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 16</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 16</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅱ-⑦エ</span><div class="question">材料受入価格差異とは，材料の受入価格を標準価格をもって計算することによって生ずる原価差異をいう。発生した材料受入価格差異は，当年度の材料の払出高と期末在高に配賦する必要がある。この場合，材料の期末在高については，材料の適当な種類群別に配賦する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」46⑴，47⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">材料受入価格差異とは購入材料の価格差異であり，それは消費材料の価格差異と期末材料の価格差異からなる。したがって，その全てを費用計上することは認められず，消費材料価格差異と期末材料価格差異とに分割した上で，後者については期末材料に加算する必要がある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅱ-⑧ウ</span><div class="question">材料受入価格差異は，当年度の材料の期首在高と購入高に配賦する。この場合，材料の期首在高については，材料の適当な種類群別に配賦する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」47⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正しくは，「当年度の材料の払出高と期末在高に配賦する」，「材料の期末在高については，材料の適当な種類群別に配賦する」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅰ-⑦イ</span><div class="question">材料受入価格差異は，当年度の材料の払出高と期末在高に配賦する。この場合，材料の期末在高については，材料の適当な種類群別に配賦する。材料受入価格差異以外の原価差異は，原則として当年度の売上原価に賦課する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」47⑴-1・2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">材料受入価格差異以外の原価差異は，少額の原価差異しか生じないという認識の下に，全て売上原価に賦課するという簡便的な処理を原則としている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-③ウ</span><div class="question">個別原価計算において，原価差異は，当年度の売上原価と期末におけるたな卸資産に科目別に配賦しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」47⑴-1・3⑴</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">個別原価計算において，原価差異を当年度の売上原価と期末棚卸資産に配賦する場合には，指図書別配賦と科目別配賦の選択が認められている。また，それは原価差異が比較的多額に生じた場合の処理であり，原則的には，原価差異が少額であることを前提として，これを当年度の売上原価に賦課する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅰ-⑦ウ</span><div class="question">予定価格等が不適当なため，比較的多額の原価差異が生ずる場合，直接材料費，直接労務費，直接経費および製造間接費に関する原価差異の処理は，個別原価計算の場合は，当年度の売上原価と期末におけるたな卸資産に科目別に配賦する方法のみが示されている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」47⑴-3⑴</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">比較的多額の原価差異の処理について，個別原価計算の場合は指図書別配賦と科目別配賦の選択適用が規定されている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅰ-⑦エ</span><div class="question">予定価格等が不適当なため，比較的多額の原価差異が生ずる場合，直接材料費，直接労務費，直接経費および製造間接費に関する原価差異の処理は，総合原価計算の場合は，当年度の売上原価と期末におけるたな卸資産に科目別に配賦する方法のみが示されている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」47⑴-3⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">比較的多額の原価差異の処理について，総合原価計算の場合は指図書別に製造原価を集計することはしないため，科目別配賦のみが規定されている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅱ-⑧エ</span><div class="question">経営状況が安定していて，比較的少額の原価差異が発生した場合，原価差異の処理は，個別原価計算の場合には，前年度の売上原価と期末におけるたな卸資産に，指図書別，又は科目別に配賦する。総合原価計算の場合には，前年度の売上原価と期末におけるたな卸資産に科目別に配賦する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」47⑴-3</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価差異を売上原価と期末棚卸資産に配賦することが求められるのは，比較的多額の原価差異が発生した場合である。また，その場合の売上原価と期末棚卸資産とは，前年度ではなく当年度の売上原価と期末棚卸資産をいう。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅰ-⑦イ</span><div class="question">標準賃率が不適当であったがために比較的多額の賃率差異が生じたとしても，その差異には原価性が認められる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」47⑴-3</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準賃率が不適当であったために比較的多額の賃率差異が生じた場合には，これを当年度の売上原価と期末における棚卸資産に配賦することが求められる。したがって，比較的多額の賃率差異は製品原価性を有し，少なくとも「原価計算基準」において，異常な賃率差異は想定されていない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑦ア</span><div class="question">材料受入価格差異を除く原価差異について，正常な状態の下で発生し，かつ，比較的多額と判断された場合，売上原価と期末たな卸資産に配賦されるが，このような処理には，当期の収益に対応させるべき管理可能な差異の一部を次期の収益に対応させてしまうという問題がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」47⑴-3</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">規範的な標準原価を真実の原価と捉える標準原価主義者の立場からすると，数量差異や作業時間差異などの管理可能差異は回避すべき無駄(損失)であり，製品原価性が否定される。つまり，管理可能差異は，製品の販売を通じてではなく，当期の収益で直接回収すべきということになる。この点，管理可能差異を売上原価と期末棚卸資産に配賦すれば，当期の収益で回収すべき当期の不能率が次期の収益に対応することになり，当期の業績と次期の業績が混合されるという問題が生じる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅰ-⑨オ 他複数</span><div class="question">原価差異は，材料受入価格差異を除いて，原則として，当年度の売上原価に賦課するが，標準原価計算制度における数量差異，作業時間差異，能率差異などで異常な状態に基づくと認められるものは非原価項目として処理することが要求されている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」47⑵-1</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">財貨の実際消費量に基づく実際原価のみを計算する実際原価計算制度において，数量差異，作業時間差異，能率差異が生じる余地はない。したがって，これら消費量面の差異は，財貨の標準消費量に基づく標準原価をも計算する標準原価計算制度に固有の原価差異といえる。標準原価計算制度において，実際消費量が異常な状態に基づくと認められる場合，消費量面の差異もまた正常性の要件を満たさないため，非原価項目として処理することが求められる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑦エ</span><div class="question">数量差異，作業時間差異，能率差異について，異常な状態に基づくと認められるものは非原価項目として処理されるが，このような原価差異は，標準原価計算固有の原価差異である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」47⑵-1</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">財貨の実際消費量に基づく実際原価のみを計算する実際原価計算制度において，数量差異，作業時間差異，能率差異が生じる余地はない。したがって，これら消費量面の差異は，財貨の標準消費量に基づく標準原価をも計算する標準原価計算制度に固有の原価差異といえる。標準原価計算制度において，実際消費量が異常な状態に基づくと認められる場合，消費量面の差異もまた正常性の要件を満たさないため，非原価項目として処理することが求められる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H19-⑦エ</span><div class="question">発生した数量差異が少額の場合は，すべて売上原価に賦課することができるが，異常な原因により発生した数量差異は売上原価と期末のたな卸資産に科目別に配賦する必要がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」47⑵-1</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価計算制度に固有の消費量面の差異で異常な状態に基づくと認められるものは，非原価項目として処理する必要がある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅰ-⑦ア</span><div class="question">標準原価計算制度における，数量差異，作業時間差異，能率差異等の原価差異は，異常な状態に基づくと認められるものについては，これを非原価項目として処理しない。ここで非原価項目とは，原価計算制度において，原価に算入しない項目をいう。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」47⑵-1</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価計算制度に固有の消費量面の差異で異常な状態に基づくと認められるものは，非原価項目として処理する必要がある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-⑦ウ</span><div class="question">原価差異は材料受入価格差異を除き，原則として当年度の売上原価に賦課する。材料受入価格差異は，当年度の材料の払出高と期末在高に配賦する。材料受入価格差異を除く，各種の差異が少額である場合には，全て売上原価に賦課することができるが，異常な原因により発生した差異については，売上原価と期末のたな卸資産に指図書別あるいは科目別に配賦する必要がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」47⑵-1</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価計算制度に固有の消費量面の差異で異常な状態に基づくと認められるものは，非原価項目として処理する必要がある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅱ-⑧イ</span><div class="question">標準原価計算制度において原価差異が発生した場合の会計処理は，原則として，実際原価計算における原価差異の処理方法に準じて実施するものとする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」47</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価計算制度における原価差異の処理は，異常な消費量面の差異を非原価項目として処理する他は，全て実際原価計算制度における処理の方法に準じて処理するとされている。したがって，材料受入価格差異を除き，当年度の売上原価に賦課するのが原則であり，比較的多額の原価差異が発生する場合に限り，期末棚卸資産への追加配賦が求められる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H22-Ⅰ-⑦ウ</span><div class="question">標準原価計算を適用したときの原価差異は，材料受入価格差異及び異常な状態に基づくと認められるものや比較的多額の差異が発生した場合を除き，原則として売上原価に賦課する。【ＭＥＭＯ】</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」47</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価計算制度における原価差異の処理は，異常な消費量面の差異を非原価項目として処理する他は，全て実際原価計算制度における処理の方法に準じて処理するとされている。したがって，材料受入価格差異を除き，当年度の売上原価に賦課するのが原則であり，比較的多額の原価差異が発生する場合に限り，期末棚卸資産への追加配賦が求められる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 他のファイルとデータが混ざらないよう、作成時に一意の文字列に変更します
+            const pagePrefix = "Kanri_Ch6_"; 
+
+            const inputs = document.querySelectorAll('input');
+
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                
+                // 保存されている値があれば復元
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') {
+                        input.checked = savedValue === 'true';
+                    } else {
+                        input.value = savedValue;
+                        // 日付入力欄の場合、値が入っていれば type を date に変更して表示
+                        if (input.classList.contains('date-input') && savedValue !== "") {
+                            input.type = 'date';
+                        }
+                    }
+                }
+
+                // 値が変更されるたびに保存
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') {
+                        localStorage.setItem(storageKey, input.checked);
+                    } else {
+                        localStorage.setItem(storageKey, input.value);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
