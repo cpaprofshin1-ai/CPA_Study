@@ -1,0 +1,2819 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>【管理会計論】第4章 総合原価計算（自動保存付き）</title>
+    <style>
+        /* スムーズスクロール */
+        html { scroll-behavior: smooth; }
+
+        body {
+            /* ゼロにスラッシュが入るのを防ぐ標準フォント */
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75;
+            color: #333;
+            max-width: 900px; /* 13インチiPad向けゆったりレイアウト */
+            margin: 0 auto;
+            padding: 40px 25px;
+            background-color: #f5f7f9;
+        }
+
+        /* 表紙・目次エリア */
+        .cover-page {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50;
+            font-size: 2.2em;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 1.3em;
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        /* 目次リスト */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: left;
+            max-width: 600px;
+        }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block;
+            text-decoration: none;
+            color: #1e293b;
+            background-color: #f1f5f9;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-left: 6px solid #3498db;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover {
+            background-color: #e2e8f0;
+            transform: translateX(5px);
+        }
+
+        /* 大見出し（テーマごとのブロック） */
+        .topic-section {
+            margin-top: 150px; 
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding-left: 14px;
+            border-left: 6px solid #3498db;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+        }
+        
+        /* スコアボード（日付＋点数） */
+        .score-board {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .attempt-label {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+        
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+        }
+        .date-input {
+            width: 125px;
+            padding: 6px 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .score-input {
+            width: 50px;
+            padding: 6px 8px;
+            font-size: 1.05em;
+            text-align: right;
+        }
+        .score-denominator {
+            font-weight: bold;
+            color: #64748b;
+            font-size: 1.05em;
+        }
+
+        /* Q&Aブロック */
+        .qa-block {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            break-inside: avoid;
+        }
+        
+        /* タップしやすいチェックボックス */
+        .checkbox-area {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+
+        /* 問題文とバッジのレイアウト */
+        .question-header {
+            margin-bottom: 20px;
+        }
+        .q-badge {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.9em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 4px;
+        }
+        .question {
+            font-weight: bold;
+            font-size: 1.15em;
+            color: #1e293b;
+            line-height: 1.7;
+            display: inline;
+        }
+
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            display: inline-block;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ans-row {
+            display: flex;
+            margin-bottom: 14px;
+            font-size: 1.05em;
+        }
+        .label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+        
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 16px;
+            font-size: 0.95em;
+            color: #475569;
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+
+        /* トップに戻るリンク */
+        .back-to-top {
+            display: block;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+
+        /* 印刷用スタイル */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; padding-top: 0; border-top: none; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <div class="cover-page">
+        <h1 class="cover-title">管理会計論 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">第４章 総合原価計算</div>
+        
+        <ul class="toc-list">
+            <li><a href="#topic-4-1">4-1 原価単位・製品別計算の形態</a></li>
+            <li><a href="#topic-4-2">4-2 単純総合原価計算</a></li>
+            <li><a href="#topic-4-3">4-3 等級別総合原価計算</a></li>
+            <li><a href="#topic-4-4">4-4 組別総合原価計算</a></li>
+            <li><a href="#topic-4-5">4-5 総合原価計算における完成品総合原価と期末仕掛品原価</a></li>
+            <li><a href="#topic-4-6">4-6 工程別総合原価計算</a></li>
+            <li><a href="#topic-4-7">4-7 仕損および減損の処理</a></li>
+            <li><a href="#topic-4-8">4-8 副産物等の処理と評価</a></li>
+            <li><a href="#topic-4-9">4-9 連産品の計算</a></li>
+            <li><a href="#topic-4-10">4-10 原価計算方法の検討</a></li>
+            </ul>
+    </div>
+
+
+    <div id="topic-4-1" class="topic-section">
+        <h2>4-1 原価単位・製品別計算の形態</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑥ア</span><div class="question">原価の製品別計算とは，単位製品の製造原価を算定する手続をいい，原価計算における第三次の計算段階である。製品別計算のためには，加工費を集計する一定の製品単位すなわち原価単位を定める。原価単位は，これを個数，時間数，度量衡単位等をもって示し，業種の特性に応じて適当に定める。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」19</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価単位とは，発生した原価を関係付ける給付の量的な単位であり，原価計算単位ともいう。正しくは，「原価を集計する一定の製品単位」であり，集計対象が加工費に限定されるわけではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅱ-⑤ウ 他複数</span><div class="question">製品別計算は，経営における生産形態の種類別に対応して，単純総合原価計算，等級別総合原価計算，組別総合原価計算，そして個別原価計算に区分される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」20</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」では，単純総合原価計算と個別原価計算を製品別計算の形態の両極に置き，両者の中間形態として，等級別，組別の総合原価計算を並列させている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑥イ 他複数</span><div class="question">製品別計算は，経営における生産形態の種類別に対応して，単純総合原価計算，等級別総合原価計算，組別総合原価計算，個別原価計算の類型に区分される。いずれも原価集計の単位が期間生産量であることを特質とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」20，24，31</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">総合原価計算は原価集計の単位が期間生産量であることを特質とするが，個別原価計算では特定製造指図書の生産命令数量を原価集計単位とする。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-③イ</span><div class="question">個別原価計算は，注文によって異なる製品やサービスを個別に生産する受注生産形態，総合原価計算は同一あるいは同種製品を大量かつ反復的に生産する見込生産形態において採用される。企業は自社の事業特性や生産形態に応じて，両方を採用することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」20</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">なお，ここでの「両方」とは，個別原価計算と総合原価計算のいずれかを採用することを必ずしも意味するわけではなく，現実には，むしろ両者の中間形態や混合形態(ハイブリッド・コスティング)が採用されるのが通常である。過去問チェック139</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-4-2" class="topic-section">
+        <h2>4-2 単純総合原価計算</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 2</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-⑤エ 他複数</span><div class="question">単純総合原価計算は，同種製品を反復連続的に生産する生産形態に適用する。単純総合原価計算にあっては，一原価計算期間に発生したすべての原価要素を集計して当期製造費用を求め，これに期首仕掛品原価を加え，この合計額を，完成品と期末仕掛品とに分割計算することにより，完成品総合原価を計算し，これを製品単位に均分して単位原価を計算する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」21</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">単純総合原価計算は最も簡便的な製品別計算の形態であり，一種類あるいは一種類とみなした製品の期間生産量に同期間の総製造費用を分割負担させることで，当該製品の平均単価を計算する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H18-①キ</span><div class="question">単純総合原価計算では，期首仕掛品原価に当期製造費用を加算した合計額を完成品と期末仕掛品とに分割計算することにより，完成品総合原価を計算し，これを製品単位に均分して単位原価を計算する。このため，期首仕掛品原価と期末仕掛品原価が異なっていても，原理的には，当期製造費用と完成品総合原価は同じとなる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」21，24</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">総合原価計算の基本公式は「期首仕掛品原価＋当期製造費用＝完成品総合原価＋期末仕掛品原価」であるから，期首仕掛品原価と期末仕掛品原価が異なっていれば，当期製造費用と完成品総合原価も当然に異なる。140</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-4-3" class="topic-section">
+        <h2>4-3 等級別総合原価計算</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅰ-⑥ア</span><div class="question">単純総合原価計算は，同種製品を反復連続的に生産する生産形態に適用するのに対し，等級別総合原価計算は，同一工程において，異種製品を連続生産する中で，その製品を形状，大きさ，品位等によって等級に区別する場合に適用する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」21，22</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">等級別総合原価計算の趣旨は，複数製品を扱う場合に，より厳密な組別総合原価計算も実施できるところを，それらが概ね同種製品とみなされるため，等価係数を用いて簡便的な原価計算を行い，経済性を図る点にある。正しくは，「同一工程において，同種製品を連続生産する中で…」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-⑤エ 他複数</span><div class="question">等級別総合原価計算は，同一工程において，同種製品を連続生産するが，その製品を形状，大きさ，品位等によって等級に区別する場合に適用する。等級別総合原価計算にあっては，各等級製品について適当な等価係数を定め，一期間における完成品の総合原価又は一期間の製造費用を等価係数に基づき各等級製品にあん分してその製品原価を計算する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」22</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">等級別総合原価計算は，単純総合原価計算と組別総合原価計算の間に位置する総合原価計算の形態であり，計算方法としては，完成品総合原価を結合原価と捉える単純総合原価計算に近い方法と，当期製造費用を結合原価と捉える組別総合原価計算に近い方法の選択が認められている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑤ア 他複数</span><div class="question">等級別総合原価計算は，同一工程において，同種製品を連続生産するが，その製品を形状，大きさ，品位等によって等級に区別する場合に適用する。等級別総合原価計算にあっては，各等級製品について適当な等価係数を定め，一期間における完成品の結合原価を等価係数に基づき各等級製品にあん分してその製品原価を計算する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」22</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正しくは，「一期間における完成品の総合原価又は一期間の製造費用を等価係数に基づき各等級製品にあん分してその製品原価を計算する」である。なお，Ｒ７Ⅰ⑤の肢では，完成品の「結合原価」という表現が使用されており，上記の「原価計算基準」の表現とは異なるが，それ自体を問題視する必要はない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅱ-⑤ア</span><div class="question">わが国の「原価計算基準」によると，等級別総合原価計算では，各等級製品について適当な等価係数を定め，一期間における完成品の総合原価ではなく，一期間の製造費用を等価係数に基づき各等級製品にあん分してその製品原価を計算する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」22</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正しくは，「一期間における完成品の総合原価又は一期間の製造費用を等価係数に基づき各等級製品にあん分してその製品原価を計算する」である。なお，Ｒ７Ⅰ⑤の肢では，完成品の「結合原価」という表現が使用されており，上記の「原価計算基準」の表現とは異なるが，それ自体を問題視する必要はない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅰ-⑥ア</span><div class="question">等級製品の原価計算に採用される等価係数は，価値移転的原価計算からの観点から，製造原価発生と関係のある何らかの基準によるものと，市価の高い製品にはそれだけ多くの製造原価を負担させるという負担能力主義に基づく正常市価基準によるものが認められる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」22</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">等級別総合原価計算はあくまでも組別総合原価計算の簡便法という位置付けであり，等級製品に適用する等価係数は，価値移転的原価計算の範疇に属するものでなければならない。したがって，アウトプット基準の等価係数を使用する場合であっても，それは各等級製品の重量，長さ等原価の発生と関連ある製品の諸性質に基づいて算定する必要があり，正常市価(販売価格)という価値回収的な等価係数の適用は認められない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅱ-⑤イ</span><div class="question">等級別総合原価計算において，一定の要件の下で，等級品の正常市価を基準として定めた等価係数に基づき，一期間の総合原価を各等級品にあん分して計算することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」22</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">等級別総合原価計算はあくまでも組別総合原価計算の簡便法という位置付けであり，等級製品に適用する等価係数は，価値移転的原価計算の範疇に属するものでなければならない。したがって，アウトプット基準の等価係数を使用する場合であっても，それは各等級製品の重量，長さ等原価の発生と関連ある製品の諸性質に基づいて算定する必要があり，正常市価(販売価格)という価値回収的な等価係数の適用は認められない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅰ-⑥イ</span><div class="question">等価係数は，各等級製品の販売価格，重量，長さ，面積，純分度，熱量，硬度等原価の発生と関連ある製品の諸性質に基づいて算定する。141</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」22</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">等級別総合原価計算はあくまでも組別総合原価計算の簡便法という位置付けであり，等級製品に適用する等価係数は，価値移転的原価計算の範疇に属するものでなければならない。したがって，アウトプット基準の等価係数を使用する場合であっても，それは各等級製品の重量，長さ等原価の発生と関連ある製品の諸性質に基づいて算定する必要があり，正常市価(販売価格)という価値回収的な等価係数の適用は認められない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅰ-⑥ウ</span><div class="question">原価要素別又は原価要素群別に定めた等価係数を個別的に適用しないで，各原価要素又は原価要素群の重要性を加味して総括し，この総括的等価係数に基づいて，一期間の完成品の総合原価を一括的に各等級製品にあん分して，その製品原価を計算することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」22⑵後段</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">等価係数の算定基準には，製品の諸性質に基づくアウトプット基準と投入要素に基づくインプット基準があり，前者を使用する場合には完成品総合原価を結合原価と捉える方法(単純総合原価計算に近い方法)を，後者を使用する場合には当期製造費用を結合原価と捉える方法(組別総合原価計算に近い方法)を採用することになる。この点，原価とは利用資源の価値であるから，価値移転的原価計算の観点からすれば，等価係数はインプット基準で算定するのが望ましい。そこで，インプット基準の等価係数を使用する場合に，原価要素(群)別に算定した等価係数を総括し，単純総合原価計算に近い方法を実施することが認められている(いわゆる総合原価按分法)。なお，本肢では，上記波線部の前提が明示されていない。原価要素(群)別の等価係数＝インプット基準の等価係数と解釈できるが，やや不完全な文章といえる。142</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-4-4" class="topic-section">
+        <h2>4-4 組別総合原価計算</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑥ウエ 他複数</span><div class="question">組別総合原価計算では，一期間の製造費用を組直接費と組間接費又は原料費と加工費とに分け，個別原価計算に準じ，組直接費又は原料費は，各組の製品に賦課し，組間接費又は加工費は，適当な配賦基準により各組に配賦する。次いで一期間における組別の製造費用と期首仕掛品原価とを，当期における組別の完成品とその期末仕掛品とに分割することにより，当期における組別の完成品総合原価を計算し，これを製品単位に均分して単位原価を計算する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」23</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">組別総合原価計算は，原価計算対象が複数である点で個別原価計算に最も近い総合原価計算の形態であり，個別原価計算に類似の原価集計構造を持つ。すなわち，個別原価計算に準じて組直接費と組間接費(原料費と加工費)の集計を行った後，各組製品について各々単純総合原価計算を実施する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅱ-⑥エ</span><div class="question">組別総合原価計算は，同種製品を組別に連続生産する生産形態に適用する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」23</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">組別総合原価計算は同種製品に対して適用することも可能であるが，「原価計算基準」では，より一般的なケースを想定している。正しくは，「異種製品を組別に連続生産する生産形態に適用する」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-⑤ア</span><div class="question">組別総合原価計算では，一期間の製造費用を組直接費と組間接費又は原料費と加工費とに分け，個別原価計算とは異なり，組直接費又は原料費は，各組の製品に賦課し，組間接費又は加工費は，適当な配賦基準により各組に配賦する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」23</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正しくは，「個別原価計算に準じ，組直接費又は原料費は，各組の製品に賦課し，組間接費又は加工費は，適当な配賦基準により各組に配賦する」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅰ-⑥ウ</span><div class="question">組別総合原価計算では，一期間の製造費用を組直接費と組間接費又は原料費と加工費とに分け，等級別総合原価計算に準じ，組直接費又は原料費は，各組の製品に賦課し，組間接費又は加工費は，適当な配賦基準により各組に配賦する。次いで一期間における組別の製造費用と期首仕掛品原価とを，当期における組別の完成品とその期末仕掛品とに分割することにより，当期における組別の完成品総合原価を計算し，これを製品単位に均分して単位原価を計算する。143</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」23</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正しくは，「個別原価計算に準じ，組直接費又は原料費は，各組の製品に賦課し，組間接費又は加工費は，適当な配賦基準により各組に配賦する」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社では，買収により新たに子会社となったＸ社の原価計算方法を再検討した結果，製品Ａを生産する第１工場においては工程別総合原価計算を，製品Ｂおよび製品Ｃを生産する第２工場においては組別総合原価計算を採用することとした。<br>〔資料〕各工場の製造工程の概要<br>【第１工場】鋼板を切削加工し組立を行って製品Ａを生産している。製造工程は第１工程(切削加工)と第２工程(組立)からなり，第１工程での加工作業が終了後，すべての工程完成品は第２工程に振り替えられる。<br>【第２工場】同じ設備を用いて成形加工を行い仕様の異なる製品Ｂおよび製品Ｃを生産している。製造工程は成形加工を行う単一工程であり，一定数量の製品Ｂを生産した後，金型を交換する段取り替えを行って製品Ｃを生産している。製品ごとに実際の直接材料消費量と直接作業時間の測定を行っている。</div>
+                <span class="q-badge">R8-Ⅱ-③ウ</span><div class="question">第２工場では，組別総合原価計算を採用する。直接材料費と直接労務費を組直接費とし，製造間接費を組間接費として処理する。組間接費は実際直接作業時間により各組に配賦する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「原価計算基準」23</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">組別総合原価計算を採用する第２工場では，製品ごとに実際の直接材料消費量と直接作業時間の測定を行っている。したがって，製品ごとに直接材料費と直接労務費を計算し，それらを組直接費として，各組に賦課するのが適切である。この場合，製造間接費がそのまま組間接費となるが，各組への配賦に際しては，製品ごとに把握された原価財の実際消費量を使用する。ここでは，製造間接費が直接作業時間に比例して発生すると仮定し，製品ごとの実際直接作業時間を基準として，各組に配賦するのが適切である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-4-5" class="topic-section">
+        <h2>4-5 総合原価計算における完成品総合原価と期末仕掛品原価</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 16</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 16</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 16</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 16</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 16</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 16</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑤イ 他複数</span><div class="question">単純総合原価計算，等級別総合原価計算および組別総合原価計算は，いずれも原価集計の単位が期間生産量であることを特質とする。すなわち，いずれも継続製造指図書に基づき，一期間における生産量について総製造費用を算定し，これを期間生産量に分割負担させることによって完成品総合原価を計算する点において共通する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」24</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">総合原価計算においては，同じ種類で同じ期間に生産された製品である限り，原価計算上，製造指図書を区別しない。つまり，その特徴は，一原価計算期間の生産量を原価集計単位とする点にある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-⑤イ 他複数</span><div class="question">単純総合原価計算，等級別総合原価計算および組別総合原価計算は，いずれも原価集計の単位が期間投入量であることを特質とする。すなわち，いずれも継続製造指図書に基づき，一期間における投入量について総製造費用を算定し，これを期間投入量に集計することによって完成品総合原価を計算する点において共通する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」24</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正しくは，「単純総合原価計算，等級別総合原価計算および組別総合原価計算は，いずれも原価集計の単位が期間生産量であることを特質とする。すなわち，いずれも継続製造指図書に基づき，一期間における生産量について総製造費用を算定し，これを期間生産量に分割負担させることによって完成品総合原価を計算する点において共通する」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅱ-⑤エ</span><div class="question">個別原価計算は製造指図書を原価集計の単位としているのに対して，総合原価計算は期間生産量を原価集計の単位としているため，総合原価計算の場合には製造指図書は発行されない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」24</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">総合原価計算の特徴は，期間生産量を原価集計単位とする点にあるが，それは，同じ種類で同じ期間に生産された製品である限り，製造指図書を区別しないことを意味する。逆に言えば，総合原価計算においても製造指図書(継続製造指図書)は発行されるのであって，それが個別原価計算のように原価集計単位としての機能を持つわけではないというに過ぎない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑤エ</span><div class="question">総合原価計算において，平均法による場合は，当期の直接材料費総額(期首仕掛品および当期製造費用中に含まれる直接材料費の合計額)および当期の加工費総額(期首仕掛品および当期製造費用中に含まれる加工費の合計額)を，それぞれ完成品数量と期末仕掛品の完成品換算量との比により完成品と期末仕掛品とにあん分して，それぞれ両者に含まれる直接材料費と加工費とを算定し，これをそれぞれ合計して完成品総合原価および期末仕掛品原価を算定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」24⑵-1</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">総合原価計算において，平均法による場合は，直接材料費と加工費のそれぞれについて，期首仕掛品原価と当期製造費用を合計し，その総製造費用を完成品数量と期末仕掛品の完成品換算量の比で按分する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H22-Ⅱ-⑨イ</span><div class="question">純粋先入先出法により完成品の単位原価を算定すると，当月作業と前月作業による原価を識別することができるので，修正先入先出法に比べて価格決定目的に有効な資料を得ることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">純粋先入先出法により完成品の単位原価を算定すると，当月作業と前月作業による原価を識別することができるので，完成品について単一の平均原価のみを算定する修正先入先出法に比べて，原価管理目的に有効な資料を得ることができる。144</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-⑤ウ</span><div class="question">総合原価計算において，期首仕掛品がない場合には，平均法，先入先出法，後入先出法による期末仕掛品原価は同一となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」24⑵-1∼3</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">総合原価計算において，期首仕掛品がない場合には，平均法，先入先出法，後入先出法の区別がなくなるため，期末仕掛品原価は同一となる。なお，原価配分の仮定が不要となる以上「平均法，先入先出法，後入先出法による期末仕掛品原価は…」という記述は不正確といえるが，他の肢との兼ね合いで，相対的に〇肢と判断せざるを得なかった。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅱ-⑤ウ</span><div class="question">加工費について期末仕掛品の完成品換算量を計算することが困難な場合には，当期の加工費総額は，すべてこれを完成品に負担させ，期末仕掛品は，直接材料費のみをもって計算することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」24⑵-4</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">直接材料費と異なり，加工費については実体がないため，原価投入の程度である進捗度の見積りが相対的に難しい。そこで，加工費について期末仕掛品の完成品換算量(加工換算量)を計算することが困難な場合には，加工費の全額を完成品に負担させ，直接材料費のみを完成品と期末仕掛品に配分することが認められている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅱ-⑤ア</span><div class="question">等級別総合原価計算において，加工費を全て各等級の完成品に負担させ，各等級の期末仕掛品は直接材料費のみをもって計算することがありうる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」24⑵-4</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">等級別総合原価計算は，総合原価計算の一形態であるから，いわゆる直接材料費法の採用が認められる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅱ-⑥ア 他複数</span><div class="question">総合原価計算では，当期製造費用および期首仕掛品原価を，先入先出法などの方法により，完成品と期末仕掛品とに分割して，完成品総合原価を計算する。なお，加工費について期末仕掛品の完成品換算量を計算することが困難な場合であっても，当期の加工費総額は，すべてこれを完成品に負担させることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」24⑵-4</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">加工費について期末仕掛品の完成品換算量を計算することが困難な場合には，いわゆる直接材料費法の採用が認められている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑤イ</span><div class="question">総合原価計算において，期末仕掛品の数量が毎期ほぼ等しい場合には，当期の加工費総額について，全てこれを完成品に負担させ，期末仕掛品は，直接材料費のみをもって計算することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」24⑵-4,6</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">当期の加工費総額を全て完成品に負担させ，直接材料費のみをもって期末仕掛品を計算できるのは，加工費について期末仕掛品の完成品換算量を計算することが困難な場合である。なお，期末仕掛品の数量が毎期ほぼ等しい場合に認められるのは，当期製造費用をもってそのまま完成品総合原価とする処理である。145</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-⑤エ</span><div class="question">総合原価計算において，期末仕掛品の評価に，「将来における財貨の予定消費量と予定価格とをもって計算した原価」又は「経営における異常な状態を排除し，経営活動に関する比較的長期にわたる過去の実際数値を統計的に平準化し，これに将来のすう勢を加味した正常な能率および操業度並びに価格に基づいて決定した原価」を用いることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2，24⑵-5</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">総合原価計算において，必要ある場合には，期末仕掛品を予定原価又は正常原価で評価することが認められている。予定原価と正常原価を詳細に定義しているだけの文章である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅰ-⑥エ</span><div class="question">わが国の「原価計算基準」によると，総合原価計算において，期末仕掛品の数量が毎期ほぼ等しい場合には，総合原価の計算上これを無視し，当期製造費用をもってそのまま完成品総合原価とすることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」24⑵-6</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">総合原価計算において，期末仕掛品の数量が毎期ほぼ等しい場合には，「数量が等しければ原価も等しい」という仮定の下に，当期製造費用をもってそのまま完成品総合原価とする(期首仕掛品原価をそのまま期末仕掛品原価とする)ことが認められている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅱ-⑤イ 他複数</span><div class="question">期末仕掛品の数量が毎期ほぼ等しい場合であっても，総合原価の計算上これを無視し，当期製造費用をもってそのまま完成品総合原価とすることはできない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」24⑵-6</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">期末仕掛品の数量が毎期ほぼ等しい場合には，いわゆる無評価法の採用が認められている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-⑤イ</span><div class="question">工程別総合原価計算において，各工程の製造費用をもってそのまま各工程の完成品総合原価とすることがありうる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」24⑵-6</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">工程別総合原価計算において，各工程の期末仕掛品の数量が毎期ほぼ等しい場合には，総合原価の計算上これを無視し，当期製造費用をもってそのまま完成品総合原価とすることが認められる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅱ-⑤エ</span><div class="question">組別総合原価計算において，特定製品の期末仕掛品を予定原価又は正常原価で評価することができるのは，当該製品の期末仕掛品の数量が毎期ほぼ等しい場合である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」24⑵-5・6</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">期末仕掛品の数量が毎期ほぼ等しい場合には，総合原価の計算上これを無視し，当期製造費用をもってそのまま完成品総合原価とすることができるのであって，期末仕掛品を予定原価又は正常原価で評価することができるのではない。なお，期末仕掛品は，必要ある場合には予定原価又は正常原価をもって評価することができる。146</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社では，買収により新たに子会社となったＸ社の原価計算方法を再検討した結果，製品Ａを生産する第１工場においては工程別総合原価計算を，製品Ｂおよび製品Ｃを生産する第２工場においては組別総合原価計算を採用することとした。<br>〔資料〕各工場の製造工程の概要<br>【第１工場】鋼板を切削加工し組立を行って製品Ａを生産している。製造工程は第１工程(切削加工)と第２工程(組立)からなり，第１工程での加工作業が終了後，すべての工程完成品は第２工程に振り替えられる。<br>【第２工場】同じ設備を用いて成形加工を行い仕様の異なる製品Ｂおよび製品Ｃを生産している。製造工程は成形加工を行う単一工程であり，一定数量の製品Ｂを生産した後，金型を交換する段取り替えを行って製品Ｃを生産している。製品ごとに実際の直接材料消費量と直接作業時間の測定を行っている。</div>
+                <span class="q-badge">R8-Ⅱ-③ア</span><div class="question">第１工場および第２工場の原価計算方法は，いずれも継続製造指図書に基づき，一期間における投入量について総製造費用を算定し，これを期間投入量に集計することによって完成品総合原価を計算する点において共通する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「原価計算基準」24</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">総合原価計算の本質的特徴は，同じ種類で同じ期間に生産された製品である限りは，製造指図書の区別を行わず，各種製品の一定期間の生産量を原価集計単位とする点にある。したがって，第１工場及び第２工場の原価計算方法は，いずれも継続製造指図書に基づき，一期間における生産量について総製造費用を算定し，これを期間生産量に集計することによって完成品総合原価を計算する点において共通する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-4-6" class="topic-section">
+        <h2>4-6 工程別総合原価計算</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅱ-⑤ア</span><div class="question">単一製品のみを連続生産する工場においては，すべての製造費用は当該単一製品の製造に関連していることが明らかであるため，部門別計算は必要とされない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」18⑴，25</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">総合原価計算を採用する場合，単一工程とみなした計算では，原価配分の正確性を確保することは困難であるし，責任区分別の原価管理もできない。そこで，単一製品のみを連続生産し，単純総合原価計算を採用する工場においても，工程別総合原価計算を実施することがあり，その場合には部門別計算が必要とされる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-⑤ウ 他複数</span><div class="question">総合原価計算において，製造工程が二以上に連続する工程に分けられ，工程ごとにその工程製品の総合原価を計算する方法を工程別総合原価計算という。工程別総合原価計算の累加法によると，一工程から次工程へ振り替えられた工程製品の総合原価を，前工程費又は原料費として次工程の製造費用に加算する。この場合，工程間に振り替えられる工程製品の計算は，予定原価又は正常原価によることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2，25</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">工程別総合原価計算の方法には累加法と非累加法があるが，「原価計算基準」では，累加法による計算のみを規定している。この点，累加法には，実際原価による完成品原価の振替を通じて，①管理不能な前工程の能率の良否の影響が自工程に混入し，原価業績を純粋に把握できない，②自工程の計算に当たって前工程の計算の終了を待つ必要があり，製品原価の計算が遅延する，という問題がある。そこで，工程間に振り替えられる工程製品の計算について，予定原価又は正常原価を用いることが認められている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑤ウ</span><div class="question">工程別総合原価計算において，累加法による場合は，一工程から次工程へ振り替えられた工程製品の総合原価を，前工程費又は原料費として次工程の製造費用に加算する。この場合，工程間に振り替えられる工程製品の計算は，予定原価又は正常原価によることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2，25</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">工程別総合原価計算の方法には累加法と非累加法があるが，「原価計算基準」では，累加法による計算のみを規定している。この点，累加法には，実際原価による完成品原価の振替を通じて，①管理不能な前工程の能率の良否の影響が自工程に混入し，原価業績を純粋に把握できない，②自工程の計算に当たって前工程の計算の終了を待つ必要があり，製品原価の計算が遅延する，という問題がある。そこで，工程間に振り替えられる工程製品の計算について，予定原価又は正常原価を用いることが認められている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅰ-①エ</span><div class="question">総合原価計算において，製造工程が二以上の連続する工程に分けられ，工程ごとにその工程製品の原価を計算する場合には，一工程から次工程へと振り替えられた工程製品の総合原価を当該工程の完成品として当該工程の勘定に残しておき，次工程に振り替えない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」25</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」では，累加法のみを規定しており，非累加法に関する記述はそもそもない。正しくは，「一工程から次工程へ振り替えられた工程製品の総合原価を，前工程費又は原料費として次工程の製造費用に加算する」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅱ-⑤イ</span><div class="question">実際原価の計算においては，製造原価は，原則としてその実際発生額を，まず費目別に計算し，次いで原価部門別に計算し，最後に製品別に集計する。総合原価計算においては，一般に，すべての製造原価要素を部門別に計算するが，加工費のみを部門別計算すればよいこともある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」７，18⑴，26</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">部門に集計する原価要素の範囲は，製品原価の正確な計算及び原価管理の観点から弾力的に決定される。総合原価計算においては，製品原価の正確な計算の観点から，全ての製造原価要素を部門別に計算するのが通常であるが，原価管理の観点から，加工費のみを部門別計算すればよいこともある。前者を全原価要素工程別総合原価計算，後者を加工費工程別総合原価計算(加工費法)という。なお，ここでの「部門別計算」は「工程別計算」と読み替えることが可能であり，それは間接費の部門別計算と製品別計算を内包すると考えればよい。147</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅱ-⑥ウ 他複数</span><div class="question">工程別総合原価計算において，原料がすべて最初の工程の始点で投入され，その後の工程では，単にこれを加工するにすぎない場合には，各工程別に一期間の加工費を集計し，それに原料費を加算することにより，完成品総合原価を計算する。この方法を加工費工程別総合原価計算という。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」26</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原料が全て最初の工程の始点で投入され，その後の工程では，単にこれを加工するにすぎない場合(追加投入原料がない場合)には，原料費について進捗度を考慮する必要がない。そこで，原料費については面倒な工程別計算を省略し，加工費についてのみ工程別計算を適用する方法(加工費工程別総合原価計算)が認められている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H22-Ⅱ-⑨オ</span><div class="question">加工費工程別総合原価計算は，工程別計算において最終完成品が負担する各加工費を直接計算し，これらを合計して完成品加工費を計算する方法である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」26</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">加工費工程別総合原価計算(加工費法)とは，原料費については工程別計算を省略して全工程を単一工程とみなして一括的に原価配分を行い，加工費については累加法又は非累加法で工程別計算を行う方法をいう。この点，本肢は原料費の計算に関する記述がない上に，加工費について非累加法による工程別計算を行うことが前提となっており，妥当でない。なお，「原価計算基準」では累加法のみを規定しており，非累加法に関する記述はそもそもない。148</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社では，買収により新たに子会社となったＸ社の原価計算方法を再検討した結果，製品Ａを生産する第１工場においては工程別総合原価計算を，製品Ｂおよび製品Ｃを生産する第２工場においては組別総合原価計算を採用することとした。<br>〔資料〕各工場の製造工程の概要<br>【第１工場】鋼板を切削加工し組立を行って製品Ａを生産している。製造工程は第１工程(切削加工)と第２工程(組立)からなり，第１工程での加工作業が終了後，すべての工程完成品は第２工程に振り替えられる。<br>【第２工場】同じ設備を用いて成形加工を行い仕様の異なる製品Ｂおよび製品Ｃを生産している。製造工程は成形加工を行う単一工程であり，一定数量の製品Ｂを生産した後，金型を交換する段取り替えを行って製品Ｃを生産している。製品ごとに実際の直接材料消費量と直接作業時間の測定を行っている。</div>
+                <span class="q-badge">R8-Ⅱ-③イ</span><div class="question">第１工場では，累加法による工程別総合原価計算を採用する。第１工程から第２工程に振り替えられる工程完成品の原価は予定原価をもって計算し，前工程費として第２工程の製造費用に加算する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「原価計算基準」25</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」では，工程別総合原価計算の方法として累加法の採用を想定しており，工程間に振り替えられる工程製品の計算について，予定原価又は正常原価によることを認めている。この点，工程間の振替は実際原価によるのが原則であり，予定原価による振替はあくまでも容認規定であるが，本問は各工場における原価計算方法の適切性を検討する問題であるため，本肢を誤りとする理由は特にない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社では，買収により新たに子会社となったＸ社の原価計算方法を再検討した結果，製品Ａを生産する第１工場においては工程別総合原価計算を，製品Ｂおよび製品Ｃを生産する第２工場においては組別総合原価計算を採用することとした。<br>〔資料〕各工場の製造工程の概要<br>【第１工場】鋼板を切削加工し組立を行って製品Ａを生産している。製造工程は第１工程(切削加工)と第２工程(組立)からなり，第１工程での加工作業が終了後，すべての工程完成品は第２工程に振り替えられる。<br>【第２工場】同じ設備を用いて成形加工を行い仕様の異なる製品Ｂおよび製品Ｃを生産している。製造工程は成形加工を行う単一工程であり，一定数量の製品Ｂを生産した後，金型を交換する段取り替えを行って製品Ｃを生産している。製品ごとに実際の直接材料消費量と直接作業時間の測定を行っている。</div>
+                <span class="q-badge">R8-Ⅱ-③エ</span><div class="question">第１工場で，工程間に振り替えられる工程完成品の価額を予定原価をもって計算することにより生じた振替差異は，我が国の「原価計算基準」にしたがって，予定原価が不適当な場合を除いて，原則として当年度の売上原価と期末におけるたな卸資産に科目別に配賦する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「原価計算基準」25，47⑴-1</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">累加法による工程別総合原価計算において，工程間に振り替えられる工程製品の計算を予定原価による場合には，実際原価との間で振替差異が発生する。「原価計算基準」によれば，この振替差異は，予定原価が不適当な場合を除いて，少額であることが想定されるため，当年度の売上原価に賦課する簡便的な処理が原則となる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-4-7" class="topic-section">
+        <h2>4-7 仕損および減損の処理</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 5</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅱ-⑥イ</span><div class="question">総合原価計算においては，仕損の費用は，原則として，特別に仕損費の費目を設けたうえで，これをその期の完成品と期末仕掛品とに負担させる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」27</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」では，仕損費の処理方法として，いわゆる度外視法の採用が想定されている。正しくは，「特別に仕損費の費目を設けることをしないで…」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅱ-⑤エ</span><div class="question">仕損の費用は，原則として，特別に仕損費の費目を設けることをしないで，これをその期の完成品と期末仕掛品とに負担させる。なお，加工中に蒸発，粉散，ガス化，煙化等によって生ずる原料の減損の処理は，原価差異に準ずる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」27</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">減損の費用は，原則として，特別に減損費の費目を設けることをしないで，これをその期の完成品と期末仕掛品とに負担させる。つまり，正しくは，「減損の処理は，仕損に準ずる」であり，仕損と同様に，いわゆる度外視法の採用が想定されている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-⑤ア</span><div class="question">総合原価計算において，仕損が補修によって回復できる場合は，原則として，補修のために補修指図書を発行し，仕損費の費目を設け，補修指図書に集計された製造原価を仕損費とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」27，35</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">総合原価計算においても，ロット生産の下では，特定のロットが仕損となった場合に補修指図書や代品製造指図書を発行することはある。ただし，原価集計単位はあくまでも期間生産量であるため，指図書別に製造原価を集計して仕損費を計算することはしない。また，そもそも仕損費の処理としては度外視法の採用が想定されているため，原則として，仕損費を分離することもしない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H22-Ⅱ-⑨ウ</span><div class="question">正常仕損費の処理を，仕損品の発生時点と仕掛品の進捗度により判断するケースにおいて，仕損が発生する進捗度が期末仕掛品の進捗度よりも高い場合は，度外視法で計算しても，非度外視法によっても，期末仕掛品原価の金額は等しくなる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正常仕損費の処理に際して進捗度を考慮する場合，期末仕掛品の加工費進捗度よりも仕損の発生時点の加工費進捗度の方が大きければ，度外視法と非度外視法のいずれにおいても完成品のみに仕損費を負担させることになる。したがって，両者の期末仕掛品の金額は等しくなる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅰ-⑥イ</span><div class="question">正常仕損が工程の終点で発生し，正常仕損費を完成品のみに負担させる場合，度外視法で計算した月末仕掛品原価と非度外視法で計算した月末仕掛品原価は一致する。しかし，正常仕損が工程の始点で発生し，正常仕損費を完成品と月末仕掛品の両者に負担させる場合，度外視法で計算した月末仕掛品原価と非度外視法で計算した月末仕掛品原価は一致しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">いわゆる定点発生・両者負担の場合，度外視法と非度外視法の計算結果が相違する原因は，正常仕損費中の加工費の負担のさせ方にある。この点，正常仕損が工程始点で発生する場合には，正常仕損費は直接材料費のみからなり，度外視法と非度外視法のいずれにおいても，これを実在量基準で負担させることになる。したがって，両者の月末仕掛品原価は一致する。149</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-4-8" class="topic-section">
+        <h2>4-8 副産物等の処理と評価</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 8</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑤ア</span><div class="question">副産物で，そのまま外部に売却できるものは，見積売却価額から販売費および一般管理費又は販売費，一般管理費および通常の収益の見積額を控除した額を副産物の価額とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」28</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正しくは，「見積売却価額から販売費および一般管理費又は販売費，一般管理費および通常の利益の見積額を控除した額を副産物の価額とする」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑤イ</span><div class="question">副産物で，加工の上売却できるものは，加工製品の見積売却価額から加工費，販売費および一般管理費又は加工費，販売費，一般管理費および通常の利益の見積額を控除した額を副産物の価額とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」28</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">副産物で加工の上売却できるものは，加工製品の見積売却価額から加工費，販管費(および通常の利益)の見積額を控除することで，価値回収的にその原価を推定する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑤ウ 他複数</span><div class="question">副産物でそのまま自家消費されるものは，これによって節約されるべき物品の見積購入価額を副産物の価額とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」28</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">副産物でそのまま自家消費できるものは，自家消費によって節約されるべき物品の見積購入価額をもってその原価とみなすことになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑤エ</span><div class="question">副産物で，加工の上自家消費されるものは，これによって節約されるべき物品の見積購入価額から一般管理費の見積額を控除した額を副産物の価額とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」28</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正しくは，「これによって節約されるべき物品の見積購入価額から加工費の見積額を控除した額を副産物の価額とする」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑤ウ 他複数</span><div class="question">副産物は，主産物の製造過程から必然に派生する物品であり，一定の方法によりその価額を算定し，これを主産物の総合原価から控除する。軽微な副産物は，これを売却して得た収入を，原価計算外の収益とすることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」28</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">副産物については主産物と原価のかかり具合が異なるため，連産品のように一期間の総合原価を副産物自体に按分する直接的な原価計算ではなく，主産物の総合原価から評価額を控除するのみの間接的な原価計算を実施するのが原則である。ただし，副産物の評価額が軽微である場合には，これを主産物の総合原価から控除することはしないで，売却時に原価計算外の収益(営業外収益)とすることが認められている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅱ-⑤エ</span><div class="question">主産物の製造過程から副産物が生じる場合には，その価額を算定して，これを主産物の総合原価から控除する。副産物が軽微な場合には，これを売却して得た収入を主産物の総合原価から控除しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」28</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">副産物の評価額が軽微である場合には，売却時に原価計算外の収益として処理することが認められる。150</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H22-Ⅱ-⑨ア</span><div class="question">総合原価計算において仕損品が生じる場合に，この発生額が軽微であるなら，通常の処理方法ではなく，これを売却して得た収入を原価計算外の収益とすることも「原価計算基準」で認められている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」28</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">仕損品の処理及び評価は副産物に準じることになっている。したがって，仕損品の評価額が軽微である場合には，売却時に原価計算外の収益として処理することが認められる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-⑤ア</span><div class="question">総合原価計算において仕損品が生じた場合には，その売却収入を原価計算に反映しなければならず，原価計算外の収益とすることはできない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」28</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">仕損品の評価額が軽微である場合には，売却時に原価計算外の収益として処理することが認められる。151</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-4-9" class="topic-section">
+        <h2>4-9 連産品の計算</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅱ-④エ 他複数</span><div class="question">連産品とは，同一工程において同一原料から生産される異種の製品であって，相互に主副を明確に区別できないものをいう。連産品の価額は，連産品の正常市価等を基準として定めた等価係数に基づき，一期間の総合原価を連産品にあん分して計算する。この場合，連産品で加工の上売却できるものについては，加工製品の見積売却価額から加工費の見積額を控除した額をもって，その正常市価とみなし，等価係数算定の基礎とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」29</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">連産品は同時必然的に産出される結合生産物であるため，価値移転的原価計算の適用は元来不可能であり，財務諸表作成(棚卸資産価額算定)の見地から，例外的に価値回収的原価計算の適用が認められる。そこで，分離点の正常市価を等価係数として使用するのが通常であるが，加工の上売却できる連産品については，加工製品の見積売却価額マイナス加工費の見積額によって分離点の見積正味実現可能価額を算定し，その単価を正常市価とみなすことになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-⑤エ</span><div class="question">連産品は，同一工程において同一原料から生産される異種の製品であって，相互に主副を明確に区別できないものをいい，その価額は，連産品の正常市価等を基準として定めた等価係数に基づき，一期間の総合原価を連産品にあん分して計算する。この場合，連産品で，加工の上売却できるものは，加工製品の見積売却価額から加工費および通常の利益の見積額を控除した額をもって，その正常市価とみなし，等価係数算定の基礎とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」29</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">見積正味実現可能価額の算定とは，分離点の売上高(原価負担能力)を推定するものであり，副産物の評価のように分離点の原価を推定するものではない。正しくは，「加工製品の見積売却価額から加工費の見積額を控除した額をもって，その正常市価とみなし…」であり，原価負担能力の一部である通常の利益の見積額を控除することはしない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅱ-⑥エ 他複数</span><div class="question">連産品とは，同一工程において同一原料から生産される異種の製品であって，相互に主副を明確に区別できないものをいう。連産品の価額は，連産品の正常市価等を基準として定めた現価係数に基づき，一期間の総合原価を連産品にあん分して計算する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」29</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正しくは，「連産品の正常市価等を基準として定めた等価係数に基づき…」である。なお，現価係数とは，将来のフローを現在価値に換算するための係数をいう。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅰ-⑥ウ</span><div class="question">同一工程から生産される複数製品が連産品の場合，総合原価は，分離点における連産品の正常市価に数量を乗じた金額に基づいてあん分される。分離点以降固有の原価の発生が無く連産品の販売価格が異なる場合，連産品ごとの売上総利益率は同率になる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」29</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」では，連産品について正常市価基準による連結原価の按分を予定している。この場合，連産品を分離後そのまま販売する(追加加工しない)のであれば，売上高を基準に連結原価を按分することになるため，連産品ごとの売上総利益率は同率になる。なお，「販売価格が異なる場合」という前提が設けられているが，販売価格が同じでも売上総利益率は同率になる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅱ-⑤ウ</span><div class="question">同一工程から生産される複数製品が連産品の場合，総合原価は，分離点における連産品の正常市価に数量を乗じた金額に基づいてあん分される。分離点以降固有の原価の発生がなく連産品の正常市価が異なる場合，連産品ごとの売上総利益率は同じにならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」29</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">連結原価の按分を正常市価基準による場合，連産品を分離後そのまま販売する(追加加工しない)のであれば，連産品ごとの売上総利益率は同率になる。152</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅰ-⑥イ</span><div class="question">同一工程から生産される複数製品が連産品の場合，総合原価は，生産量などの物量尺度を用いて測定した，分離点における連産品の割合に基づいてあん分される。分離点以降固有の原価の発生が無く連産品の販売価格が異なる場合，連産品ごとの売上総利益率は異なることとなる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」29</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">連産品の連結原価の按分方法は市価法と物量法に大別されるが，「原価計算基準」では正常市価基準による連結原価の按分を予定している。なお，物量法による場合，連産品の販売価格が異なれば，連産品ごとの売上総利益率が異なるという点は正しい。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-⑤ウ 他複数</span><div class="question">連産品であるＡ製品とＢ製品を製造している場合に，そのまま外部に売却できるＢ製品の価額を見積売却価額から販売費および一般管理費と通常の利益の見積額を控除した額とし，これを一期間の総合原価から控除した額をもってＡ製品の価額とすることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」29</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">主産物(連産品)と副産物の区別は相対的な売却価値に基づくものであり，固定的でない。そこで，連産品について，主副の区別が比較的明確であるケースを想定し，一部の連産品を副産物に準じて評価した上で，これを一期間の総合原価から控除した額をもって，他の連産品の価額とすることが認められている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅰ-⑥ウ 他複数</span><div class="question">連産品と等級製品はともに同一工程において生産される複数の同種製品である点で共通している。連産品については，複数の製品が必然的に生産され，特定の製品を個別に生産することはできない。この点で連産品は，個別に特定の製品の生産量を決定できる等級製品とは異なっている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」22，29</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">連産品と等級製品は，同一工程において生産される複数の製品であるという点で共通するが，等級製品が同種製品であるのに対し，連産品は異種製品である。なお，連産品は同時必然的に産出される結合生産物であり，個別生産の可否に関する後半の記述は正しい。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-⑤エ</span><div class="question">等級別総合原価計算において，必要がある場合には，等級品の一種又は数種の価額を副産物に準じて計算し，これを一期間の総合原価から控除した額をもって他の等級品の価額とすることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」22，29</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">等級品は連産品や副産物のような結合生産物ではなく，個別生産が可能であるため，価値移転的原価計算の範疇で等価係数を利用した計算が求められており，価値回収的な副産物に準じた計算は認められない。正しくは，「連産品の計算において，必要ある場合には，連産品の一種又は数種の価額を副産物に準じて計算し，これを一期間の総合原価から控除した額をもって他の連産品の価額とすることができる」である。153</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-4-10" class="topic-section">
+        <h2>4-10 原価計算方法の検討</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 12</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社は新工場を建設中であり，新工場における原価計算システムの設計に着手したところである。新工場の原価計算システムは工場内で完結するものではなく，当社の財務会計システムに直結される。次の〔資料〕に基づき，新工場における原価計算システムの仕様に関するア～エの記述のうち，我が国の「原価計算基準」に照らして正しいものを二つ選びなさい。<br>〔資料〕新工場で生産する製品の概要<br>【汎用品】３等級の汎用品を連続生産する。価格競争が激しいため，厳格な原価管理が求められる。仕損品は発生しても軽微なものと見込まれる。<br>　Ａ製品：Ａ等級／生産数量６割／販売単価は汎用品の中で最も高い。<br>　Ｂ製品：Ｂ等級／生産数量３割／販売単価はＡ製品とＣ製品のほぼ中間。<br>　Ｃ製品：Ｃ等級／生産数量１割／販売単価は最も低い。<br>【特別品】Ａ製品に，顧客の注文に従って特別な追加加工を行う。将来的に拡大を見込むが，当面はＡ製品の一割程度が特別品となる。顧客からの受注は不定期であり，そのつど，必要な数量や追加加工の内容や工数は異なるため，見込生産は行えない。追加加工の難易度により，仕損品が発生することはありうる。</div>
+                <span class="q-badge">R2-Ⅱ-⑤ア 改題</span><div class="question">汎用品の原価計算は総合原価計算とし，特別品の原価計算は個別原価計算とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」21∼24，31</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">連続生産を行う汎用品について，同じ種類の製品である限り，指図書別に原価計算を実施することは経済性を害するため，期間生産量を原価集計単位とする総合原価計算を採用するのが適切である。一方で，顧客の注文に従ってＡ製品に特別な追加加工を行う特別品については，特定指図書を原価集計単位とする個別原価計算を採用するのが適切である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社は新工場を建設中であり，新工場における原価計算システムの設計に着手したところである。新工場の原価計算システムは工場内で完結するものではなく，当社の財務会計システムに直結される。次の〔資料〕に基づき，新工場における原価計算システムの仕様に関するア～エの記述のうち，我が国の「原価計算基準」に照らして正しいものを二つ選びなさい。<br>〔資料〕新工場で生産する製品の概要<br>【汎用品】３等級の汎用品を連続生産する。価格競争が激しいため，厳格な原価管理が求められる。仕損品は発生しても軽微なものと見込まれる。<br>　Ａ製品：Ａ等級／生産数量６割／販売単価は汎用品の中で最も高い。<br>　Ｂ製品：Ｂ等級／生産数量３割／販売単価はＡ製品とＣ製品のほぼ中間。<br>　Ｃ製品：Ｃ等級／生産数量１割／販売単価は最も低い。<br>【特別品】Ａ製品に，顧客の注文に従って特別な追加加工を行う。将来的に拡大を見込むが，当面はＡ製品の一割程度が特別品となる。顧客からの受注は不定期であり，そのつど，必要な数量や追加加工の内容や工数は異なるため，見込生産は行えない。追加加工の難易度により，仕損品が発生することはありうる。</div>
+                <span class="q-badge">R2-Ⅱ-⑤イ 改題</span><div class="question">汎用品の原価計算には，厳格な原価管理のため，技術的に達成可能な最大操業度と最高能率の理想的水準における標準原価を設定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">汎用品について，厳格な原価管理が求められることを理由に，標準原価計算を実施すること自体に問題はない。ただし，本問では「原価計算基準」に照らした解答が求められているため，現場管理者や現場作業員の短期的な動機づけの見地から，技術的に達成可能な最大操業度と最高能率の理想的水準における標準原価(理想標準原価)を設定することは認められない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社は新工場を建設中であり，新工場における原価計算システムの設計に着手したところである。新工場の原価計算システムは工場内で完結するものではなく，当社の財務会計システムに直結される。次の〔資料〕に基づき，新工場における原価計算システムの仕様に関するア～エの記述のうち，我が国の「原価計算基準」に照らして正しいものを二つ選びなさい。<br>〔資料〕新工場で生産する製品の概要<br>【汎用品】３等級の汎用品を連続生産する。価格競争が激しいため，厳格な原価管理が求められる。仕損品は発生しても軽微なものと見込まれる。<br>　Ａ製品：Ａ等級／生産数量６割／販売単価は汎用品の中で最も高い。<br>　Ｂ製品：Ｂ等級／生産数量３割／販売単価はＡ製品とＣ製品のほぼ中間。<br>　Ｃ製品：Ｃ等級／生産数量１割／販売単価は最も低い。<br>【特別品】Ａ製品に，顧客の注文に従って特別な追加加工を行う。将来的に拡大を見込むが，当面はＡ製品の一割程度が特別品となる。顧客からの受注は不定期であり，そのつど，必要な数量や追加加工の内容や工数は異なるため，見込生産は行えない。追加加工の難易度により，仕損品が発生することはありうる。</div>
+                <span class="q-badge">R2-Ⅱ-⑤ウ 改題</span><div class="question">仕損品の売却収入について，汎用品は原価計算外の収益とするが，特別品は製造原価から控除する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」28</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">仕損品の売却収入(評価額)の処理については，副産物の処理に関する規定が準用される。すなわち，仕損品の売却収入(評価額)は製造原価から控除するのが原則であるが，軽微な場合には原価計算外の収益とすることが認められる。この点，汎用品の仕損品については軽微なものと見込まれるため，上記例外規定の適用が適切と考えられるのに対し，特別品の仕損品については特段の説明がないため，上記原則規定の適用が適切と考えられる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社は新工場を建設中であり，新工場における原価計算システムの設計に着手したところである。新工場の原価計算システムは工場内で完結するものではなく，当社の財務会計システムに直結される。次の〔資料〕に基づき，新工場における原価計算システムの仕様に関するア～エの記述のうち，我が国の「原価計算基準」に照らして正しいものを二つ選びなさい。<br>〔資料〕新工場で生産する製品の概要<br>【汎用品】３等級の汎用品を連続生産する。価格競争が激しいため，厳格な原価管理が求められる。仕損品は発生しても軽微なものと見込まれる。<br>　Ａ製品：Ａ等級／生産数量６割／販売単価は汎用品の中で最も高い。<br>　Ｂ製品：Ｂ等級／生産数量３割／販売単価はＡ製品とＣ製品のほぼ中間。<br>　Ｃ製品：Ｃ等級／生産数量１割／販売単価は最も低い。<br>【特別品】Ａ製品に，顧客の注文に従って特別な追加加工を行う。将来的に拡大を見込むが，当面はＡ製品の一割程度が特別品となる。顧客からの受注は不定期であり，そのつど，必要な数量や追加加工の内容や工数は異なるため，見込生産は行えない。追加加工の難易度により，仕損品が発生することはありうる。</div>
+                <span class="q-badge">R2-Ⅱ-⑤エ 改題</span><div class="question">汎用品の原価計算において，最も売上高が小さいＣ製品は副産物に準じて計算し，その正常市価を総合原価から控除した額をＡ製品およびＢ製品の総合原価とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」22，29</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">一部の製品を副産物に準じて計算し，その正常市価(厳密には見積加工費，販管費等控除後の評価額)を総合原価から控除した額を他の製品の総合原価とすることができるのは，連産品の計算においてである。本問の汎用品は個別生産が可能な等級製品であるため，原則的な価値移転的原価計算を実施することが可能であり，連産品のように価値回収的原価計算を実施することは認められない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社は，事業買収を進め，現在は四つの工場で異種・複数の製品を製造し，販売している。当社は多角化が進み業績も安定してきたため，株式公開の準備に着手したところであるが，監査法人から，株式公開のために二つの工場の原価計算システムを改める必要があるという指摘を受けた。以下の工場のうち，原価計算システムを改める必要のある工場を二つ選びなさい。</div>
+                <span class="q-badge">R3-⑤ 改題 第1工場</span><div class="question">第１工場　（生産概要）原料を三つの工程で加工し，等級別製品を連続生産している。第一工程では原料を加工して単一の中間品Ａを製造し，第二工程では中間品Ａを加工して三種類の中間品（Ｂ・Ｃ・Ｄ）を組別に製造する。第三工程では中間品（Ｂ・Ｃ・Ｄ）を組み合わせて加工し，四種類の等級製品を製造している。　（原価計算システム概要）工程ごとに異なる原価計算システムを使っている。第一工程では単純総合原価計算を行い，第二工程では組別総合原価計算を行い，第三工程では等級別総合原価計算を行っている。　この工場は，原価計算システムを改める必要があるか。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span>【原価計算システムを改める必要なし】 ➡「基準」21∼23</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">１種類の中間品を連続生産する第１工程においては単純総合原価計算を，３種類の中間品を組別に連続生産する第２工程においては組別総合原価計算を，４種類の等級製品を連続生産する第３工程においては等級別総合原価計算をそれぞれ採用しており，各工程の生産形態に応じて各種の総合原価計算が適切に選択されている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社は，事業買収を進め，現在は四つの工場で異種・複数の製品を製造し，販売している。当社は多角化が進み業績も安定してきたため，株式公開の準備に着手したところであるが，監査法人から，株式公開のために二つの工場の原価計算システムを改める必要があるという指摘を受けた。以下の工場のうち，原価計算システムを改める必要のある工場を二つ選びなさい。</div>
+                <span class="q-badge">R3-⑤ 改題 第2工場</span><div class="question">第２工場　（生産概要）当工場の開業時は連産品Ｅ・Ｆを製造していたが，その10年後には，これらに加えて，連産品Ｇ・Ｈと等級品Ｉ・Ｊも製造している。　（原価計算システム概要）工場開業時に導入した原価計算システムが安定稼働しているため，継続して利用している。当システムは，各製品の正常市価を基準とした等価係数を用いた原価計算を行う。　この工場は，原価計算システムを改める必要があるか。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span>【原価計算システムを改める必要あり】 ➡「基準」22，29</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">現在は連産品に加えて等級品も製造しているが，個別生産が可能な等級品について，正常市価基準の等価係数を用いた原価計算を行うことは妥当でない。連産品については現行の原価計算を継続採用しつつ，等級品については，原価の発生と関連ある製品の諸性質又は原価要素(群)の発生と関連ある物量的数値等に基づき，価値移転的原価計算の範疇で等価係数を設定すべきである。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社は，事業買収を進め，現在は四つの工場で異種・複数の製品を製造し，販売している。当社は多角化が進み業績も安定してきたため，株式公開の準備に着手したところであるが，監査法人から，株式公開のために二つの工場の原価計算システムを改める必要があるという指摘を受けた。以下の工場のうち，原価計算システムを改める必要のある工場を二つ選びなさい。</div>
+                <span class="q-badge">R3-⑤ 改題 第3工場</span><div class="question">第３工場　（生産概要）同一の原料から，異種製品であるＫ・Ｌを組別に連続生産している。Ｋ・Ｌともに，原料を加工進捗度に応じて投入する製法を確立し，この製法により製品の品質を高めている。　（原価計算システム概要）原料が加工進捗に応じて投入される特性を反映し，原料費と加工費について，それぞれ一定の配賦基準を定めて，各組に配賦している。　この工場は，原価計算システムを改める必要があるか。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span>【原価計算システムを改める必要あり】 ➡「基準」23</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">同一原料を使用しているとはいえ，各組に賦課できる原料費を加工費と同じように各組に配賦することは妥当でない。異種製品を組別に連続生産している以上，各組製品の製造原価を出来るだけ正確に計算する必要があり，原料費については製品別の実際原料消費量に基づいて各組に賦課すべきである。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社は，事業買収を進め，現在は四つの工場で異種・複数の製品を製造し，販売している。当社は多角化が進み業績も安定してきたため，株式公開の準備に着手したところであるが，監査法人から，株式公開のために二つの工場の原価計算システムを改める必要があるという指摘を受けた。以下の工場のうち，原価計算システムを改める必要のある工場を二つ選びなさい。</div>
+                <span class="q-badge">R3-⑤ 改題 第4工場</span><div class="question">第４工場　（生産概要）かつては特注品を個別受注生産していたが，熟練工の退職が続いたため，特注品の生産はやめ，現在は汎用の製品Ｍ・Ｎの量産のみを行っている。両製品ともに需要の変動が大きいため，毎月の需要予測に基づき製品別に月次製造指図書を発行して月次でバッチ生産を行っている。　（原価計算システム概要）製造指図書が発行されているため，かつて個別受注生産のみを行っていた時期に導入した個別原価計算システムを，現在もそのまま利用している。　この工場は，原価計算システムを改める必要があるか。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span>【原価計算システムを改める必要なし】 ➡「基準」23，24，31</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">かつては特注品を個別受注生産していたところ，現在は２種類の汎用製品を量産しており，一見すると個別原価計算を継続採用する現在のシステムは妥当性を欠くようにも思える。ただし，両製品は連続生産を行っているわけではなく，毎月の需要予測に基づき，製品別に月次製造指図書を発行して月次でバッチ生産を行っている。この場合，毎月各製品で１つずつ発行される月次製造指図書の生産命令数量(バッチサイズ)がそのまま期間生産量となり，バッチ生産ゆえに仕掛在庫も殆どないと想定されるため，実質的に個別原価計算と組別総合原価計算に差はないと考えられる。以上より，各指図書に製造原価を集計する現在の個別原価計算を継続採用することに問題はないといえる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社では，新製品生産のために工場を建設中であり，新製品の原価計算方法の検討に着手したところである。次の〔資料〕に基づき，新製品の原価計算方法に関するア～エの記述のうち，原価計算の理論および我が国の「原価計算基準」に照らして正しいものを二つ選びなさい。<br>〔資料〕新工場で生産する製品Ⅹの概要<br>サイズの異なる調湿機能を備えた合板を連続生産する。生産工程は，原木を単板に切削し貼り合わせて基材である合板を製造，その合板に調湿機能のある化粧シートを貼り合わせ，３種類のサイズに裁断し製品が完成する。裁断作業は規定の大きさに裁断するのみで仕損は生じないが，基材である合板の製造および化粧シートを貼り合わせる作業では，仕損が発生することが見込まれる。<br>　製品Ｘ－Ⅰ型：生産数量割合６割／正常市価は最も高い<br>　製品Ｘ－Ⅱ型：生産数量割合３割／正常市価はⅠ型とⅢ型の中間<br>　製品Ｘ－Ⅲ型：生産数量割合１割／正常市価は最も低い</div>
+                <span class="q-badge">R8-Ⅰ-③ア 改題</span><div class="question">原価の発生と関連のある各製品の面積に基づき等価係数を設定し，一期間における完成品の総合原価を等価係数に基づき各等級製品にあん分して製品原価を計算する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」22</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">ここでは「サイズの異なる調湿機能を備えた合板を連続生産する」のであるから，それら合板を等級製品と捉え，等級別総合原価計算を適用するのが適切と考えられる。この点，本肢は，製品の性質に基づいて等価係数を設定し，単純総合原価計算に近いタイプ(完成品総合原価を結合原価と捉えるタイプ)の等級別総合原価計算を適用することを示しており，適切といえる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社では，新製品生産のために工場を建設中であり，新製品の原価計算方法の検討に着手したところである。次の〔資料〕に基づき，新製品の原価計算方法に関するア～エの記述のうち，原価計算の理論および我が国の「原価計算基準」に照らして正しいものを二つ選びなさい。<br>〔資料〕新工場で生産する製品Ⅹの概要<br>サイズの異なる調湿機能を備えた合板を連続生産する。生産工程は，原木を単板に切削し貼り合わせて基材である合板を製造，その合板に調湿機能のある化粧シートを貼り合わせ，３種類のサイズに裁断し製品が完成する。裁断作業は規定の大きさに裁断するのみで仕損は生じないが，基材である合板の製造および化粧シートを貼り合わせる作業では，仕損が発生することが見込まれる。<br>　製品Ｘ－Ⅰ型：生産数量割合６割／正常市価は最も高い<br>　製品Ｘ－Ⅱ型：生産数量割合３割／正常市価はⅠ型とⅢ型の中間<br>　製品Ｘ－Ⅲ型：生産数量割合１割／正常市価は最も低い</div>
+                <span class="q-badge">R8-Ⅰ-③イ 改題</span><div class="question">基材である合板の製造工程を第１工程とし単純総合原価計算を行い，その後の加工工程を第２工程とし，各製品の正常市価を基準として定めた等価係数に基づき，一期間の総合原価をあん分し各製品の価額を計算する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」22，29</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">等級別総合原価計算の趣旨は，個別生産が可能な等級製品について，手間とコストをかければより厳密な組別総合原価計算も実施できるところを，それらが同種製品であることに鑑み，等価係数を用いて簡便的に原価配分を行う点にある。したがって，その等価係数は，価値移転的原価計算の範疇に属するものに限定され，製品の性質に基づく場合には，原価の発生と関連のある重量，長さ，面積等に依拠することが求められる。この点，本肢は，製品の性質を価格に求め，連産品のように正常市価基準の等価係数を適用することを示しており，不適切といえる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社では，新製品生産のために工場を建設中であり，新製品の原価計算方法の検討に着手したところである。次の〔資料〕に基づき，新製品の原価計算方法に関するア～エの記述のうち，原価計算の理論および我が国の「原価計算基準」に照らして正しいものを二つ選びなさい。<br>〔資料〕新工場で生産する製品Ⅹの概要<br>サイズの異なる調湿機能を備えた合板を連続生産する。生産工程は，原木を単板に切削し貼り合わせて基材である合板を製造，その合板に調湿機能のある化粧シートを貼り合わせ，３種類のサイズに裁断し製品が完成する。裁断作業は規定の大きさに裁断するのみで仕損は生じないが，基材である合板の製造および化粧シートを貼り合わせる作業では，仕損が発生することが見込まれる。<br>　製品Ｘ－Ⅰ型：生産数量割合６割／正常市価は最も高い<br>　製品Ｘ－Ⅱ型：生産数量割合３割／正常市価はⅠ型とⅢ型の中間<br>　製品Ｘ－Ⅲ型：生産数量割合１割／正常市価は最も低い</div>
+                <span class="q-badge">R8-Ⅰ-③ウ 改題</span><div class="question">仕損の発生の都度，代品を製作した費用を個別に算定し，直接経費として仕損が発生した製品に負担させる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」27，35</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準的な量産品を原価計算対象とする総合原価計算においては，仕損費は期間生産量に自動的に負担させれば足り，あえて仕損費を分離したり，特定の製品に負担させる必要もない。この点，本肢は，個別原価計算のように，仕損費を分離して特定製品の直接経費として処理することを示しており，不適切といえる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <div class="note-box"><span class="note-title">【問題】</span>当社では，新製品生産のために工場を建設中であり，新製品の原価計算方法の検討に着手したところである。次の〔資料〕に基づき，新製品の原価計算方法に関するア～エの記述のうち，原価計算の理論および我が国の「原価計算基準」に照らして正しいものを二つ選びなさい。<br>〔資料〕新工場で生産する製品Ⅹの概要<br>サイズの異なる調湿機能を備えた合板を連続生産する。生産工程は，原木を単板に切削し貼り合わせて基材である合板を製造，その合板に調湿機能のある化粧シートを貼り合わせ，３種類のサイズに裁断し製品が完成する。裁断作業は規定の大きさに裁断するのみで仕損は生じないが，基材である合板の製造および化粧シートを貼り合わせる作業では，仕損が発生することが見込まれる。<br>　製品Ｘ－Ⅰ型：生産数量割合６割／正常市価は最も高い<br>　製品Ｘ－Ⅱ型：生産数量割合３割／正常市価はⅠ型とⅢ型の中間<br>　製品Ｘ－Ⅲ型：生産数量割合１割／正常市価は最も低い</div>
+                <span class="q-badge">R8-Ⅰ-③エ 改題</span><div class="question">基材である合板の製造および化粧シートを貼り合わせる作業の後に検査点を設け，検査点で発見された時点を仕損の発生点として，仕損費を月末仕掛品の加工費進捗度を勘案した上で，完成品と月末仕掛品とに負担させる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」27</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">ウの肢で見た通り，総合原価計算においては，仕損費は期間生産量に自動的に負担させれば足りる。この点，本肢は，月末仕掛品の加工費進捗度を考慮した上で，期間生産量を構成する完成品と月末仕掛品とに仕損費を負担させることを示しており，適切といえる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 他のファイルとデータが混ざらないよう、作成時に一意の文字列に変更します
+            const pagePrefix = "Kanri_Ch4_"; 
+
+            const inputs = document.querySelectorAll('input');
+
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                
+                // 保存されている値があれば復元
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') {
+                        input.checked = savedValue === 'true';
+                    } else {
+                        input.value = savedValue;
+                        // 日付入力欄の場合、値が入っていれば type を date に変更して表示
+                        if (input.classList.contains('date-input') && savedValue !== "") {
+                            input.type = 'date';
+                        }
+                    }
+                }
+
+                // 値が変更されるたびに保存
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') {
+                        localStorage.setItem(storageKey, input.checked);
+                    } else {
+                        localStorage.setItem(storageKey, input.value);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,3277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>【管理会計論】第1章 原価計算の基礎知識（自動保存付き）</title>
+    <style>
+        /* スムーズスクロール */
+        html { scroll-behavior: smooth; }
+
+        body {
+            /* ゼロにスラッシュが入るのを防ぐ標準フォント */
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75;
+            color: #333;
+            max-width: 900px; /* 13インチiPad向けゆったりレイアウト */
+            margin: 0 auto;
+            padding: 40px 25px;
+            background-color: #f5f7f9;
+        }
+
+        /* 表紙・目次エリア */
+        .cover-page {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50;
+            font-size: 2.2em;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 1.3em;
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        /* 目次リスト */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: left;
+            max-width: 600px;
+        }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block;
+            text-decoration: none;
+            color: #1e293b;
+            background-color: #f1f5f9;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-left: 6px solid #3498db;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover {
+            background-color: #e2e8f0;
+            transform: translateX(5px);
+        }
+
+        /* 大見出し（テーマごとのブロック） */
+        .topic-section {
+            margin-top: 150px; 
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding-left: 14px;
+            border-left: 6px solid #3498db;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+        }
+        
+        /* スコアボード（日付＋点数） */
+        .score-board {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .attempt-label {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+        
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+        }
+        .date-input {
+            width: 125px;
+            padding: 6px 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .score-input {
+            width: 50px;
+            padding: 6px 8px;
+            font-size: 1.05em;
+            text-align: right;
+        }
+        .score-denominator {
+            font-weight: bold;
+            color: #64748b;
+            font-size: 1.05em;
+        }
+
+        /* Q&Aブロック */
+        .qa-block {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            break-inside: avoid;
+        }
+        
+        /* タップしやすいチェックボックス */
+        .checkbox-area {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+
+        /* 問題文とバッジのレイアウト */
+        .question-header {
+            margin-bottom: 20px;
+        }
+        .q-badge {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.9em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 4px;
+        }
+        .question {
+            font-weight: bold;
+            font-size: 1.15em;
+            color: #1e293b;
+            line-height: 1.7;
+            display: inline;
+        }
+
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            display: inline-block;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ans-row {
+            display: flex;
+            margin-bottom: 14px;
+            font-size: 1.05em;
+        }
+        .label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+        
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 16px;
+            font-size: 0.95em;
+            color: #475569;
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+
+        /* トップに戻るリンク */
+        .back-to-top {
+            display: block;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+
+        /* 印刷用スタイル */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; padding-top: 0; border-top: none; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <div class="cover-page">
+        <h1 class="cover-title">管理会計論 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">第１章 原価計算の基礎知識</div>
+        
+        <ul class="toc-list">
+            <li><a href="#topic-1-1">1-1 原価計算基準の性質</a></li>
+            <li><a href="#topic-1-2">1-2 原価計算基準の目的</a></li>
+            <li><a href="#topic-1-3">1-3 原価計算制度</a></li>
+            <li><a href="#topic-1-4">1-4 原価の本質と非原価項目</a></li>
+            <li><a href="#topic-1-5">1-5 原価の諸概念(実際原価と標準原価)</a></li>
+            <li><a href="#topic-1-6">1-6 原価の諸概念(製品原価と期間原価・全部原価と部分原価)</a></li>
+            <li><a href="#topic-1-7">1-7 原価計算の一般的基準</a></li>
+            <li><a href="#topic-1-8">1-8 実際原価の計算手続</a></li>
+            <li><a href="#topic-1-9">1-9 製造原価要素の分類基準</a></li>
+            </ul>
+    </div>
+
+
+    <div id="topic-1-1" class="topic-section">
+        <h2>1-1 原価計算基準の性質</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 4</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅱ-①ア</span><div class="question">企業の原価計算制度は，真実の原価を確定して財務諸表の作成に役立つとともに，原価を分析し，これを経営管理者に提供し，もって業務計画および原価管理に役立つことが必要とされている。したがって，原価計算制度は，いずれの計算目的にもともに役立つように形成され，一定の計算秩序として常時継続的に行なわれるものであることを要する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準の設定について」</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」の設定当時，主たる原価計算目的といえば財務諸表作成であったが，経営管理のために，原価管理や業務計画(期間計画及び期間計画に基づく予算管理)に役立つための原価計算への要請が著しく強まっていた。そこで，これらの複数の原価計算目的に対して，重点の相違はあるが，いずれの計算目的にも役立つ一定の計算秩序として，原価計算制度が形成される必要性が認識された。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-①エ</span><div class="question">「原価計算基準」は，実践規範として，企業における原価計算の慣行のうちから，一般に公正妥当と認められるところを要約して設定されたものであるが，個々の企業の原価計算手続を画一的に規定するものではなく，基本的な枠組みを提示している。各企業には，業種，経営規模そのほかの個別の条件に応じて，「原価計算基準」の弾力的な適用が求められる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準の設定について」</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」は個々の企業の原価計算手続を画一的に規定するものではなく，弾力性に富む「ガイドライン」であることに注意する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅱ-①イ</span><div class="question">「原価計算基準」は，実践規範として，わが国現在の企業における原価計算の慣行のうちから，一般に公正妥当と認められるところを要約して設定されたものである。したがって，「原価計算基準」は，原価情報の比較可能性を確保するために，個々の企業の原価計算手続を画一的に規定するものである。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準の設定について」</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」は，単に原価計算に関する啓蒙的な役割を担っていただけというわけではないが，強制力を持つものでもない。正しくは，「個々の企業の原価計算手続を画一に規定するものではなく，個々の企業が有効な原価計算手続を規定し実施するための基本的なわくを明らかにしたもの」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅰ-①ア</span><div class="question">「原価計算基準」は，昭和37年に制定され，以来一度も改正されずに今日に至っており，原価管理等の経営管理面に果たす役割については陳腐化している部分もあるが，「原価計算基準」は公認会計士や監査法人が財務諸表の監査を行う場合に従わなければならない基準となるので，棚卸資産の評価や原価差異の処理等財務諸表作成のための原価計算を実施する場合は，「原価計算基準」に従わなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準の設定について」</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」はあくまでも「実践規範」であり，強制力はない。したがって，企業が原価計算を実施する場合には「原価計算基準」を尊重すべきではあるが，必ずしも「従わなければならない」というわけではない。過去問チェック43</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-1-2" class="topic-section">
+        <h2>1-2 原価計算基準の目的</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 9</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-①ウ</span><div class="question">原価計算の目的の一つは，企業の出資者，債権者，経営者等のために，過去の一定期間における損益ならびに期末における財政状態を財務諸表に表示するために必要な真実の原価を集計することである。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」１⑴</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">なお，財務諸表の利用者として「経営者」が挙げられているのは，内部管理目的で財務諸表が利用されることを想定したものである。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H20-①カ</span><div class="question">原価計算目的には，政府調達のための予定価格計算に必要な原価資料を提供するという価格計算目的もある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」１⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">価格計算目的は，我が国の伝統的な原価計算目的の１つである。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅰ-①イ</span><div class="question">「原価計算基準」では原価計算目的の一つとして，「価格計算に必要な原価資料を提供すること。」があげられているが，これは製品やサービスの売価決定等企業の価格政策に資することを意味している。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」１⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">ここでの価格計算目的とは，政府による調達物資の価格決定，公定価格や統制価格の決定等に際して，原価資料を提供することを意味するのであって，いわゆる価格意思決定とは区別される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-①ア</span><div class="question">原価計算の目的の一つは，経営管理者の各階層に対して，原価管理に必要な原価資料を提供することである。ここに原価管理とは，原価の標準を設定してこれを指示し，原価の実際の発生額を計算記録し，これを標準と比較して，その差異の原因を分析し，これに関する資料を経営管理者に報告し，原価能率を増進する措置を講ずることをいう。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」１⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価管理といえば，現代的には，原価自体を計画的に引き下げる原価低減を含む概念として定義される。ただし,「原価計算基準」でいう原価管理は狭義の原価管理であり，標準原価管理や予算管理によって実際原価を標準原価に合致させる原価維持あるいは原価統制を意味する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H18-①ア</span><div class="question">原価計算の主たる目的の一つは，予算編成ならびに予算統制のために必要な原価資料を提供することである。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」１⑷</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">なお，予算は利益管理のためのツールであるから，利益管理目的もまた，原価計算の主たる目的の一つと解釈できる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅱ-①ア 他複数</span><div class="question">予算とは，予算期間における企業の各業務分野の具体的な計画を貨幣的に表示し，これを総合編成したものをいい，予算期間における企業の利益目標を指示し，各業務分野の諸活動を調整し，企業全般にわたる総合的管理の要具となるものである。予算は，業務執行に関する総合的な期間計画であるが，予算編成の過程は，たとえば製品組合せの決定，部品を自製するか外注するかの決定等個々の選択的事項に関する意思決定を含まないことは，いうまでもない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」１⑷</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">反復的な期間計画としての予算は，非反復的な個別計画とは概念上区別されるが，現実には，自製か購入かなどの意思決定の結果を受けて,予算が編成される。「原価計算基準」ではこの実態を重視し，期間計画としての予算編成の過程には，個別計画としての個々の選択的事項に関する意思決定（個別業務計画＝業務的意思決定）を含む，としている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-①イ</span><div class="question">原価計算の目的の一つは，予算の編成のために必要な原価資料を提供することである。ここに予算とは，予算期間における企業の各業務分野の具体的な計画を定量的に表示し，これを総合編成したものであり，予算編成の過程では，個々の選択的事項の意思決定は対象外となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」１⑷</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">予算とは，予算期間における企業の各業務分野の具体的な計画を貨幣的に表示し，これを総合編成したものをいう。また，予算編成の過程には，個々の選択的事項の意思決定が含まれる。44</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-①ウ 他複数</span><div class="question">原価計算の目的として，経営の基本計画設定に必要な原価情報を提供することが想定されている。基本計画とは，経済の動態的変化に適応して，経営の給付目的たる製品，経営立地，生産設備等経営構造に関する基本的事項について，経営意思を決定し，経営構造を合理的に組成することをいい，随時的に行なわれる決定である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」１⑸</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">経営構造の変革を伴う戦略的意思決定は，非反復的な個別計画の一種(個別構造計画)であるが，我が国の「原価計算基準」では，これを「基本計画」と称している。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅱ-①エ</span><div class="question">原価計算の目的の一つは，経営の基本計画を設定するに当たり，これに必要な原価情報を提供することである。ここに基本計画とは，経済の動態的変化に適応して，経営の給付目的たる製品，経営立地，生産設備等経営構造に関する基本的事項について，経営意思を決定し，経営構造を合理的に組成することをいい，経常的に行なわれる決定である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」１⑸</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">意思決定である以上，基本計画の設定は随時的に行われるものであり，経常的に行われるものではない。45</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-1-3" class="topic-section">
+        <h2>1-3 原価計算制度</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 11</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 11</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 11</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 11</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 11</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 11</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-①ア</span><div class="question">原価計算制度は，財務会計機構と有機的に結びつき常時継続的に行われる計算体系であり，財務諸表の作成(棚卸資産や売上原価等の表示)に必要な情報の提供のみを目的としている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」２</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価計算制度は，財務諸表の作成，原価管理，予算統制等の異なる目的が，重点の相違はあるが相ともに達成されるべき一定の計算秩序であり，財務諸表の作成に必要な情報の提供のみを目的としているわけではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H20-①ア</span><div class="question">原価計算制度とは財務諸表作成のための原価計算であり，原価管理，予算統制等の目的のためには，別の原価計算が行われなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」２</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価計算制度は「財務諸表の作成，原価管理，予算統制等の異なる目的が，重点の相違はあるが相ともに達成されるべき一定の計算秩序」であり，複数の原価計算目的に単一の計算システムで対応することが予定されている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H21-①イ</span><div class="question">「原価計算基準」においては，原価計算の目的として財務諸表作成と原価管理を念頭においたものであり，利益管理のための原価計算は，制度としての原価計算の範囲外に属すると考えられている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」１⑷，２</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">利益管理のためには予算管理が有効であり，予算管理は原価計算制度の目的の１つである。したがって，利益管理のための原価計算は，制度としての原価計算の範囲内に属するといえる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-①ア 他複数</span><div class="question">原価計算制度は，財務会計機構のらち外において，随時断片的に行われる原価の統計的，技術的計算ないしは調査ではなくて，財務会計機構と有機的に結びつき常時継続的に行われる計算体系であるから，予算統制のために必要な原価資料を提供することは，広い意味での原価の計算には含まれるが，制度としての原価計算の範囲外に属する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」１⑷，２</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">期中あるいは事後の予算統制においては実績情報が不可欠であり，その原価計算は複式簿記と結合して常時継続的に行われる。したがって，予算統制のために原価資料を提供することは，制度としての原価計算の範囲内に属する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅰ-①ア 他複数</span><div class="question">原価計算制度は，これを大別して実際原価計算制度と標準原価計算制度とに分類することができる。原価管理上必要がある場合には，実際原価計算制度においても必要な原価の標準を帳簿組織のわく外において設定し，これと実際との差異を分析し，報告することがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」２</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価計算制度は，製品原価の計算と財務会計とがいかなる原価で結び付くかによって，実際原価計算制度と標準原価計算制度とに大別される。ただし，実際原価計算制度を採用する場合に，勘定組織の枠外の統計的補助記録において標準原価計算を実施することがある（統計的標準原価計算）。46</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R3-⑦ア</span><div class="question">標準原価計算には種々の方法があるが，これを大別すれば，標準原価計算制度と統計的標準原価計算の二つに分けられる。前者は，標準原価計算を複式簿記機構と結合させ，常時，継続的に行う方法であり，後者は，標準原価計算を複式簿記機構から取り外し，これを統計的補助記録の中で行う方法である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」２</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価計算の方法は，複式簿記機構との結合の有無により，標準原価計算制度と統計的標準原価計算に大別される。前者が勘定組織と結合して常時継続的に標準原価計算を実施するのに対し，後者は実際原価計算制度を採用する場合に，勘定組織の枠外の統計的補助記録の中で標準原価計算を実施する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-①イ</span><div class="question">原価は集計される原価の範囲によって，全部原価と部分原価とに区別される。原価計算制度において計算される原価の種類およびこれと財務会計機構との結びつきは，単一ではない。原価計算制度は，財務会計機構といかに結びつくかという観点から，実際原価計算制度と直接原価計算制度とに大別される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」２</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価計算制度は，財務会計機構といかに結び付くかという観点から，実際原価計算制度と標準原価計算制度とに大別される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅰ-⑧ア 他複数</span><div class="question">標準原価計算制度は，製品の標準原価を計算し，これを財務会計の主要帳簿に組み入れ，製品原価の計算と財務会計とが，標準原価をもって有機的に結合する原価計算制度である。標準原価計算制度は，必要な計算段階において実際原価を計算し，これと標準との差異を分析し，報告する計算体系である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」２</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価計算が財務会計から入手するデータは実際原価であるため，標準原価計算制度では標準原価と実際原価の双方を計算する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅱ-⑦エ</span><div class="question">標準原価計算制度では，製品の標準原価を計算し，これを財務会計の主要帳簿に組み入れ，製品原価の計算と財務会計とが，標準原価をもって有機的に結合される。標準原価計算制度は，必要な計算段階において予定原価を計算し，これと標準との差異を分析し，報告する計算体系である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」２</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正しくは，「必要な計算段階において実際原価を計算し…」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H18-①ウ</span><div class="question">企業の経営者は，経営の基本計画及び予算編成における選択的事項の決定に必要な特殊原価の計算を必要としている。原価計算制度はこれらの経営者の情報ニーズを満たすために特殊原価も計算できなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」１⑷⑸，２</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">企業の経営者が特殊原価に関する情報を必要としていることは確かであるが，特殊原価調査は制度としての原価計算の範囲外に属するため，原価計算制度において特殊原価を計算することはない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-①イ</span><div class="question">実践規範として設定された「原価計算基準」は，「企業会計原則」の一環を成し，そのうちとくに原価に関して規定したものであるが，必要に応じて，経営の基本計画および予算編成における選択的事項の決定に必要な差額原価や機会原価等の計算についても適用される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」１⑷⑸，２</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」は原価計算制度を規定したものであり，原価計算制度は，財務会計機構と有機的に結合して常時継続的に行われることを要する。したがって，財務会計機構のらち外において随時断片的に行なわれる特殊原価調査は，制度としての原価計算の範囲外に属するものとして，「原価計算基準」は適用されない。47</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-1-4" class="topic-section">
+        <h2>1-4 原価の本質と非原価項目</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H21-①ア</span><div class="question">原価計算制度において原価とは，経営における一定の給付にかかわらせて，把握された支出をいう。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」３</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価計算制度において原価とは「経営における一定の給付にかかわらせて，は握された財貨又は用役の消費を，貨幣価値的に表したもの」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅰ-①ウ 他複数</span><div class="question">原価は，経営において作り出された一定の給付に転嫁される価値であり，その給付にかかわらせて，は握されたものである。ここに給付とは，経営が作り出す財貨をいい，それは最終給付のみでなく，中間的給付をも意味する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」３⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価計算は，製品(サービス)単位当たりの原価を明らかにする「給付単位計算」としての本質を持つため，給付にかかわらせて原価を把握するのは当然の要件といえる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H21-①ウ</span><div class="question">「原価計算基準」でいう給付とは，経営の最終給付である製品のみを意味しており，サービスは含まれていない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」３⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">給付とは，経営の最終給付のみでなく，仕掛品，半製品等の中間的給付をも意味する。また，給付とは経営が作り出す財貨又は用役であるから，製品のみでなくサービスも含まれる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H23-Ⅱ-②オ</span><div class="question">原価要素は，職能別分類に従い，製造原価要素と販売費および一般管理費の要素とに分類できる。製品の製造に要する原価が製造原価であり，製品の販売に要する原価が販売費である。管理費は，これを製造活動の管理費(たとえば，製造部長の給料)と販売活動の管理費（たとえば，販売部長の給料）とに分けられ，前者は製造原価に，後者は販売費に含め，いずれにも分けられない管理費は，一般管理費である。販売費と一般管理費を合わせて，営業費と呼ぶことがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span></span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">製造活動の管理費は製造原価に，販売活動の管理費は販売費に含めるのであって，管理活動に要する費用の全てが一般管理費となるわけではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅰ-①ウ</span><div class="question">原価は，経営において作り出された一定の給付に転嫁される価値であり，その給付にかかわらせて把握されたものであるため，販売費及び一般管理費は期間原価とされ，非原価として処理される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」３⑵⑶,４⑵,６⑴-1</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">販管費が期間原価とされることは正しいが，これらは経営目的としての生産・販売活動(及び生産・販売活動を支援する一般管理活動)にかかわる価値消費分であるため，製造原価とともに原価計算制度における原価を構成する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H23-Ⅱ-②カ 他複数</span><div class="question">「原価計算基準」によれば，原価は，経営目的に関連したものである。経営の目的は，一定の財貨を生産し販売することにあり，経営過程は，このための価値の消費と生成の過程である。原価は，かかる財貨の生産，販売に関して消費された経済価値である。したがって，資金の調達等の財務活動に関連する財務費用は，原則として原価計算制度のもとでは原価を構成しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」３⑶，５⑴-3</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">財務費用は経営目的に関連しない価値の減少であり，原則として非原価項目として処理される。財務費用を原価算入すれば，経営目的たる生産・販売活動の業績に資本構成の影響が混入し，望ましくないからである。48</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H18-①エ</span><div class="question">原価計算制度において計算される原価は，経営目的に関連したものである。経営の目的は，資本を調達し，調達した資本により一定の財貨を生産し販売し，利益処分等を行うことである。このため，原価計算制度で計算する原価には，製造原価のみならず，販売費及び一般管理費，さらに財務費用も含まれている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」３⑶，５⑴-3</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価計算制度において，経営目的とは「一定の財貨を生産し販売すること」であり，財務活動たる資本の調達，返還，利益処分等から生ずる財務費用は，原則として原価を構成しない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅰ-①オ</span><div class="question">支払利息は原則として非原価とされるが，生産活動に使用する機械設備を自家建設するためにかかった借入金の支払利息は，一定の条件を満たす場合には原価性が認められるように，製品原価を算定する場合においても，支払利息を製品原価として算入することが認められる場合がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」３⑶，５⑴-3</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「連続意見書第三」固定資産を自家建設した場合に，建設に要する借入資本の利子で稼動前の期間に属するものについては例外的に取得原価への算入が認められており，自家建設した設備が製造用設備の場合には，減価償却を通じて支払利息の一部が製品原価を構成することになる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H20-①エ</span><div class="question">異常な仕損，減損，棚卸減耗等は経営目的に関連しない価値の減少とされ，非原価項目となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」３⑷，５⑵-1</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">異常な仕損，減損，棚卸減耗等は異常な状態を原因とする価値の減少とされ，非原価項目となる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅰ-①エ</span><div class="question">原価は，正常な状態のもとにおける経営活動を前提として，把握された価値の消費であり，異常な状態を原因とする価値の減少を含まないとされる。この場合，正常か異常かは，過去の実績データの平均値等を参考にして，当該価値の消費が金額的・量的に通常生ずると認められる許容範囲を超えているか否かによって判断するのが普通である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」３⑷，５⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正常か異常かの判断に際しては，量的側面だけでなく質的側面も考慮される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅰ-①エ</span><div class="question">有価証券の評価損および売却損は，異常な状態を原因とする価値の減少として，原価計算制度において原価に算入しない。また，固定資産売却損および除却損は，経営目的に関連しない価値の減少として，原価計算制度において原価に算入しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」３⑶⑷,５⑴-4,５⑵-8</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">有価証券の評価損および売却損は経営目的に関連しない価値の減少として，固定資産売却損および除却損は異常な状態を原因とする価値の減少として，それぞれ非原価項目となる。49</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅱ-①ア</span><div class="question">原価は，経営において作り出された一定の給付に転嫁される価値であり，その給付にかかわらせて，は握されたものである。ここに給付とは，経営が作り出す財貨をいい，それは経営の最終給付のみでなく，中間的給付をも意味する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「原価計算基準」３⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価の要件のうち，給付関連性に関する記述である。給付とは製品に代表される原価集計単位の総称であり，原価計算は，製品単位当たりの原価を明らかにする「給付単位計算」としての本質を持つ。したがって，給付にかかわらせて原価を把握するのは当然の要件といえる。また，給付といえば経営の最終給付たる製品(最終製品)を指すのが通常であるが，仕掛品，半製品等の中間的給付も含まれる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅱ-①イ</span><div class="question">原価は，正常な状態のもとにおける経営活動を前提として，は握された価値の消費であり，異常な状態を原因とする価値の減少を含まないが，軽微なものであれば原価に含められる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「原価計算基準」３⑷，５⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価の要件のうち，正常性に関する記述である。正常性の本質は非異常性であり，異常な状態を原因とする価値の減少は非原価項目とされるが，異常という概念には量的異常と質的異常の２つがある。このうち，量的異常とは金額的・量的(数量的)に通常生ずると認められる許容範囲を超えることを指すが，量的に軽微(正常)であっても，質的に異常であれば(発生原因が偶発的なものであれば)，当該価値の減少は非原価項目とされる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅱ-①ウ</span><div class="question">原価は，経済価値の消費である。経営の活動は，一定の財貨を生産し販売することを目的とし，一定の財貨を作り出すために，必要な財貨すなわち経済価値を消費する過程である。原価とは，かかる経営過程における価値の消費を意味する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「原価計算基準」３⑴</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価の要件のうち，経済価値消費性に関する記述である。これは，経済価値のある財貨の消費をもって初めて原価の発生を認識することを意味する。つまり，経済価値のある財貨であっても，消費しなければそれは資産であって原価とはならないし，経済価値のないものを消費したとしても原価は認識されない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅱ-①エ</span><div class="question">原価は，経営目的に関連したものである。経営の目的は，一定の財貨を生産し販売することにあり，経営過程は，このための価値の消費と生成の過程である。原価は，かかる財貨の生産，販売，財務活動に関して消費された経済価値であり，経営目的に関連しない価値の消費を含まない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「原価計算基準」３⑶，５⑴-3</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価の要件のうち，経営目的関連性に関する記述である。ここでの経営目的とは「一定の財貨を生産し販売すること」であるから，財務活動に関する財務費用は，経営目的に関連しない価値の減少として，非原価処理するのが原則である。正しくは，「原価は，かかる財貨の生産，販売，財務活動に関して消費された経済価値であり，経営目的に関連しない価値の消費を含まない」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-1-5" class="topic-section">
+        <h2>1-5 原価の諸概念(実際原価と標準原価)</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 25</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 25</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 25</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 25</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 25</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 25</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅱ-①イ 他複数</span><div class="question">実際原価とは，財貨の実際消費量をもって計算した原価をいう。ただし，その実際消費量は，経営の正常な状態を前提とするものであり，したがって，異常な状態を原因とする異常な消費量は，実際原価の計算においてもこれを実際消費量と解さないものとする。実際原価は，厳密には実際の取得価格をもって計算した原価の実際発生額であるが，原価を予定価格等をもって計算しても，消費量を実際によって計算する限り，それは実際原価の計算である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-1</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」における実際原価の本質的特徴は，①実際消費量をもって計算した原価であること(価格については予定価格等の適用が認められる)，②実際消費量には異常な状態を原因とする異常な消費量を含まないこと(歴史的原価ではなく実際正常原価であること)の２点に求められる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-①イ 他複数</span><div class="question">実際原価は，厳密には実際の取得価格をもって計算した原価の実際発生額であるが，原価を予定消費量等をもって計算しても，価格を実際によって計算する限り，それは実際原価の計算である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-1</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正しくは，「予定価格等をもって計算しても，消費量を実際によって計算する限り…」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H22-Ⅰ-⑦エ</span><div class="question">原価標準を設定する際には，価格水準，能率水準，操業度水準に関する基準を仮定しなければならない。これらの水準の組合せによって，理想標準原価，正常標準原価，現実的標準原価などに区別できる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価標準は，価格，能率，操業度といった基礎水準の組合せにより，理想標準原価，正常標準原価(正常原価)，現実的標準原価などに区別される。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅱ-⑦ア</span><div class="question">標準原価とは，財貨の消費量を科学的，統計的調査に基づいて能率の尺度となるように予定し，かつ，予定価格又は正常価格をもって計算した原価をいう。この場合，能率の尺度としての標準とは，その標準が適用される期間において達成されるべき原価の目標を意味する。標準原価計算制度において用いられる標準原価は，現実的標準原価又は正常原価である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価(原価標準)は，消費量と価格の双方を予定する。価格について，現実的標準原価では短期予想価格としての予定価格を，正常原価では長期平均価格としての正常価格を使用する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-⑦イ</span><div class="question">原価標準を設定する際に，価格水準，能率水準，操業水準が決定される。これらの水準を組み合わせることで，原価標準は，厳格度という点から，理想的標準原価，現実的標準原価，正常標準原価(正常原価)などに区分される。我が国の「原価計算基準」によれば，標準原価計算制度において用いられる標準原価として，理想的標準原価と現実的標準原価が示されている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」によれば，標準原価計算制度において用いられる標準原価として，現実的標準原価と正常原価が示されている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅱ-⑧ア</span><div class="question">標準原価とは，財貨の消費量を科学的，統計的調査に基づいて能率の尺度となるように予定し，かつ，予定価格又は正常価格をもって計算した原価をいう。この場合，能率の尺度としての標準とは，その標準が適用される期間において達成されるべき原価の目標を意味する。標準原価計算制度において用いられる標準原価は，理想標準原価又は正常原価である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価計算制度において用いられる標準原価は，現実的標準原価又は正常原価である。50</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅱ-⑦ア 他複数</span><div class="question">現実的標準原価とは，良好な能率のもとにおいて，その達成が期待されうる標準原価である。通常，生ずると認められる程度の減損，仕損，遊休時間等の余裕率を含む。比較的短期における予定操業度および予定価格を前提として決定され，これらの諸条件の変化に伴い，しばしば改訂される。原価管理目的に適合する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">現実的標準原価は能率水準として達成可能高能率を予定しており，短期的な動機づけ効果に優れるため，原価管理目的に最も適する。また，適宜改訂される当座標準原価の代表例でもある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-⑧エ</span><div class="question">我が国の「原価計算基準」では正常原価を標準原価計算制度における標準原価としているが，これは通常生ずると認められる程度の仕損等の余裕率を含み，比較的短期における予定操業度や予定価格を前提として決定される原価である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">通常生ずると認められる程度の仕損等の余裕率を含み，比較的短期における予定操業度や予定価格を前提として決定されるのは，もう一つの標準原価計算制度上の標準原価としての現実的標準原価であり，正常原価ではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-⑦エ</span><div class="question">現実的標準原価は，良好な能率のもとで達成が期待される標準原価であり，通常生じると想定される減損，仕損などの余裕率を含んでいる。具体的には，当座価格水準，達成可能高能率水準(あるいは期待実際能率水準)，期待実際操業水準を組み合わせて設定される。経済状態が安定していない状況下でも，原価管理目的に適する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">現実的標準原価は短期的な標準原価であり，価格水準としては短期予想価格としての予定価格あるいは当座価格を，操業水準(基準操業度)としては期待実際操業水準(期待実際操業度)を予定している。また，現実的標準原価が予定する達成可能高能率は規範的な能率水準であり，そういったあるべき作業能率は，経済状態とは無関係である。したがって，経済状態が安定していない状況下でも動機づけ効果に優れ，原価管理目的に適する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H19-⑦イ</span><div class="question">現実的標準原価は価格水準が比較的短期における見込みをもとに設定され，能率水準は達成可能な高水準に設定されることから，原価管理に最も適する標準原価ということができ，さらに，現実的標準原価は外部報告目的の財務諸表におけるたな卸資産価額の決定のためにも使用することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">現実的標準原価では，動機づけ目的から不利差異の発生が予定されるが，これを財務会計上適正に処理することを前提とすれば，外部報告目的の財務諸表における棚卸資産価額の決定のためにも使用することができる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H29-Ⅱ-⑦ア</span><div class="question">現実的標準原価は，良好な能率のもとにおいて，その達成が期待されうる標準原価をいう。比較的短期における予定操業度および予定価格を前提として決定され，これら諸条件の変化に伴い，しばしば改訂される標準原価である。原価管理に最も適するのみでなく，予算の編成のためにも用いられる。ただし，たな卸資産価額の算定のためには用いるべきではない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">現実的標準原価は主として原価管理を目的とする標準原価であるが，棚卸資産価額の算定のためにも用いられる。なお，予算編成のためにも用いられるという点は正しいが，現実的標準原価をそのまま予算原価として使用すれば資金ショートのリスクがあるため，予想される不利差異相当分を期待差異として加味する必要がある。51</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-①ア 他複数</span><div class="question">正常原価とは，経営における異常な状態を排除し，経営活動に関する比較的長期にわたる過去の実際数値を統計的に平準化し，これに将来のすう勢を加味した正常能率，正常操業度および正常価格に基づいて決定される原価をいう。正常原価は，経済状態の安定している場合に，たな卸資産価額の算定のために最も適するのみでなく，原価管理のための標準としても用いられる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正常原価は，過去の統計に将来の趨勢を加味した長期平均的な標準原価であるから，経済状態が安定している場合に棚卸資産価額の算定に最も適する。また，正常原価は，原価管理目的に使用することも想定されている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅰ-①エ</span><div class="question">正常原価とは，経営における異常な状態を排除し，経営活動に関する比較的短期にわたる過去の実際数値を統計的に平準化し，これに将来のすう勢を加味した正常能率，正常操業度および正常価格に基づいて決定される原価をいう。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正常原価の「正常」という語句には，異常でないという意味の他に「長期平均的」というニュアンスが含まれる。正しくは，「経営活動に関する比較的長期にわたる過去の実際数値を統計的に平準化し…」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R4-Ⅰ-⑦ウ</span><div class="question">正常標準原価(正常原価)は，経営活動に関する比較的長期にわたる過去の実際数値を統計的に平準化し，これに将来の趨勢を加味して決定される。具体的には，正常価格水準，理想能率水準，実際的生産能力水準を組み合わせて設定した標準原価である。正常標準原価は，経済状態が安定している場合，期間損益計算目的に適合している。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正常標準原価(正常原価)は，正常価格水準，正常能率水準，正常操業水準(正常操業度あるいは平均操業度)を組み合わせて設定した標準原価であり，理想能率水準や実際的生産能力水準を予定するのは理想標準原価である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅱ-⑦イ</span><div class="question">正常原価とは，経営における異常な状態を排除し，経営活動に関する比較的長期にわたる過去の実際数値を統計的に平準化し，これに将来のすう勢を加味した正常能率，正常操業度および正常価格に基づいて決定される原価をいう。正常原価は，経済状態の安定している場合に，たな卸資産価額の算定および予算編成のために用いられる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正常原価は長期平均的な標準原価であるため，短期を前提とする予算の編成には全く適さない。正しくは，「経済状態の安定している場合に，たな卸資産価額の算定に最も適するのみでなく，原価管理のための標準としても用いられる」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅱ-⑦イ</span><div class="question">我が国の「原価計算基準」では，標準原価として現実的標準原価，正常原価，予定原価，理想標準原価の四つをあげており，理想標準原価は制度としての標準原価ではないものの，いずれも原価管理に役立つことを目的としている点で共通している。なお，理想標準原価を除いては，原価管理のみならず，たな卸資産価額の算定と予算の編成にも等しく適するものとして用いられる点で共通している。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">４つの標準原価は，重点の相違はあるがいずれも原価管理目的での使用が想定されている。一方，理想標準原価を除く３つの標準原価について，棚卸資産価額の算定と予算の編成にも等しく適するとしているが，正常原価は長期平均的な標準原価であるから，短期を前提とする予算の編成には全く適さない。52</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H26-Ⅱ-⑧イ</span><div class="question">標準原価として，実務上予定原価が意味される場合がある。予定原価とは，将来における財貨の予定消費量と予定価格とをもって計算した原価をいう。予定原価は，予算の編成に適するのみでなく，原価管理およびたな卸資産価額の算定のためにも用いられる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価計算理論における予定原価とは，科学的方法で規範的に設定された標準原価と非科学的方法で設定された見積原価を包括する概念であるが，「原価計算基準」では，後者の見積原価を予定原価と称している。予定原価(見積原価)は，本来的な意味での標準原価とは区別されるが，実際原価に近似するように設定されるため，予算編成に適するといわれる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-④ウ</span><div class="question">我が国の「原価計算基準」では，標準原価として，実務上予定原価が意味される場合があるとし，将来における財貨の予定消費量と予定価格とをもって計算した原価である見積原価も，標準原価としての利用を認めている。見積原価はまったく原価標準を用いずに計算することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">総額としての見積原価は，単位当たりの見積原価である原価見積に対して，実際生産量を掛けることで計算することができる。したがって，見積原価の計算においては，単位当たりの標準原価である原価標準は全く不要と解釈することができる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H20-⑧イ</span><div class="question">標準原価のタイプには，理想標準原価，正常標準原価および現実的標準原価などがあるが，このうち理想標準原価は，もっとも厳しい標準原価であるため，製造現場のモティベーションを下げることになり，原価管理において不適切な面があり，さらに期間損益計算に使用することも適していないといえる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">理想標準原価を達成することは現実には不可能であるため，これを短期的な目標として製造現場に指示すれば，その動機づけを損なう危険性がある。また，多額の不利差異の発生が自明であり，原価差異を適正に処理しさえすれば財務諸表作成に当たっての不備は生じないものの，少なくとも期間損益計算に適しているとはいえない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅰ-⑦ア</span><div class="question">理想標準原価は原価管理のために用いられることがあるが，「原価計算基準」にいう制度としての標準原価ではない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">近年では，仕損ゼロの達成に向けた長期的な動機づけの観点から，将来的に回避すべき無駄を完全に明示するべく，理想標準原価を原価管理用の標準として使用する企業が少なくない。しかしながら，「原価計算基準」の設定当時，長期を見据えて原価を計画的に引き下げるという思考(原価低減)は未だ浸透していなかったため，短期目標としての適性を欠く理想標準原価は，制度としての標準原価ではないとされている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-④ア</span><div class="question">我が国の「原価計算基準」では，標準原価として現実的標準原価，正常原価，理想標準原価を挙げる。このうち理想価格水準，理想能率水準，技術的に達成可能な最大操業水準を組み合わせた理想標準原価は，標準原価計算制度としての標準原価とは認められない。53</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">近年では，仕損ゼロの達成に向けた長期的な動機づけの観点から，将来的に回避すべき無駄を完全に明示するべく，理想標準原価を原価管理用の標準として使用する企業が少なくない。しかしながら，「原価計算基準」の設定当時，長期を見据えて原価を計画的に引き下げるという思考(原価低減)は未だ浸透していなかったため，短期目標としての適性を欠く理想標準原価は，制度としての標準原価ではないとされている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H25-Ⅰ-⑨ア</span><div class="question">標準原価計算制度における標準は，原価管理を有効に行うため，技術的に達成可能な最大操業度のもとにおいて，最高能率を表す最低の原価である理想標準原価を使うとされている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価計算制度において用いられる標準原価は，現実的標準原価又は正常原価であり，理想標準原価は制度としての標準原価ではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅰ-①ア</span><div class="question">理想標準原価とは，技術的に達成可能な最小操業度のもとにおいて，最高能率を表わす最低の原価をいい，財貨の消費における減損，仕損，遊休時間等に対する余裕率を許容しない理想的水準における標準原価である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">最低の原価としての理想標準原価においては，配賦率を最小とするべく，操業水準として実際的生産能力が想定されている。正しくは，「技術的に達成可能な最大操業度のもとにおいて…」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-⑦ア</span><div class="question">原価管理のためにときとして理想標準原価が用いられることがあるが，かかる標準原価は，原価計算基準でいう制度としての標準原価ではない。理想標準原価とは，技術的に達成可能な最大操業度のもとにおいて，最高能率を表す最低の原価をいい，財貨の消費における減損，仕損，遊休時間等に対する余裕率を許容する理想的水準における標準原価である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">理想標準原価は，財貨の消費における減損，仕損，遊休時間等に対する余裕率を許容しない。余裕率を許容するのは，現実的標準原価である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅱ-⑦ウ</span><div class="question">理想標準原価とは，技術的に達成可能な最大操業度のもとにおいて，最高能率を表す最低の原価をいう。財貨の消費における減損，仕損，遊休時間等に対する余裕率を許容しない理想的水準における標準原価である。棚卸資産価額の算定のために最も適することに加え，原価管理のための標準としても用いられる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">理想標準原価は，原価管理のための標準として用いられることがある。ただし，多額の原価差異の発生が自明であり，真実の原価とはいえないため，棚卸資産価額の算定には適さない。54</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-1-6" class="topic-section">
+        <h2>1-6 原価の諸概念(製品原価と期間原価・全部原価と部分原価)</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅱ-①ウ</span><div class="question">原価は，財務諸表上収益との対応関係に基づいて，製品原価と期間原価とに区別される。製品原価とは，一定単位の製品に集計された原価をいい，期間原価とは，一定期間における発生額を，当期の収益に直接対応させて，は握した原価をいう。製品原価と期間原価との範囲の区別は相対的であるが，通常，売上品およびたな卸資産の価額を構成する全部の製造原価を製品原価とし，販売費および一般管理費は，これを期間原価とする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">製品原価と期間原価の範囲の区別は相対的であり，全部原価計算（直接原価計算）では全部製造原価(変動製造原価)を製品原価，販売費及び一般管理費(固定製造原価と販売費及び一般管理費)を期間原価とする。「原価計算基準」がいうところの「通常」が，全部原価計算を指すことはいうまでもない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R6-Ⅰ-①ウ</span><div class="question">部分原価は，計算目的によって各種のものを計算することができるが，最も重要な部分原価は，変動直接費および変動間接費のみを集計した直接原価(変動原価)である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」４⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">最も重要な部分原価としての直接原価とは，変動直接費及び変動間接費のみを集計した原価をいい，変動間接費を含む以上，製品との関連における分類でいう直接費とは区別される。むしろ，操業度との関連における分類でいう変動費に相当する原価概念であり，近年では，直接原価(変動原価)のみを製品に集計する原価計算を，直接原価計算ではなく変動原価計算と呼ぶことが多い。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H18-①オ</span><div class="question">原価は，集計される原価の範囲によって，全部原価と部分原価とに区分される。最も重要な部分原価は，変動直接費及び変動間接費のみを集計した直接原価である。直接原価は直接費と同じ意味であり，変動原価ともよばれている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑶，８⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">直接原価とは変動直接費及び変動間接費を集計したものであり，直接費だけを集計したものではない。したがって，直接原価と直接費は同じ意味ではない。55</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-1-7" class="topic-section">
+        <h2>1-7 原価計算の一般的基準</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 13</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 13</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 13</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 13</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 13</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 13</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅱ-①ア</span><div class="question">原価計算制度における一般的基準では，財務諸表の作成に役立つために，原価計算は，原価を一定の給付にかかわらせて集計し，製品原価および製品単位原価を計算するものとされている。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」６⑴-1</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">財務諸表の作成に役立つためには，財務諸表上の収益との対応関係に基づく原価の分類が重要となる。正しくは，「製品原価および期間原価を計算する」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅱ-①エ</span><div class="question">原価の数値は，財務会計の原始記録，信頼しうる統計資料等によって，その信ぴょう性が確保されるものでなければならない。このため原価計算は，原則として実際原価を計算する。この場合，実際原価を計算することは，必ずしも原価を取得価格をもって計算することを意味しないで，予定価格等をもって計算することもできる。また必要ある場合には，製品原価を標準原価をもって計算し，これを財務諸表に提供することもできる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」６⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価計算制度としては，実際原価計算制度と標準原価計算制度の選択が認められるが，財務諸表の作成という見地からすれば，真実の原価としての信憑性を確保するべく，実際原価を計算するのが原則となる。つまり，本肢においては「財務諸表の作成に役立つために…」という文言が背後に隠れている。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-①イ</span><div class="question">原価の数値は，財務会計の原始記録，信頼し得る統計資料等によって，その明瞭性が確保されるものでなければならない。このため原価計算は，原則として実際原価を計算する。この場合，実際原価を計算することは，必ずしも原価を取得価格をもって計算することを意味しないで，予定価格等をもって計算することもできる。また必要ある場合には，製品原価を標準原価をもって計算し，これを財務諸表に提供することもできる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」６⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価計算が原則として実際原価を計算するのは，原価の数値について「財務会計の原始記録，信頼しうる統計資料等によって，その信ぴょう性が確保されなければならない」からである。「明瞭性」は，報告，表示形式の問題であり，原価計算によって担保されるものではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-①エ</span><div class="question">原価の数値は，財務会計の原始記録，信頼しうる統計資料等によって，その信ぴょう性が確保されるものでなければならない。このため，原価計算は，原則として実際原価を計算する。この場合，実際原価を計算することは取得価格をもって原価を計算することを意味する。また必要ある場合には，標準原価をもって製品原価を計算し，これを財務諸表に提供することもできる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」４⑴-1，６⑴-2</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価計算制度における実際原価とは，実際消費量をもって計算した原価をいい，実際の取得価格をもって計算した原価の実際発生額を必ずしも意味しない。正しくは，「実際原価を計算することは，必ずしも原価を取得価格をもって計算することを意味しないで，予定価格等をもって計算することもできる」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H20-①オ</span><div class="question">実際原価のみが真実の原価であり，標準原価は真実の原価ではない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」６⑴-2・3</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">真実の原価といえば原則的には実際原価を意味するが，原価差異を財務会計上適正に処理することを前提とすれば，標準原価も棚卸資産価額の算定に資する真実の原価として認められる。56</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-①ウ 他複数</span><div class="question">原価計算は，財務会計機構と有機的に結合して行われる。このため，勘定組織には，原価に関する細分記録を統括する諸勘定を設ける。なお，原価管理上必要がある場合には，実際原価計算制度においても必要な原価の標準を勘定組織のわく外において設定し，これと実際との差異を分析し，報告することがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」２，６⑴-4</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">本肢では隠れているが，原価計算と財務会計機構との有機的な結合が求められるのは，あくまでも財務諸表作成の見地である。原価管理のための標準原価計算は勘定組織の枠外の統計的補助記録の中で行うことも可能であり(いわゆる統計的標準原価計算），必ずしも財務会計機構との結合を要さない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-①ア</span><div class="question">原価計算制度は，財務諸表の作成，原価管理，予算統制等の異なる目的が相ともに達成されるべき一定の計算秩序である。かかるものとして原価計算制度は，財務会計機構と有機的に結びつき常時継続的に行われる計算体系である。とりわけ，財務諸表の作成に役立つためには，勘定組織には，原価に関する集約情報を統括する諸勘定を設けることが重要である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」２，６⑴-4</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">財務諸表の作成に役立つために，原価計算は，財務会計機構と有機的に結合して行われる。このために勘定組織には，「原価に関する細分記録を統括する諸勘定を設ける」ことが求められる。なお，細分記録とは材料元帳，製造間接費元帳，原価元帳などの補助元帳(総勘定元帳の各勘定の内訳記録)をいい，これを統括するのが総勘定元帳における材料勘定，製造間接費勘定，仕掛品勘定などの諸勘定である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H21-①キ</span><div class="question">原価管理に役立つために，原価計算は，原価要素を，機能別に，また直接費と間接費，固定費と変動費，管理可能費と管理不能費の区分に基づいて分類し，計算する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」６⑵-6</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">少なくとも，操業度との関連における分類と管理可能性に基づく分類は，財務諸表作成の見地ではなく原価管理あるいは責任会計の見地から必要となるものである。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-①ウ 他複数</span><div class="question">原価計算は，原価管理に役立つために，経営における管理の権限と責任の委譲を前提とし，作業区分等に基づく部門を管理責任の区分とし，各部門における作業の原価を計算し，各管理区分における原価発生の責任を明らかにさせる。また，原価計算は，原価の標準の設定，指示から原価の報告に至るまでのすべての計算過程を通じて，原価の物量を測定表示することに重点を置く。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」６⑵-5・7</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価管理を効果的に行うためには現場管理者や現場作業員の動機づけが重要であり，動機づけのためには現場管理者の責任を問うのが有効である。そのため，原価計算は責任会計と結合し，原価責任を明確化することが求められる。また，標準原価管理の焦点は，製品単位当たりで設定した物量標準に基づく直接費の管理にある。したがって，全ての計算過程を通じて，直接材料消費量や直接作業時間といった物量を測定表示することに重点をおく必要がある。57</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-①エ</span><div class="question">原価管理に役立つために，原価計算は，原価の標準の設定，指示から原価の報告に至るまでのすべての計算過程を通じて，原価の物量を測定表示することに重点をおく。製造現場における原価管理のためには，物量の計算が不可欠だからである。原価計算担当者にとっても物量こそが管理すべき変数となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」６⑵-7</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">標準原価管理一連のプロセスにおいて，原価の物量を測定表示することに重点が置かれるという点は正しい。ただし，物量を管理すべき変数と捉えるのは，製造現場の管理者においてであり，原価計算担当者の管轄ではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅰ-①エ 他複数</span><div class="question">原価管理とは，原価の標準を設定してこれを指示し，原価の実際の発生額を計算記録し，これを標準と比較して，その差異の原因を分析し，これに関する資料を経営管理者に報告し，原価能率を増進する措置を講ずることである。したがって，原価の標準は，原価発生の責任を明らかにし，原価能率を判定する尺度として，これを設定する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」１⑶，６⑵-8</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」における原価管理とは標準原価計算を用いた原価管理であるから，原価の標準（達成すべき原価の目標）は，原価責任を明確化し，原価能率を判定する尺度として，理想的には標準原価としてこれを設定する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H28-Ⅱ-①ウ 他複数</span><div class="question">原価計算は，予算期間において期待されうる条件に基づく実際原価又は標準原価を計算し，予算とくに，費用予算の編成に資料を提供するとともに，予算と対照比較しうるように原価の実績を計算し，もって予算統制に資料を提供する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」６⑶-12</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">実際原価が確定するのは当該予算期間の終了後であり，費用予算の編成に際して原価計算が実際原価を計算することはありえない。正しくは，「予算期間において期待されうる条件に基づく予定原価又は標準原価を計算し…」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R2-Ⅱ-①エ</span><div class="question">原価計算は，予算期間において期待されうる条件に基づく予定原価又は標準原価を計算し，予算とくに，費用予算の編成に資料を提供するとともに，予算と対照比較しうるように原価の標準を計算し，もって予算統制に資料を提供する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」６⑶-12</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">「原価計算基準」設定当時の予算統制といえば，予算期間終了後に差異を把握して，是正措置を講じるという事後統制が中心であったが，原価計算に基づいて予算と対照比較するのは原価の標準ではない。正しくは，「予算と対照比較しうるように原価の実績を計算し，もって予算統制に資料を提供する」である。58</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-1-8" class="topic-section">
+        <h2>1-8 実際原価の計算手続</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 3</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H21-①カ</span><div class="question">原価計算制度においては，販売費及び一般管理費も費目別に計算したのち，製品別に配賦される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」７，38</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">販売費及び一般管理費については，原則として費目別計算を行うのみであり，部門別に計算することもなければ，製品別に配賦する(集計する)こともない。価格決定のために販売費及び一般管理費を製品に配賦することはあるが，そのような原価計算は原価計算制度の範囲外に属する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-①ア</span><div class="question">原価要素は製造原価要素と販売費および一般管理費要素とに分類される。実際原価の計算においては，いずれの原価要素についても，原則としてその実際発生額を，まず費目別に計算し，次いで原価部門別に計算し，最後に製品別に集計する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」７，38</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">販売費及び一般管理費については，原則として費目別計算を行うのみであり，部門別に計算することもなければ，製品別に配賦する(集計する)こともない。価格決定のために販売費及び一般管理費を製品に配賦することはあるが，そのような原価計算は原価計算制度の範囲外に属する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-①ウ</span><div class="question">原価計算制度における実際原価の計算には３つの段階がある。すなわち，製造原価は，原則として，その実際発生額を，まず費目別に計算し，次いで原価部門別に計算し，最後に製品別に集計する。このとき，原価計算は工業簿記の記録に基づいて行なわれる。原価計算数値は複式簿記機構に組み込まれ，原価計算により提供される内訳記録と複式簿記により提供される合計記録とが有機的に結合される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」７</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">実際原価の計算・記帳手続において，原価計算により提供される内訳記録(材料元帳，製造間接費元帳，原価元帳などにおける各記録)は，これを統括する総勘定元帳における合計記録(材料勘定，製造間接費勘定，仕掛品勘定などにおける各記録)に対応する。59</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-1-9" class="topic-section">
+        <h2>1-9 製造原価要素の分類基準</h2>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 15</span>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-①ア 他複数</span><div class="question">原価要素の形態別分類は，財務会計における費用の発生を基礎とする分類であるから，原価計算は，財務会計から原価に関するこの形態別分類による基礎資料を受け取り，これに基づいて原価を計算する。この意味でこの分類は，原価に関する基礎的分類であり，原価計算と財務会計との関連上重要である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」８⑴</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">形態別分類とは，財務会計における費用の発生を基礎とする分類であり，これに基づく費目の名称は原価財として「何を消費したのか」を示す。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-①エ</span><div class="question">製品との関連における分類は，財務会計における費用の発生を基礎とする分類であるから，原価計算は，財務会計から原価に関するこの分類による基礎資料を受け取り，これに基づいて原価を計算する。この意味でこの分類は，原価に関する基礎的分類であり，原価計算と財務会計との関連上重要である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」８⑴⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">財務会計における費用の発生を基礎とし，原価計算と財務会計との関連上重要であるのは，製品との関連における分類ではなく，形態別分類である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-①ウ</span><div class="question">機能別分類とは，原価が経営上のいかなる機能のために発生したかによる分類であり，たとえば，材料費は主要材料費，および修繕材料費，試験研究材料費等の補助材料費，ならびに工場消耗品費等に分類される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」８⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">機能別分類とは，同じ資源の消費であっても，目的・用途の相違によって異なる原価要素として再分類するものであり，これに基づく費目の名称は「原価財を何のために消費したのか」を示す。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-①ウ</span><div class="question">機能別分類とは，原価が経営上のいかなる機能のために発生したかによる分類である。機能別分類により，材料費は主要材料費，修繕材料費，試験研究材料費，買入部品費，工場消耗品費等に分類される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」８⑴-2,⑵</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">買入部品には部品以外の用途がないため，買入部品費については形態別分類と機能別分類の区別がない。ただし，生来的には材料費の形態別分類の１つであり，機能別分類の例として挙げるのは不適切である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H24-Ⅰ-①キ</span><div class="question">原価要素を製品との関連において分類すると，例えば，賃金は，作業種類別直接賃金，間接作業賃金，手待賃金等に分類することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」８⑵⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">作業種類別直接賃金，間接作業賃金，手待賃金等は，直接工賃金の機能別分類であって，製品との関連における分類ではない。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R5-Ⅱ-①イ</span><div class="question">費目別計算においては，原価要素を，原則として，形態別分類を基礎とし，これを直接費と間接費とに大別し，さらに必要に応じ機能別分類を加味して分類する。機能別分類は，原価が経営上のいかなる機能のために発生したかによる分類であるから，原価管理を実施するために重要な役割を果たすとともに，活動基準原価計算(ＡＢＣ)を適用するための実質的な基礎になる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」８⑵，10</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">機能別分類は，機能別に設定された原価部門に対する原価集計の基礎となる。この点，ＡＢＣにおける中間的原価計算対象としての活動は，原価部門を細分化して設定するのが通常である。その意味において，部門別計算の基礎となる機能別分類は，ＡＢＣを適用するための実質的な基礎になるといえる。60</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅱ-③ア</span><div class="question">直接費と間接費の分類は製品との関連における分類であり，製品に対する原価の発生が，一定単位の製品の生成に関して直接的に認識・把握できるかどうかによって，直接費と間接費とに分けられる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」８⑶</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">直接費と間接費の分類は，製品単位当たりで物量標準を設定できるかどうかの性質上の区別による分類と捉えられる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-①イ</span><div class="question">製品との関連における分類とは，原価の発生が一定単位の製品の生成に関して直接的に認識されるかどうかの性質上の区別による分類であり，原価要素は，この分類基準によってこれを固定費と変動費とに分類する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」８⑶⑷</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価要素は，製品との関連における分類によって，固定費と変動費ではなく直接費と間接費とに分類する。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-①ウ</span><div class="question">操業度との関連における分類とは，操業度の増減に対する原価発生の態様による分類であり，原価要素は，この分類基準によってこれを固定費と変動費とに分類する。ここに操業度とは，生産設備を一定とした場合におけるその利用度をいう。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」８⑷</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">原価要素は，操業度の増減にかかわらず変化しない固定費と，操業度の増減に応じて比例的に増減する変動費とに分類される。なお，「生産設備を一定とした場合におけるその利用度」という操業度の定義からも明らかな通り，操業度との関連における固定費と変動費の分類は，短期を前提としたものである。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H22-Ⅰ-⑪オ</span><div class="question">固定費と変動費の区別は絶対的なものではなく，その発生額を把握する期間が長くなればなるほど，より多くの費目が変動費となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」８⑷</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">固定費と変動費の区別は，測定期間との関係で相対的なものである。つまり，その発生額を把握する期間が長くなればなるほど，より多くの費目がコスト・ドライバー(コストを増減させる要因)を有する変動費となり，期間の区切りを取り払えば，究極的には全ての費目が変動費となる。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H30-Ⅰ-①エ</span><div class="question">操業度との関連における分類とは，操業度の増減に対するコストビヘイビアによる分類である。原価要素は，この分類基準によって，固定費と変動費に分類される。分類困難な準固定費又は準変動費については，固定費又は変動費とみなして，これをそのいずれかに帰属させるか，固定費と変動費が合成されたものであると理解し，固定費部分と変動費部分に分解することで処理する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」８⑷，33⑷-1</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">準固定費又は準変動費を固定費と変動費とに分類する場合，①固定費又は変動費のいずれかに帰属させる，②固定費部分と変動費部分とに分解する，という２つの方法があり，「原価計算基準」ではその選択適用を規定している。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R7-Ⅰ-①エ</span><div class="question">操業度との関連における分類とは，操業度の増減に対する原価発生の態様による分類である。ここに操業度とは，生産設備を一定とした場合におけるその利用度をいい，操業度の変化に応じて，原価がどのように反応するかを，コストドライバーないし原価態様という。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」８⑷</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">操業度の変化に応じて，原価がどのように反応するかを表す用語は，コストドライバーではなくコストビヘイビアである。なお，コストドライバーとは，一定の期間に渡って原価に因果的な影響を与える要因をいい，ＡＢＣでは配賦基準として機能する一方で，ＡＢＭでは原価低減のための分析対象となる。61</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">R8-Ⅰ-⑦ア</span><div class="question">準固定費とは，操業度がゼロであっても一定の原価が発生し，操業度の増加とともに比例して増加する原価である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」８⑷</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">操業度がゼロであっても一定の原価が発生し，操業度の増加とともに比例して増加する原価は，準固定費ではなく準変動費である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H31-Ⅰ-①イ</span><div class="question">原価要素は，原価の管理可能性に基づいて，管理可能費と管理不能費に分類される。原価計算は経営における管理の権限と責任の委譲を前提としているため，ある原価要素は，下級管理者層にとって管理不能費であっても，上級管理者層にとっては管理可能費であることがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-o">(○)</span> ➡「基準」８⑸</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">管理可能性は管理階層との関係で相対的な概念であり，上級管理者層になるほど管理可能な項目の範囲は広くなる。したがって，下級管理者層にとって管理不能費であっても，上級管理者層にとっては管理可能費であることがある。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">H27-Ⅰ-①エ</span><div class="question">原価の管理可能性に基づく分類とは，原価の発生が一定の管理者層によって管理しうるかどうかの分類であり，原価要素は，この分類基準によってこれを管理可能費と管理不能費とに分類する。上級管理者層にとって管理不能費であるものも，下級管理者層にとっては管理可能費となることがある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row">
+                        <span class="label">【解答】</span>
+                        <span><span class="mark-x">(×)</span> ➡「基準」８⑸</span>
+                    </div>
+                    <div class="ans-row">
+                        <span class="label">【解説】</span>
+                        <span class="correct-text">正しくは，「下級管理者層にとって管理不能費であるものも，上級管理者層にとっては管理可能費となることがある」である。</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 他のファイルとデータが混ざらないよう、作成時に一意の文字列に変更します
+            const pagePrefix = "Kanri_Ch1_"; 
+
+            const inputs = document.querySelectorAll('input');
+
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                
+                // 保存されている値があれば復元
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') {
+                        input.checked = savedValue === 'true';
+                    } else {
+                        input.value = savedValue;
+                        // 日付入力欄の場合、値が入っていれば type を date に変更して表示
+                        if (input.classList.contains('date-input') && savedValue !== "") {
+                            input.type = 'date';
+                        }
+                    }
+                }
+
+                // 値が変更されるたびに保存
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') {
+                        localStorage.setItem(storageKey, input.checked);
+                    } else {
+                        localStorage.setItem(storageKey, input.value);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
