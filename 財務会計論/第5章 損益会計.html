@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>【財務会計論】第5章 損益会計（自動保存付き）</title>
+    <style>
+html { scroll-behavior: smooth; }
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75; color: #333; max-width: 900px;
+            margin: 0 auto; padding: 40px 25px; background-color: #f5f7f9;
+        }
+        .cover-page {
+            background-color: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+            padding: 50px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50; font-size: 2.2em; border-bottom: 3px solid #3498db;
+            display: inline-block; padding-bottom: 10px; margin-bottom: 20px;
+        }
+        .cover-subtitle { font-size: 1.3em; color: #475569; font-weight: bold; margin-bottom: 10px; }
+        .cover-meta { font-size: 1em; color: #64748b; margin-bottom: 30px; }
+        .toc-list { list-style: none; padding: 0; margin: 0 auto; text-align: left; max-width: 640px; }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block; text-decoration: none; color: #1e293b; background-color: #f1f5f9;
+            padding: 16px 24px; border-radius: 10px; font-weight: bold; font-size: 1.05em;
+            border-left: 6px solid #3498db; transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover { background-color: #e2e8f0; transform: translateX(5px); }
+        .topic-section { margin-top: 150px; margin-bottom: 50px; }
+        h2 {
+            color: #2c3e50; font-size: 1.6em; font-weight: bold; margin-bottom: 30px;
+            padding-left: 14px; border-left: 6px solid #3498db;
+            padding-top: 10px; border-top: 1px solid #cbd5e1;
+        }
+        .score-board {
+            background-color: #fff; border: 1px solid #e2e8f0; padding: 24px; border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 40px;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
+        }
+        .score-item {
+            display: flex; align-items: center; gap: 10px;
+            background-color: #f8fafc; border: 1px solid #cbd5e1; padding: 10px 15px; border-radius: 8px;
+        }
+        .attempt-label { font-weight: bold; color: #4a5568; font-size: 0.95em; }
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155; border: 1px solid #94a3b8; border-radius: 6px;
+        }
+        .date-input { width: 125px; padding: 6px 8px; font-size: 0.95em; cursor: pointer; text-align: center; }
+        .score-input { width: 50px; padding: 6px 8px; font-size: 1.05em; text-align: right; }
+        .score-denominator { font-weight: bold; color: #64748b; font-size: 1.05em; }
+        .qa-block {
+            background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;
+            padding: 30px; margin-bottom: 35px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); break-inside: avoid;
+        }
+        .checkbox-area { margin-bottom: 15px; display: flex; gap: 12px; }
+        .custom-checkbox { width: 24px; height: 24px; cursor: pointer; accent-color: #3498db; margin: 5px; padding: 10px; }
+        .question-header { margin-bottom: 20px; }
+        .q-badge {
+            background-color: #f8fafc; color: #64748b; font-size: 0.9em; padding: 4px 10px;
+            border-radius: 6px; border: 1px solid #cbd5e1; font-weight: bold;
+            margin-right: 8px; display: inline-block; vertical-align: middle; margin-bottom: 4px;
+        }
+        .question { font-weight: bold; font-size: 1.15em; color: #1e293b; line-height: 1.7; display: inline; }
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer; background-color: #3498db; color: #fff; padding: 12px 24px;
+            border-radius: 8px; font-weight: bold; font-size: 1em;
+            display: inline-block; outline: none; transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px; padding-top: 25px; border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+        .ans-row { display: flex; margin-bottom: 14px; font-size: 1.05em; }
+        .label { font-weight: bold; min-width: 80px; color: #64748b; flex-shrink: 0; }
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+        .note-box {
+            background-color: #f8fafc; border-left: 4px solid #cbd5e1;
+            padding: 12px 16px; border-radius: 0 6px 6px 0;
+            margin-top: 16px; font-size: 0.95em; color: #475569;
+        }
+        .memo-box {
+            background-color: #fffbeb; border-left: 4px solid #f59e0b;
+            padding: 16px 20px; border-radius: 0 6px 6px 0; margin-bottom: 40px;
+            font-size: 1.05em; color: #78350f; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+        .memo-title { font-weight: bold; color: #d97706; margin-right: 6px; }
+        .list-answer { margin: 0; padding-left: 1.5em; line-height: 2; }
+        .table-compare { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 0.97em; }
+        .table-compare th, .table-compare td { border: 1px solid #cbd5e1; padding: 8px 12px; text-align: left; }
+        .table-compare th { background-color: #f1f5f9; font-weight: bold; color: #334155; }
+        .back-to-top {
+            display: block; text-align: right; margin-top: 20px; font-size: 1em;
+            color: #3498db; text-decoration: none; font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+    </style>
+</head>
+<body id="top">
+    <div class="cover-page">
+        <h1 class="cover-title">財務会計論 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">第5章 損益会計</div>
+        <div class="cover-meta">難易度 ☆☆☆ ／ 全17問</div>
+        <ul class="toc-list">
+            <li><a href="#section-1">【第1節】財産法と損益法・利益の性格 [重要度☆☆☆] 問1〜3</a></li>
+            <li><a href="#section-2">【第3節】発生主義会計 [重要度★☆☆] 問8〜21</a></li>
+        </ul>
+    </div>
+
+    <div id="section-1" class="topic-section">
+        <h2>【第1節】財産法と損益法・利益の性格 [重要度☆☆☆] 問1〜3</h2>
+        <div class="score-board">
+            <div class="score-item"><span class="attempt-label">1回目:</span><input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'"><input type="number" class="score-input" min="0" max="99" title="点数"><span class="score-denominator">/ 3</span></div>
+            <div class="score-item"><span class="attempt-label">2回目:</span><input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'"><input type="number" class="score-input" min="0" max="99" title="点数"><span class="score-denominator">/ 3</span></div>
+            <div class="score-item"><span class="attempt-label">3回目:</span><input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'"><input type="number" class="score-input" min="0" max="99" title="点数"><span class="score-denominator">/ 3</span></div>
+            <div class="score-item"><span class="attempt-label">4回目:</span><input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'"><input type="number" class="score-input" min="0" max="99" title="点数"><span class="score-denominator">/ 3</span></div>
+            <div class="score-item"><span class="attempt-label">5回目:</span><input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'"><input type="number" class="score-input" min="0" max="99" title="点数"><span class="score-denominator">/ 3</span></div>
+            <div class="score-item"><span class="attempt-label">6回目:</span><input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'"><input type="number" class="score-input" min="0" max="99" title="点数"><span class="score-denominator">/ 3</span></div>
+        </div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">1(C)</span><div class="question">財産法によれば，個々の資産負債の増減変化を分析することで利益の発生原因が明らかになる。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：財産法によれば，利益の発生原因が明らかになる。</span><br><span class="correct-text">正：損益法によれば，利益の発生原因が明らかになる。</span></span></div><div class="note-box"><span class="note-title">【対比】</span>財産法によれば利益の財産的な裏付けが明らかになり，損益法によれば利益の発生原因が明らかになる。<span class="note-title">【参照】</span>p.1</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">2(C)</span><div class="question">棚卸法による貸借対照表の作成は損益法と結びつく。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：棚卸法による貸借対照表の作成は損益法と結びつく。</span><br><span class="correct-text">正：棚卸法による貸借対照表の作成は実地調査を基礎とするため財産法と結びつく。</span></span></div><div class="note-box"><span class="note-title">【対比】</span>誘導法による貸借対照表の作成は，帳簿記録を基礎とするため損益法と結びつく。<span class="note-title">【参照】</span>p.1</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">3(C)</span><div class="question">現行制度では損益法を通じて，一貫して損益の把握を行うことで適正な期間損益を算定している。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：損益法を通じて，一貫して損益の把握を行う</span><br><span class="correct-text">正：損益法を基礎としながら，実地調査を一部採用し，損益計算を補完している。</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.1</div></div></details></div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+    <div id="section-2" class="topic-section">
+        <h2>【第3節】発生主義会計 [重要度★☆☆] 問8〜21</h2>
+        <div class="score-board">
+            <div class="score-item"><span class="attempt-label">1回目:</span><input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'"><input type="number" class="score-input" min="0" max="99" title="点数"><span class="score-denominator">/ 14</span></div>
+            <div class="score-item"><span class="attempt-label">2回目:</span><input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'"><input type="number" class="score-input" min="0" max="99" title="点数"><span class="score-denominator">/ 14</span></div>
+            <div class="score-item"><span class="attempt-label">3回目:</span><input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'"><input type="number" class="score-input" min="0" max="99" title="点数"><span class="score-denominator">/ 14</span></div>
+            <div class="score-item"><span class="attempt-label">4回目:</span><input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'"><input type="number" class="score-input" min="0" max="99" title="点数"><span class="score-denominator">/ 14</span></div>
+            <div class="score-item"><span class="attempt-label">5回目:</span><input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'"><input type="number" class="score-input" min="0" max="99" title="点数"><span class="score-denominator">/ 14</span></div>
+            <div class="score-item"><span class="attempt-label">6回目:</span><input type="date" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'"><input type="number" class="score-input" min="0" max="99" title="点数"><span class="score-denominator">/ 14</span></div>
+        </div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">8(B)</span><div class="question">現金主義会計にはなくて，発生主義会計にある原則の一つは費用収益対応の原則である。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-o">（○）</span></div><div class="ans-row"><span class="label">【解説】</span><span>現金主義会計にはなくて，発生主義会計にある原則の一つは費用収益対応の原則である。</span></div><div class="note-box"><span class="note-title">【理由】</span>現金主義会計では，収益と費用はそれぞれ収入支出時点で計上され，費用収益対応の原則による調整は行われない。<span class="note-title">【参照】</span>p.5</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">9(C)</span><div class="question">「企業会計原則」における発生主義会計は，収益と費用のいずれも発生主義による認識を要求している。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：収益と費用のいずれも発生主義による認識を要求する。</span><br><span class="correct-text">正：収益の認識に実現主義を用いる。</span></span></div><div class="note-box"><span class="note-title">【背景】</span>純粋理論上の発生主義会計と異なり，企業会計原則では利益の分配可能性に配慮し，収益の認識には実現主義を用いる。<span class="note-title">【参照】</span>p.4</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">10(B)</span><div class="question">収益の実現とは，財貨・役務の移転又はこれに対する現金・現金等価物すなわち貨幣性資産の取得を指す。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：財貨・役務の移転又はこれに対する貨幣性資産の取得を指す。</span><br><span class="correct-text">正：財貨・役務の移転及びこれに対する貨幣性資産の取得を指す。</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.5</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">11(A)</span><div class="question">発生主義で認識された発生費用が損益計算書において期間費用となる。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：発生費用が損益計算書において期間費用となる。</span><br><span class="correct-text">正：発生費用のうち実現収益と対応する部分が費用収益対応の原則により期間費用となる。</span></span></div><div class="note-box"><span class="note-title">【周辺】</span>期間収益は実現主義で決定される。<span class="note-title">【参照】</span>p.5</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">12(B)</span><div class="question">発生費用のうち，期間収益に対応しない費用は負債として繰り延べられる。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：負債として繰り延べられる。</span><br><span class="correct-text">正：資産として繰り延べられる。</span></span></div><div class="note-box"><span class="note-title">【例示】</span>製品のうち在庫分は棚卸資産として繰り延べられる。<span class="note-title">【参照】</span>p.5</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">13(B)</span><div class="question">売上高と販売費及び一般管理費は，通常，個別的に対応している。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：売上高と販売費及び一般管理費は個別的に対応している。</span><br><span class="correct-text">正：売上高と販売費及び一般管理費は期間的に対応している。</span></span></div><div class="note-box"><span class="note-title">【対比】</span>売上高と個別的に対応しているのは売上原価である。<span class="note-title">【参照】</span>p.5</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">14(C)</span><div class="question">収支額基準は当期における収入額によって収益を測定することを要求する。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：当期における収入額によって収益を測定する</span><br><span class="correct-text">正：当期の収入のみならず，過去及び将来の収入を含む</span></span></div><div class="note-box"><span class="note-title">【理由】</span>例えば，当期の売上収益の測定には，過去の収入である前受金や将来の収入である売掛金も含まれる。<span class="note-title">【参照】</span>p.5</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">15(C)</span><div class="question">前払費用及び前受収益は，当期の損益計算から除去し，未払費用及び未収収益は当期の損益計算に計上しなければならないという取扱いは，実現主義を根拠とする。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：実現主義を根拠とする。</span><br><span class="correct-text">正：発生主義を根拠とする。</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.6</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">16(B)</span><div class="question">前払費用及び未収収益は流動資産に属し，未払費用及び前受収益は流動負債に属する。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：前払費用は流動資産に属する。</span><br><span class="correct-text">正：前払費用は一年基準を適用して，流動資産と固定資産（投資その他の資産）に分類する。</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.6</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">17(C)</span><div class="question">契約の目的である継続的役務の提供が貸借対照表日までに完了している場合にも，対価の未払額は，未払費用勘定によって表示しなければならない。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：未払費用勘定によって表示しなければならない。</span><br><span class="correct-text">正：未払金勘定によって表示しなければならない。</span></span></div><div class="note-box"><span class="note-title">【特殊】</span>特徴的な過去問であり，酷似した再出題を想定しておけばよい。<span class="note-title">【参照】</span>-</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">18(B)</span><div class="question">会計単位内部における原材料，半製品等の振替から生ずる内部利益は消去する。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：内部利益は消去する。</span><br><span class="correct-text">正：振替損益は売上原価に賦課する。</span></span></div><div class="note-box"><span class="note-title">【対比】</span>内部利益は未実現利益のため消去するが，振替損益は，原価差異として売上原価に賦課する。<span class="note-title">【参照】</span>p.8</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">19(B)</span><div class="question">役員賞与は発生した会計期間の費用として処理するが，当事業年度の職務に係る役員賞与を株主総会の決議事項とする場合に限り，利益処分経理も認められる。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：利益処分経理も認められる。</span><br><span class="correct-text">正：株主総会の決議事項とする場合も，発生した会計期間の費用として処理する。</span></span></div><div class="note-box"><span class="note-title">【参照】</span>p.8</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">20(B)</span><div class="question">子会社が支給する役員賞与は，役員賞与引当金等の適当な科目をもって計上しなければならない。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：役員賞与引当金等の適当な科目をもって計上しなければならない。</span><br><span class="correct-text">正：未払役員報酬等の適当な科目をもって計上することができる。</span></span></div><div class="note-box"><span class="note-title">【理由】</span>子会社が支給する役員賞与は，株主総会の決議はなされていなくても実質的に確定債務と認められるため。<span class="note-title">【参照】</span>p.8</div></div></details></div>
+        <div class="qa-block"><div class="checkbox-area"><input type="checkbox" class="custom-checkbox" title="1回目"><input type="checkbox" class="custom-checkbox" title="2回目"><input type="checkbox" class="custom-checkbox" title="3回目"><input type="checkbox" class="custom-checkbox" title="4回目"><input type="checkbox" class="custom-checkbox" title="5回目"><input type="checkbox" class="custom-checkbox" title="6回目"></div><div class="question-header"><span class="q-badge">21(C)</span><div class="question">売上高と売上原価及び営業外収益と営業外費用は，因果関係に基づき対応表示されている。</div></div><details><summary>解答・解説を見る</summary><div class="answer-content"><div class="ans-row"><span class="label">【解答】</span><span class="mark-x">（×）</span></div><div class="ans-row"><span class="label">【解説】</span><span><span class="incorrect-text">誤：営業外収益と営業外費用は，因果関係に基づき対応表示されている。</span><br><span class="correct-text">正：営業外収益と営業外費用は，取引の同質性に基づき対応表示されている。</span></span></div><div class="note-box"><span class="note-title">【対比】</span>売上高と売上原価は因果関係に基づき対応表示されている。<span class="note-title">【参照】</span>p.9</div></div></details></div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pagePrefix = "Zaimu_R05_";  // ← 章ごとに変更する
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') {
+                        input.checked = savedValue === 'true';
+                    } else {
+                        input.value = savedValue;
+                        if (input.classList.contains('date-input') && savedValue !== "") {
+                            input.type = 'date';
+                        }
+                    }
+                }
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') {
+                        localStorage.setItem(storageKey, input.checked);
+                    } else {
+                        localStorage.setItem(storageKey, input.value);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
