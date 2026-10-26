@@ -1,0 +1,2146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【企業法】社債の発行・交付（自動保存付き）</title>
+    <style>
+        /* スムーズスクロール */
+        html { scroll-behavior: smooth; }
+
+        body {
+            /* ゼロにスラッシュが入るのを防ぐ標準フォント */
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75;
+            color: #333;
+            max-width: 900px; /* 13インチiPad向けゆったりレイアウト */
+            margin: 0 auto;
+            padding: 40px 25px;
+            background-color: #f5f7f9;
+        }
+
+        /* 表紙・目次エリア */
+        .cover-page {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50;
+            font-size: 2.2em;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 1.3em;
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        /* 目次リスト */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: left;
+            max-width: 600px;
+        }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block;
+            text-decoration: none;
+            color: #1e293b;
+            background-color: #f1f5f9;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-left: 6px solid #3498db;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover {
+            background-color: #e2e8f0;
+            transform: translateX(5px);
+        }
+
+        /* 大見出し（テーマごとのブロック） */
+        .topic-section {
+            margin-top: 150px; 
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding-left: 14px;
+            border-left: 6px solid #3498db;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+        }
+        
+        /* スコアボード（日付＋点数） */
+        .score-board {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .attempt-label {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+        
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+        }
+        .date-input {
+            width: 125px;
+            padding: 6px 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .score-input {
+            width: 50px;
+            padding: 6px 8px;
+            font-size: 1.05em;
+            text-align: right;
+        }
+        .score-denominator {
+            font-weight: bold;
+            color: #64748b;
+            font-size: 1.05em;
+        }
+
+        /* Q&Aブロック */
+        .qa-block {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            break-inside: avoid;
+        }
+        
+        /* タップしやすいチェックボックス */
+        .checkbox-area {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+
+        /* 問題文とバッジのレイアウト */
+        .question-header {
+            margin-bottom: 20px;
+        }
+        .q-badge {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.9em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 4px;
+        }
+        .question {
+            font-weight: bold;
+            font-size: 1.15em;
+            color: #1e293b;
+            line-height: 1.7;
+            display: inline;
+        }
+
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            display: inline-block;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ans-row {
+            display: flex;
+            margin-bottom: 14px;
+            font-size: 1.05em;
+        }
+        .label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+        
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 16px;
+            font-size: 0.95em;
+            color: #475569;
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+
+        /* トップに戻るリンク */
+        .back-to-top {
+            display: block;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+
+        /* 印刷用スタイル */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; padding-top: 0; border-top: none; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+        </style>
+</head>
+<body id="top">
+
+    <div class="cover-page">
+        <h1 class="cover-title">企業法 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">社債の発行・交付</div>
+        <ul class="toc-list">
+            <li><a href="#topic-4-1">4-1 社債（1）</a></li>
+            <li><a href="#topic-4-2">4-2 社債（2）</a></li>
+        </ul>
+    </div>
+
+
+    <div id="topic-4-1" class="topic-section">
+        <h2>4-1 社債（1）</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 42</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 42</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 42</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 42</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 42</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 42</span>
+            </div>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1292 ★A</span><div class="question">社債とは，会社法の規定により会社が行う割当てにより発生する当該会社を債務者とする金銭債権であって，あらかじめ定められた事項に従って償還されるものをいう。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">2条23号，676条各号。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1293 R6-Ⅱ／R2-Ⅱ ★★A</span><div class="question">持分会社は，社債を発行することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">平成17年会社法により，持分会社にも社債の発行が認められた。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1294 ★A</span><div class="question">株式会社は，募集社債の総額が資本金及び準備金の総額を超えない範囲内で，社債の募集をしなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">そのような規制はない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1295 R2-Ⅱ A</span><div class="question">純資産額が300万円を下回る株式会社は，無担保社債を発行することができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">そのような規制はない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1296 ★A</span><div class="question">社債が2人以上の者の共有に属するときは，共有者は，当該社債についての権利を行使する者1人を定め，会社に対し，その者の氏名又は名称を通知しなければ，会社が当該社債についての権利を行使することに同意した場合を除いて，当該社債についての権利を行使することができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">686条。社債の共有が可能であることを前提にして，同条はその場合の権利行使の方法を規定した。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1297 ★B</span><div class="question">会社は，募集社債の償還の方法及び期限を定めなければ，募集社債を発行することはできない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">償還方法と期限は，募集社債に関する事項の1つである（676条4号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1298 ★★A</span><div class="question">株式会社は，募集社債の総額について割当てを受ける者を一定の日までに定めていない場合には，当該募集社債の全部を発行しない旨を，当該募集社債に関する事項として定めることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">676条11号。社債の発行も，募集株式の発行等の場合（208条5項参照）と同様，打切り発行が原則であるが，例外を定めることもできる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1299 ★★B</span><div class="question">株式については分割払込みは認められず，募集株式の引受人は払込期日または払込期間内に払込金額の全額を払い込まなければならないが，社債の払込みについては，株式会社や合同会社であっても，分割払込みを採用することが認められる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">株式の場合は出資だから全額払込制が採用されているが（208条1項），社債の場合は出資ではないので分割払込みも認められている（676条12号，会社法施行規則162条1号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1300 R6-Ⅰ ★B</span><div class="question">会社は，他の会社と合同して募集社債を発行することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">676条12号，会社法施行規則162条2号。信用力のある会社との募集社債の合同発行ができれば，資金調達が容易になる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1301 ★B</span><div class="question">会社は，募集社債と引換えにする金銭の払込みに代えて金銭以外の財産を給付する旨の契約を締結することはできない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">676条12号，会社法施行規則162条3号。社債の発行の際の金銭の払込みは，出資ではないから，金銭以外の財産を給付する代物弁済契約の締結は可能である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1302 ★★A</span><div class="question">株式会社が募集社債を発行する場合には，株主総会の決議が必要である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債の発行は業務執行行為の一環だから，株式会社の募集社債に関する事項の決定は，取締役の決定・取締役会の決議で行う（348条1項2項，362条2項1号4項5号，399条の13第1項1号4項5号5項本文6項，416条1項1号柱書4項本文）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1303 ★A</span><div class="question">取締役会設置会社でない株式会社が社債を募集する場合には，取締役が募集社債に関する事項を決定することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">取締役会非設置会社では，業務執行行為として取締役が決定する（348条1項2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1304 R2-Ⅱ A</span><div class="question">取締役会設置会社でない株式会社においては，社債を引き受ける者の募集に関する重要な事項の決定は，株主総会の特別決議によらなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">取締役会非設置会社では，業務執行行為として取締役が決定する（348条1項2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1305 ★B</span><div class="question">指名委員会等設置会社でない公開会社が社債を募集する場合には，取締役会は，募集社債の利息支払の方法及び期限の決定を代表取締役に委任することができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">指名委員会等設置会社でない取締役会設置会社では，重要な事項として会社法施行規則99条が定める事項は取締役会の専決事項であるが（362条4項5号。監査等委員会設置会社でも原則として同様。399条の13第4項5号），それ以外は取締役会決議で代表取締役等に決定を委任できる。利息の支払方法・期限（676条5号）は会社法施行規則99条に規定されていないから，取締役会はその決定を代表取締役等に委任できる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1306 R6-Ⅱ／R2-Ⅱ A</span><div class="question">指名委員会等設置会社の取締役会は，社債を引き受ける者の募集に関する重要な事項の決定を執行役に委任することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">指名委員会等設置会社では，募集社債に関する事項の全て（重要な事項も含めて）の決定を取締役会決議によって執行役に委任できる（416条4項本文）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1307 A</span><div class="question">監査等委員会設置会社が社債を募集する場合には，募集社債に関する事項の全ての決定を取締役会の決議によって取締役に委任することは，常に認められない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">監査等委員会設置会社でも，取締役の過半数が社外取締役である場合または定款の定めがある場合は，全ての決定の委任が認められる（399条の13第5項本文6項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1308 A</span><div class="question">会社は，社債の募集が完了した場合は，遅滞なく各社債についてその全額または第一回の払込みをさせなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">会社法上は明文規定はないが，当然のことと解されている。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1309 ★A</span><div class="question">会社は，募集社債を発行する場合において，各社債の金額が1億円以上であるときは，社債原簿を作成しなくてもよい。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">会社は，例外なく，社債を発行した日以後遅滞なく，社債原簿を作成しなければならない（681条柱書）。問題文は，社債管理者の設置の例外事由である（702条ただし書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1310 H31-Ⅰ／R7-Ⅰ ★★★B</span><div class="question">株式会社が会社法上の社債を発行する場合，社債発行会社は，社債原簿管理人を定め，社債原簿に関する事務を行うことを委託しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">委託することが「できる」（683条）。株式会社でも持分会社でも，社債原簿管理人を定めるかどうかは任意である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1311 ★B</span><div class="question">社債発行会社は，社債原簿の閲覧の請求を行う社債権者が当該社債発行会社の業務と実質的に競争関係にある事業を営むことを理由として，当該社債権者の社債原簿の閲覧の請求を拒むことができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債原簿閲覧謄写請求権には会社側の請求拒否事由があるが（684条3項各号），左記内容の事由は規定されていない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1312 R5-Ⅱ B</span><div class="question">社債が2以上の者の共有に属するときは，社債発行会社が社債権者に対してする通知又は催告は，通知又は催告を受領する者1人の氏名又は名称について共有者からの通知がない場合には，そのうちの1人に対してすれば足りる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債が2以上の者の共有に属する場合は，共有者は，社債発行会社が社債権者に対してする通知・催告を受領する者1人を定め，当該会社に対しその者の氏名・名称を通知しなければならず（685条3項），当該通知がない場合は，会社が社債の共有者に対してする通知・催告は，そのうちの1人に対してすれば足りる（同条4項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1313 R6-Ⅰ C</span><div class="question">無記名社債の譲渡は，その社債を取得した者の氏名又は名称及び住所を社債原簿に記載し，又は記録しなければ，社債発行会社その他の第三者に対抗することができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">そもそも無記名社債は（社債券が発行されていることを前提に）社債原簿に社債権者の氏名等が記載されない社債だから，社債原簿の名義書換が対抗要件になりようがない。無記名社債の譲渡については，688条3項，民法520条の20・520条の13により，「社債券の交付による社債券の所持」が会社その他の第三者に対する対抗要件となる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1314 ★C</span><div class="question">無記名社債を譲り受けた者は，当該無記名社債に係る社債券の交付を受けた事実をもって，当該無記名社債の譲受けを社債発行会社その他の第三者に対抗することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">無記名社債の譲渡については，688条3項，民法520条の20・520条の13により，「社債券の交付による社債券の所持」が会社その他の第三者に対する対抗要件となる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1315 ★A上級</span><div class="question">社債権者は，社債に係る社債券を発行する旨の定めがない限り，当該社債を質入れすることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債券発行の定めがない社債でも，当事者の意思表示だけで質権を設定できる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1316 R5-Ⅱ C上級</span><div class="question">社債券を発行する旨の定めがある社債については，当該社債が信託財産に属する旨を社債原簿に記載し，又は記録しなければ，当該社債が信託財産に属することを社債発行会社その他の第三者に対抗することができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債券発行の定めがない社債に信託を設定した場合であれば，問題文は正しく，会社・第三者（ex.受託者の債権者）に対する対抗要件は，当該社債が信託財産に属する旨の社債原簿への記載である（695条の2第1項4項）。しかし，社債券発行の定めがある社債（記名社債＋無記名社債）に信託を設定した場合は，同条1項の適用はなく（同条4項），社債券の占有（所持）が会社・第三者に対する対抗要件となる（687条，689条1項参照）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1317 ★C上級</span><div class="question">社債券を発行する旨の定めがある社債の質権者は，その氏名または名称および住所を社債原簿に記載または記録していても，継続して社債券を占有していなければ，その質権をもって社債発行会社その他の第三者に対抗することができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">693条2項。なお，社債券発行の定めがある社債の場合は，そもそも質権設定者（社債権者）の請求による社債原簿への質権者の氏名等の記載・記録請求権はない（694条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1318 B上級</span><div class="question">社債券発行の定めがない社債に質権を設定した者は，社債発行会社に対し，質権者の氏名又は名称及び住所並びに質権の目的である社債を社債原簿に記載し，又は記録することを請求することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債券発行の定めがない社債の場合は，（社債券発行の定めがある社債と違って）質権設定者（社債権者）には社債原簿への質権者の氏名等の記載・記録請求権がある（694条1項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1319 R7-Ⅱ C上級</span><div class="question">社債券が発行されている社債に質権を設定した者は，社債発行会社に対し，質権者の氏名又は名称及び住所並びに質権の目的である社債を社債原簿に記載し，又は記録することを請求することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債券発行の定めがある社債の場合は，（社債券発行の定めがない社債と違って）質権設定者（社債権者）の請求による社債原簿への質権者の氏名等の記載・記録請求権はない（694条2項）。つまり，略式質だけしかない（登録質はない）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1320 H31-Ⅰ ★A</span><div class="question">社債発行会社は，社債券を発行する旨の定めがある社債を発行した場合には，社債権者からの請求がある時までは，社債券を発行しないことができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債発行会社は，社債券を発行する旨の定めがある社債を発行した日以後遅滞なく，当該社債に係る社債券を発行しなければならない（696条）。左記のような例外はない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1321 ★C</span><div class="question">社債券には，当該社債券に係る社債の金額及び利率を記載しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債の金額は697条1項2号により社債券の記載事項である。また，「社債の種類」は同条項3号により社債券の記載事項であるが，「社債の種類」（681条1号，676条3号～8号）には募集社債の利率も含まれるから（676条3号），社債の利率も社債券の記載事項である。本問（平成27年度第Ⅰ回短答本試験問題の問題13のア）は審査会の発表では「×」とされているが，TACでは「○」と考える。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1322 ★★A</span><div class="question">同一の会社で，社債券が発行されている社債と発行されていない社債とが併存してもよい。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債券を発行しない社債の発行も認められ，社債券を発行するかどうかは，社債を発行するたびに決定できる（676条6号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1323 ★B</span><div class="question">記名式の社債券を保有する社債権者は，募集社債に関する事項において，記名式の社債券を無記名式とすることができない旨の定めがある場合を除き，社債発行会社に対し，その保有する社債券を無記名式の社債券とすることを請求することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債券を保有する社債権者は，募集事項において転換請求ができない旨の定め（676条7号）がある場合を除き，いつでも，記名式の社債券を無記名式とし，無記名式の社債券を記名式とすることを請求できる（698条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1324 R5-Ⅱ B</span><div class="question">無記名式の社債券を有する社債権者は，募集社債に関する事項において無記名式の社債券を記名式とすることができない旨の定めがある場合を除き，社債発行会社に対し，いつでも，その有する無記名式の社債券を記名式とすることを請求することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債券を保有する社債権者は，募集事項において転換請求ができない旨の定め（676条7号）がある場合を除き，いつでも，記名式の社債券を無記名式とし，無記名式の社債券を記名式とすることを請求できる（698条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1325 ★A</span><div class="question">社債券の占有者は，当該社債券に係る社債についての権利を適法に有するものと推定される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債券には資格授与的効力がある（689条1項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1326 ★A</span><div class="question">無権利者から善意で，かつ重大な過失なく社債券の交付を受けた者は，当該社債券に係る社債についての権利を取得する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債券には資格授与的効力があり（689条1項），取引行為により無権利者から善意・無重過失で社債券の交付を受けた者は，当該社債券に係る社債についての権利を善意取得する（同条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1327 ★B</span><div class="question">社債券を喪失した場合には，公示催告手続によって，その社債券を無効とすることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">699条1項。社債券を喪失した場合は，株券における株券喪失登録制度（株券失効制度）（221条以下）のような制度はない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1328 ★B</span><div class="question">社債券を喪失した者は，社債発行会社に対して社債券の再発行を請求する場合において，除権決定を得ることを必要としない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債券は公示催告手続により無効とでき，社債券喪失者は除権決定を得た後でなければ社債券の再発行を請求できない（699条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1329 R5-Ⅰ C</span><div class="question">社債発行会社は，社債券が発行されている社債をその償還の期限前に償還する場合において，これに付された利札が欠けているときは，当該利札に表示される社債の利息の請求権が弁済期にある場合を除き，当該請求権の額を償還額から控除しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債発行会社は，社債券が発行されている社債を償還期限前に繰上償還する場合に，利札が社債券から切り離されて欠けているときは，償還額から期限未到来の利札の券面額を控除した額を社債権者に対して支払わなければならない（700条1項本文）。これは，社債券を保有する社債権者は，対価を得て利札を譲渡したか，または，すでに利札の欠けた社債券を安く譲り受けたはずだからである。ただし，期限が到来している利札については，社債発行会社は（社債の償還義務とは別に）具体的な支払義務を負っているので，その券面額は償還額から控除されない（同条項ただし書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1330 ★C</span><div class="question">社債の償還請求権は，これを行使することができる時から10年間行使しないときは，時効によって消滅する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">701条1項。なお，社債の利息の請求権および利札所持人の控除金額支払請求権は，これらを行使することができる時から5年間行使しない場合は，時効によって消滅する（同条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1331 R5-Ⅰ C</span><div class="question">社債の利息の請求権は，これを行使することができる時から10年間行使しないときは，時効によって消滅する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債の（元本ではなく）利息の請求権および利札所持人の控除金額支払請求権は，これらを行使することができる時から5年間行使しない場合は，時効によって消滅する（701条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1332 R5-Ⅰ C</span><div class="question">最高裁判所の判例の趣旨によれば，特段の事情がない限り，社債の利息に利息制限法第1条が定める利息の制限は適用されない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">「債権者が会社に金銭を貸し付けるに際し，社債の発行に仮託して，不当に高利を得る目的で当該会社に働きかけて社債を発行させるなど…当該社債の発行が利息制限法の規制を潜脱することを企図して行われたものと認められるなどの特段の事情がある場合」を除き，社債には利息制限法1条の規定は適用されない（判例）。なぜなら，利息制限法1条は「金銭を目的とする消費貸借」の利息の制限（ex.元本が100万円以上の場合は年15％を超えた部分は無効）について規定しており，その趣旨は経済的弱者である債務者の窮迫に乗じた不当な高利の貸付けの防止にあるが，社債は発行会社が事業資金を調達するため必要とする資金の規模等を勘案し，自らの経営判断として募集事項を定め，引受けの申込みをしようとする者を募集することが想定されており，利息制限法の趣旨が直ちに当てはまらないからである。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1333 ★★B上級</span><div class="question">社債の発行については，会社法上，社債発行無効の訴えという制度は設けられていない。そのため，新株予約権付社債の発行に無効事由がある場合に，無効の訴えが提起されて無効判決が確定すると，当該新株予約権付社債の新株予約権部分のみが無効となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">第1文は正しい。しかし，「新株予約権発行無効の訴え」には，新株予約権付社債についての社債も含まれる（828条1項4号かっこ書）。したがって，当該訴えの無効判決の確定により，新株予約権部分のみならず，社債部分も無効となる。</span></div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-4-2" class="topic-section">
+        <h2>4-2 社債（2）</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 46</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 46</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 46</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 46</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 46</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 46</span>
+            </div>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1334 R3 A上級</span><div class="question">会社は，社債を発行する場合において，各社債の金額が1億円以上であるとき，又はある種類の社債の総額を当該種類の各社債の金額の最低額で除して得た数が50を下回るときには，社債管理者の設置を要しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">702条ただし書，会社法施行規則169条。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1335 H31-Ⅰ ★A上級</span><div class="question">会社が社債を発行する場合において，各社債の金額が1億円以上であるときは，社債管理者を設置することを要しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">各社債の金額が1億円以上（最低金額が1億円以上）である場合は，社債管理者を設置する必要はない（702条ただし書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1336 ★A上級</span><div class="question">株式会社は，無担保社債を引き受ける者を募集する場合，各募集社債の金額を5000万円とすれば，社債管理者に社債の管理を委託せずに社債を発行することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">例外的に社債管理者を設置する必要がないのは，各募集社債の金額が1億円以上の場合などである（702条ただし書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1337 ★B上級</span><div class="question">会社は，社債を発行する場合には，各社債の金額が1億円以上である場合を除いて，社債管理者を設置しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債を発行する場合，原則として社債管理者の設置義務を負うが（702条本文），左記の場合のほかに，社債権者の数が50人以上となる可能性がない場合も，社債管理者を設置する必要はない（702条ただし書，会社法施行規則169条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1338 ★B上級</span><div class="question">会社が一つの種類の社債を発行する場合において，社債の総額が1億円で，各社債の金額が100万円であるときは，社債管理者を設置することを要しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">ある種類の社債の総額を当該種類の各社債の金額の最低額で除した数が50未満の場合（社債権者の数が50人以上となる可能性がない場合）は社債管理者を設置する必要はない（702条ただし書，会社法施行規則169条）。しかし，本問の場合は1億÷100万＝100だから，これに該当しない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1339 R3／H31-Ⅱ ★★B上級</span><div class="question">信託会社は，社債管理者となる資格を有しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">銀行や信託会社などが社債管理者になれる（703条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1340 ★★A上級</span><div class="question">社債管理者は，社債権者のために，社債に係る債権の弁済を受け，又は社債に係る債権の実現を保全するために必要な一切の裁判外の行為をする権限を有するが，裁判上の行為をする権限は有しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債管理者は，「裁判外の行為（取引行為）」をする権限に限らず，「裁判上の行為（訴訟行為）」をする権限も有する（705条1項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1341 R5-Ⅰ C上級</span><div class="question">社債管理者が社債権者のために社債に係る債権の弁済を受けた場合，社債権者の当該社債管理者に対する社債の利息についての支払請求権は，これを行使することができる時から5年間行使しないときは，時効によって消滅する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債管理者が社債権者のために社債に係る債権の弁済を受けた場合，社債権者の当該社債管理者に対する社債の償還額および社債の利息についての支払請求権は，これを行使することができる時から10年間行使しないときは，時効によって消滅する（705条3項）。701条2項と違って，一律10年である点に注意。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1342 R6-Ⅱ ★B上級</span><div class="question">社債管理者は，その管理の委託を受けた社債につき，社債管理者としての権限を行使するために必要があるときは，裁判所の許可を得て，社債発行会社の業務及び財産の状況を調査することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">705条4項。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1343 ★B上級</span><div class="question">社債管理者は，社債権者集会の決議によらずに，当該社債の全部についてするその支払の猶予，その債務若しくはその債務の不履行によって生じた責任の免除又は和解をすることができる。なお，社債発行会社は，社債を引き受ける者の募集に際し，社債管理者の権限について別段の定めをしていないものとする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債管理者が問題文記載の行為をするには，社債権者集会の決議によらなければならない（706条1項柱書1号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1344 R2-Ⅰ ★C上級</span><div class="question">社債管理者は，いかなる場合であろうとも，社債権者集会の決議によらなければ，社債発行会社の破産申立て等の当該社債の全部についての破産手続に属する行為をすることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債管理者が社債発行会社の破産申立て（破産手続に属する行為の一つ）をするには，原則として社債権者集会の決議が必要である（706条1項本文2号）。ただし，社債の発行に際して特別の定め（676条8号）がある場合は，社債権者集会の決議に基づかずにできる（706条1項柱書ただし書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1345 R3 ★A上級</span><div class="question">社債管理者は，社債権者のために，公平かつ誠実に社債の管理を行わなければならず，社債権者に対し，善良な管理者の注意をもって社債の管理を行わなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債管理者は，社債権者のための公平・誠実義務（704条1項）および社債権者に対する善管注意義務を負う（同条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1346 ★A上級</span><div class="question">社債管理者が社債権者に対して善良な管理者の注意をもって社債の管理を行うべき義務を負うのは，社債管理委託契約にその旨の定めがあるときに限られる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債管理者が発行会社と締結する社債管理委託契約に定めがなくても，会社法上，社債管理者は社債権者に対して善管注意義務を負う（704条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1347 R7-Ⅱ A上級</span><div class="question">社債発行会社について支払の停止があった後に，社債管理者が当該社債発行会社に対して有する債権につき，当該社債発行会社から債務の消滅に関する行為を受けた場合には，当該社債管理者が誠実にすべき社債の管理を怠らなかったことを証明したときにおいても，当該社債管理者は社債権者に対し，損害を賠償する責任を負う。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債管理者は，社債発行会社が社債の償還または利息の支払を怠り，もしくは社債発行会社について支払の停止があった後またはその前3か月以内に，一定の行為をした場合は，社債権者に対して損害賠償責任を負う（710条2項柱書本文各号。問題文は1号に該当）。ただし，社債管理者が誠実義務に違反していないこと（問題文）または当該行為と損害発生の間に因果関係がないことを証明した場合は，損害賠償責任を負わない（同条項柱書ただし書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1348 H31-Ⅱ ★B上級</span><div class="question">社債管理者は，社債発行会社又は社債権者集会の同意を得られなかった場合であっても，やむを得ない事由があるときは，裁判所の許可を得て，辞任することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債管理者が辞任するには，原則として社債発行会社および社債権者集会の同意が必要であるが（711条1項），やむを得ない事由がある場合は，裁判所の許可を得て，辞任できる（同条3項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1349 ★B上級</span><div class="question">裁判所は，社債管理者がその義務に違反したとき，その事務処理に不適任であるときその他正当な理由があるときは，社債発行会社又は社債権者集会の申立てにより，当該社債管理者を解任することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">713条。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1350 R3 B上級</span><div class="question">社債管理者の解任は，社債権者集会において出席した議決権者の議決権の総額の2分の1を超える議決権を有する者の同意をもって行わなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債管理者を解任できるのは「裁判所」であり，社債権者集会ではない。裁判所が，社債発行会社または社債権者集会の申立てを受けて，一定の正当な理由があるときは，社債管理者を解任できる（713条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1351 R7-Ⅰ A上級</span><div class="question">弁護士法人は，社債管理補助者となる資格を有しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債管理補助者には，社債管理者になれる者（銀行，信託会社など）＋弁護士・弁護士法人がなることができる（714条の3，会社法施行規則171条の2）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1352 R7-Ⅱ／R4-Ⅰ A上級</span><div class="question">社債管理補助者は，社債権者のために社債発行会社の破産手続に参加する権限を有する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">714条の4第1項1号。同項の権限は社債管理補助者が最低限有しなければならない権限であり，委託契約の定めも社債権者集会決議も不要である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1353 R4-Ⅰ C上級</span><div class="question">社債管理補助者は，社債権者集会の決議によらずに，社債発行会社が社債の総額について期限の利益を喪失することとなる行為をする権限を有する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債管理補助者は，委託契約に定める範囲内で左記の権限を有するが，「社債権者集会の決議による必要」がある（714条の4第2項4号3項2号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1354 R4-Ⅰ C上級</span><div class="question">二以上の社債管理補助者があるときは，これらの者は，共同してその権限に属する行為をしなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債管理補助者が複数いる場合は，各自の権限（714条の4）が違う可能性があるから，各自，その権限に属する行為をしなければならない（714条の5第1項）。問題文の記載内容は社債管理者が複数いる場合の内容である（709条1項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1355 R4-Ⅰ A上級</span><div class="question">社債管理補助者は，社債権者のために公平かつ誠実に，及び，社債権者に対し善良な管理者の注意をもって，社債の管理の補助を行わなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">714条の7，704条。社債管理者の義務（704条）とほぼ同様である（あくまで社債の管理の補助についての義務であるが）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1356 R5-Ⅱ C</span><div class="question">社債権者と社債管理補助者との利益が相反する場合において，社債権者のために裁判上又は裁判外の行為をする必要があるときは，裁判所は，社債権者集会の申立てにより，当該社債管理補助者を解任して，事務を承継する社債管理補助者を選任しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者と社債管理補助者（社債管理者も同様）の利益が相反する場合に，社債権者のために裁判上または裁判外の行為をする必要があるときは，裁判所は，社債権者集会の申立てにより，特別代理人を選任しなければならない（714条の7，707条）。社債管理補助者or社債管理者を解任はしない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1357 ★★★A上級</span><div class="question">会社が2種類以上の社債を発行している場合には，すべての種類の社債の社債権者は，単一の社債権者集会を組織する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者集会は，社債の種類ごとに組織される（715条）。社債の「種類」は，681条1号参照。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1358 R6-Ⅱ／H30-Ⅰ B上級</span><div class="question">社債権者集会は，法律に規定する事項及び定款で定めた事項に限り，決議をすることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者集会は「会社法に規定する事項」および「社債権者の利害に関する事項」について決議できる（716条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1359 ★B上級</span><div class="question">無担保社債の社債権者集会は，社債発行会社の定款によって定められた事項に限り決議をすることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者集会は「会社法に規定する事項」および「社債権者の利害に関する事項」について決議できる（716条）。無担保社債についての特別な規定もない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1360 R6-Ⅱ ★C上級</span><div class="question">社債を発行している株式会社が組織変更をする場合において，当該株式会社が社債管理者を定めていないときは，当該社債の各社債権者は，社債権者集会の決議によらずに，当該株式会社に対し，当該組織変更について異議を述べることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">組織変更には常に全債権者に債権者異議手続が要求される（779条）。ただ，同条により社債権者が異議を述べるには，社債権者集会の決議によらなければならない（740条1項）。なお，社債管理者がいる場合は，委託契約に別段の定めがない限り，社債管理者は社債権者のために異議を述べることができる（同条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1361 R4-Ⅱ ★B上級</span><div class="question">ある種類の社債の総額（償還済みの額を除く。）の10分の1以上に当たる社債を有する社債権者は，社債発行会社，社債管理者又は社債管理補助者に対し，社債権者集会の目的である事項及び招集の理由を示して，社債権者集会の招集を請求することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者集会は，原則として社債発行会社・社債管理者（一定の場合は社債管理補助者も）が招集するが（717条2項3項），左記の社債権者には社債権者集会の招集請求権・招集権がある（718条1項3項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1362 ★★A上級</span><div class="question">社債権者集会を招集するためには，必ず裁判所の許可を得なければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者集会の「招集」には，原則として裁判所の許可は不要である（717条参照。なお718条3項参照）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1363 R4-Ⅱ B上級</span><div class="question">裁判所は，社債発行会社の業務及び財産の状況に関する検査役の報告があった場合において，必要があると認めるときは，当該社債発行会社に対し，一定の期間内に社債権者集会を招集することを命じることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">裁判所が社債権者集会の招集を命じる制度はない。裁判所が検査役の報告を受けて株主総会の招集を命じる制度（307条1項1号）をまねたひっかけ問題である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1364 ★C上級</span><div class="question">社債権者集会において代表社債権者の選任を決議しようとするときは，当該社債権者集会を招集する者は，招集に際して，社債権者集会の目的である事項として代表社債権者の選任を定めることを要しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者集会の招集者は，社債権者集会を招集する場合には，代表社債権者の選任（736条1項）等の，社債権者集会の目的である事項（議題）その他の事項を定めなければならない（719条2号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1365 H30-Ⅰ ★A上級</span><div class="question">社債権者は，社債発行会社を除き，社債権者集会において，その有する当該種類の社債の金額の合計額（償還済みの額を除く。）に応じて議決権を有する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">723条1項。1人1議決権ではない。また，自己社債に議決権はない（同条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1366 ★★A上級</span><div class="question">社債発行会社は，その有する自己の社債については，議決権を有しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">自己社債に議決権はない（723条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1367 R6-Ⅰ B上級</span><div class="question">無記名社債の社債権者は，社債権者集会において議決権を行使しようとするときは，当該社債権者集会の日の1週間前までに，その社債券を，当該社債権者集会を招集する者に提示しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">723条3項。これは，無記名社債は社債券が発行されているが社債原簿に社債権者の氏名等が記載されていないので，議決権の有無を事前に確認する必要があるからである。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1368 R6-Ⅱ C上級</span><div class="question">社債権者集会において，当該社債の全部についてその支払の猶予に関する事項を可決するためには，議決権を行使することができる社債権者の半数以上が出席し，出席した議決権者の議決権の総額の3分の2以上の議決権を有する者の同意がなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債の全部についてするその支払の猶予（706条1項1号に掲げる行為）に関する事項は，社債権者集会の特別決議による（724条2項1号）。社債権者集会の特別決議の要件は，「議決権者の議決権の総額の5分の1以上」で，かつ，「出席した議決権者の議決権の総額の3分の2以上」の議決権を有する者の同意である（724条2項柱書）。いずれにしても定足数要件はない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1369 H31-Ⅰ ★C上級</span><div class="question">社債権者集会の決議によって代表社債権者を選任するには，議決権者の議決権の総額の5分の1以上で，かつ，出席した議決権者の議決権の総額の3分の2以上の議決権を有する者の同意がなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">代表社債権者の選任（736条1項）は，社債権者集会の特別決議（内容は問題文記載のもの）による（724条2項2号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1370 R2-Ⅰ B上級</span><div class="question">社債権者集会は，その招集通知において社債権者集会の目的である事項として記載されていない事項についても決議することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者集会は，議題以外の事項は決議できない（724条3項）。ただし，延期・続行の決議は可能である（730条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1371 H30-Ⅰ ★B上級</span><div class="question">社債権者は，社債権者集会において，代理人によってその議決権を行使することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">725条。社債権者集会でも，議決権の代理行使が認められている。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1372 R4-Ⅱ／H31-Ⅱ ★★B上級</span><div class="question">社債権者集会に出席しない社債権者は，書面によって議決権を行使することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者集会では，書面投票の採用が一律に強制されている（726条1項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1373 R2-Ⅰ ★★A上級</span><div class="question">社債権者集会の決議が社債権者集会において社債権者の全員の同意で可決し成立したときは，当該決議の効力の発生に裁判所の認可を要しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者集会の決議は，（決議後に）裁判所の認可を受けなければその効力を生じない（734条1項）。社債権者全員の同意で決議が成立した場合も例外ではない。ただし，社債権者集会決議省略制度（735条の2）により決議が擬制される場合は，裁判所の認可がなくても決議の効力が生じる（同条4項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1374 R7-Ⅱ B上級</span><div class="question">社債権者集会の招集の手続又はその決議の方法が，法令又は社債の募集事項に関する説明に用いた資料に記載され，若しくは記録された事項に違反する場合には，裁判所は，社債権者集会の決議の認可をすることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">裁判所は，問題文記載の場合，決議が不正の方法によって成立するに至った場合，決議が著しく不公正である場合，決議が社債権者の一般の利益に反する場合，には，社債権者集会の決議の認可をすることができない（733条柱書各号。問題文は1号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1375 H31-Ⅱ／R4-Ⅱ ★★★B上級</span><div class="question">社債権者集会の招集の手続が法令に違反する場合には，社債権者は，当該社債権者集会の決議の日から3か月以内に限り，訴えをもって当該社債権者集会の決議の取消しを請求することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者集会の決議には，株主総会決議取消しの訴え（831条）のような制度はない。社債権者集会の決議は裁判所の認可がないと効力を生じないが（734条1項），招集手続が法令に違反する場合はそもそも裁判所は決議を認可できないから（733条1号），決議は効力を生じない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1376 H30-Ⅰ B上級</span><div class="question">社債権者集会の決議により，社債管理者，社債管理補助者又は代表社債権者とは別に，社債権者集会の決議を執行する者を定めることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者集会の決議は，社債管理者がいる場合は社債管理者が，社債管理補助者がいる場合の一定の場合は社債管理補助者が，それ以外の場合は代表社債権者が，執行する（737条1項本文）。ただし，社債権者集会決議によって別に社債権者集会決議の執行者を定めることもできる（同条項ただし書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1377 R7-Ⅰ C上級</span><div class="question">代表社債権者が社債権者集会の決議を執行するときには，当該代表社債権者は，個別の社債権者を表示することを要しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債管理者（その特別代理人も）・社債管理補助者（その特別代理人も）が社債権者のために裁判上・裁判外の行為をする場合は，個別の社債権者を表示することを要しない（708条，714条の7）。これと同様に，代表社債権者または決議執行者が社債権者集会の決議を執行する場合は，個別の社債権者を表示することを要しない（737条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1378 R7-Ⅰ B上級</span><div class="question">社債権者集会においては，その決議によって，いつでも，代表社債権者を解任することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者集会では，社債権者集会の決議によって，いつでも，代表社債権者・決議執行者を解任し，またはこれらの者に委任した事項を変更できる（738条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1379 ★★C上級</span><div class="question">社債権者集会に関する費用は，社債権者全員で負担しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">社債権者集会に関する費用は，社債発行会社が負担する（742条1項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pagePrefix = "Kigyo_Shikin4_";
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') { input.checked = savedValue === 'true'; }
+                    else { input.value = savedValue; if (input.classList.contains('date-input') && savedValue !== "") input.type='date'; }
+                }
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') localStorage.setItem(storageKey, input.checked);
+                    else localStorage.setItem(storageKey, input.value);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

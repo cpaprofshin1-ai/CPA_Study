@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【企業法】募集株式の発行等（自動保存付き）</title>
+    <style>
+        /* スムーズスクロール */
+        html { scroll-behavior: smooth; }
+
+        body {
+            /* ゼロにスラッシュが入るのを防ぐ標準フォント */
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75;
+            color: #333;
+            max-width: 900px; /* 13インチiPad向けゆったりレイアウト */
+            margin: 0 auto;
+            padding: 40px 25px;
+            background-color: #f5f7f9;
+        }
+
+        /* 表紙・目次エリア */
+        .cover-page {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50;
+            font-size: 2.2em;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 1.3em;
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        /* 目次リスト */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: left;
+            max-width: 600px;
+        }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block;
+            text-decoration: none;
+            color: #1e293b;
+            background-color: #f1f5f9;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-left: 6px solid #3498db;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover {
+            background-color: #e2e8f0;
+            transform: translateX(5px);
+        }
+
+        /* 大見出し（テーマごとのブロック） */
+        .topic-section {
+            margin-top: 150px; 
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding-left: 14px;
+            border-left: 6px solid #3498db;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+        }
+        
+        /* スコアボード（日付＋点数） */
+        .score-board {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .attempt-label {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+        
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+        }
+        .date-input {
+            width: 125px;
+            padding: 6px 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .score-input {
+            width: 50px;
+            padding: 6px 8px;
+            font-size: 1.05em;
+            text-align: right;
+        }
+        .score-denominator {
+            font-weight: bold;
+            color: #64748b;
+            font-size: 1.05em;
+        }
+
+        /* Q&Aブロック */
+        .qa-block {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            break-inside: avoid;
+        }
+        
+        /* タップしやすいチェックボックス */
+        .checkbox-area {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+
+        /* 問題文とバッジのレイアウト */
+        .question-header {
+            margin-bottom: 20px;
+        }
+        .q-badge {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.9em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 4px;
+        }
+        .question {
+            font-weight: bold;
+            font-size: 1.15em;
+            color: #1e293b;
+            line-height: 1.7;
+            display: inline;
+        }
+
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            display: inline-block;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ans-row {
+            display: flex;
+            margin-bottom: 14px;
+            font-size: 1.05em;
+        }
+        .label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+        
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 16px;
+            font-size: 0.95em;
+            color: #475569;
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+
+        /* トップに戻るリンク */
+        .back-to-top {
+            display: block;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+
+        /* 印刷用スタイル */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; padding-top: 0; border-top: none; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+        </style>
+</head>
+<body id="top">
+
+    <div class="cover-page">
+        <h1 class="cover-title">企業法 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">募集株式の発行等</div>
+        <ul class="toc-list">
+            <li><a href="#topic-2-1">2-1 募集株式の発行等（1）</a></li>
+            <li><a href="#topic-2-2">2-2 募集株式の発行等（2）</a></li>
+        </ul>
+    </div>
+
+
+    <div id="topic-2-1" class="topic-section">
+        <h2>2-1 募集株式の発行等（1）</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 55</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 55</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 55</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 55</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 55</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 55</span>
+            </div>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1166 ★A</span><div class="question">公開会社でない株式会社は，定款を変更して発行可能株式総数についての定めを廃止することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">発行可能株式総数は，公開会社か否かを問わず，変更はできるが（113条2項3項），廃止はできない（同条1項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1167 R5-Ⅰ／H30-Ⅱ ★A</span><div class="question">設立しようとする株式会社が公開会社である場合には，設立時発行株式の総数は，発行可能株式総数の2分の1を下ることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">「4分の1」を下ることができない（37条3項本文）。公開会社の場合だけに要求される規律である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1168 H31-Ⅱ A</span><div class="question">公開会社でない株式会社が定款を変更して発行可能株式総数を増加させる場合，当該定款の変更後の発行可能株式総数は，当該定款の変更が効力を生じた時における発行済株式の総数の4倍を超えることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">4倍規制が課されるのは「公開会社」の場合だけである（113条3項1号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1169 A</span><div class="question">公開会社が定款を変更して発行可能株式総数を増加する場合だけでなく，公開会社でない株式会社が定款を変更して公開会社となる場合も，当該定款の変更後の発行可能株式総数は，当該定款の変更が効力を生じた時における発行済株式の総数の4倍を超えることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">平成26年改正により，非公開会社が定款変更により公開会社になる場合にも，4倍規制が導入された（113条3項2号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1170 R6-Ⅱ B</span><div class="question">新設合併設立会社が公開会社である場合において，当該新設合併設立会社の設立時に発行される株式の総数は，当該新設合併設立会社の定款に定める発行可能株式総数の4分の1を下ることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">新設型組織再編行為における設立株式会社（新設合併設立株式会社，新設分割設立株式会社，株式移転設立完全親会社）についても，37条3項が適用され（814条1項かっこ書），それが公開会社であれば，会社設立時に発行可能株式総数の4分の1以上は株式を発行しなければならない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1171 ★B</span><div class="question">新株予約権の行使期間の初日が到来している場合は，新株予約権者が新株予約権を行使することにより取得することとなる株式の数は，発行可能株式総数から，自己株式を含む発行済株式の総数を控除して得た数を超えてはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">左記問題文の後半にある「自己株式を含む」が間違い。「自己株式を除く」が正しい（113条4項）。それを除けば正しい。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1172 ★A</span><div class="question">公開会社は，一定の場合を除いて，取締役会決議によって募集事項を決定することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">201条1項。199条2項。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1173 ★A</span><div class="question">公開会社であれば，定款所定の発行可能株式総数の範囲内において，つねに取締役会の決議のみによって募集株式の発行に関する募集事項を決定することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">公開会社でも，有利発行の場合は，株主総会特別決議と理由説明が必要となる（201条1項，199条2項3項，309条2項5号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1174 A</span><div class="question">株主割当て以外の方法で募集株式を発行等する場合で，それが引受人に特に有利な金額であるときは，公開会社か否かを問わず，募集事項の決定またはその決定の取締役または取締役会への委任には，株主総会の特別決議が必要である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">あわせて取締役には総会で理由説明義務がある。公開会社は，201条1項，199条2項3項，200条1項2項，309条2項5号。非公開会社は，199条2項3項，200条1項2項，309条2項5号。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1175 A</span><div class="question">公開会社が株主割当てによる方法で募集株式を発行等するときは，取締役会の決議によって募集事項を決定すればよい。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">202条3項3号。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1176 A</span><div class="question">公開会社でない会社が，株主割当て以外の方法で募集株式の発行等をする場合は，募集事項の決定は原則として取締役の決定または取締役会の決議で足りる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">非公開会社では，有利発行でなくても，募集事項の決定は株主総会の特別決議が必要となる（199条2項，309条2項5号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1177 ★★A</span><div class="question">取締役会設置会社における募集株式の発行に関して，公開会社でない会社では，募集株式の数，払込金額その他の募集事項の決定は，株主総会の普通決議によって，取締役会に委任することができるが，募集株式の数の上限と払込金額の下限は，株主総会で決定しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">非公開会社では，非有利発行の場合も（有利発行の場合も），募集事項の決定の委任が可能であるが，それには総会「特別決議」が必要である（200条1項，309条2項5号）。それ以外は正しい。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1178 R6-Ⅱ／H31-Ⅰ ★A</span><div class="question">公開会社でない株式会社において，株主に株式の割当てを受ける権利を与えて募集株式を発行する場合には，募集事項は取締役（取締役会設置会社の場合は取締役会）が決定する。なお，定款に別段の定めはないものとする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">非公開会社では，株主割当ての場合に，定款に規定を置けば，取締役の決定（取締役会設置会社の場合は取締役会の決議）とすることができるが（202条3項1号2号），そうでなければ，総会特別決議が必要となる（202条3項4号，309条2項5号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1179 ★A</span><div class="question">取締役会設置会社でない株式会社が，株主に株式の割当てを受ける権利を与える方法で募集株式の発行等をする場合，募集事項を取締役の決定によって定めることができる旨を定款に定めることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">非公開会社（取締役会非設置会社は常に非公開会社）では，株主割当ての場合でも，原則として総会特別決議が必要となる（202条3項4号，309条2項5号）。ただし，定款に規定を置けば，取締役の決定（取締役会設置会社の場合は取締役会の決議）とすることが可能となる（202条3項1号2号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1180 ★B</span><div class="question">募集株式の発行等に関し，公開会社が市場価格のある株式を引き受ける者の募集をするときは，募集株式の払込金額又はその算定方法に代えて，公正な価額による払込みを実現するために適当な払込金額の決定の方法を，募集事項として定めることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">201条2項。公開会社が取締役会決議によって募集事項を決定する場合の特則の一つである。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1181 ★★B</span><div class="question">株式会社がその処分する自己株式を引き受ける者の募集をしようとするときは，募集事項として，増加する資本金及び資本準備金に関する事項を定めなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">「株式を『発行』するとき」は，増加する資本金および資本準備金に関する事項を募集事項として決定する必要がある（199条1項5号）。そもそも自己株式の処分では資本金は増加しない（445条1項参照）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1182 ★A</span><div class="question">株式会社は，上場会社が取締役又は執行役の報酬等として募集に係る株式を発行又は自己株式を処分する場合を除き，募集株式の引受人が出資の履行を要しない旨を募集事項として定めることはできない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">出資である以上，原則として無償は認められない（199条1項2号3号参照）。ただし，上場会社における取締役・執行役の報酬等に係る募集事項の決定については特則がある（202条の2第1項1号3項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1183 ★A</span><div class="question">募集株式の発行に関して，募集株式についての募集事項は，募集新株予約権の募集事項と同様に，募集ごとに均等に定めなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">199条5項。募集新株予約権については，238条5項。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1184 R6-Ⅱ B</span><div class="question">株主に株式の割当てを受ける権利を与えて募集株式を発行するには，公開会社は，募集事項のほか，募集株式の割当てに係る基準日を定めることを要し，かつ，基準日の2週間前までに，当該基準日及び基準日株主が行使することができる権利の内容を公告しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">公開会社か否かを問わず，株主割当ての方法で募集株式を発行等するには，募集事項に加えて一定事項を定める必要があるが（202条1項各号），基準日（124条）の定めは要求されていない（基準日制度を利用して決めると解されているだけである）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1185 ★B</span><div class="question">株式会社は，株主に株式の割当てを受ける権利を与えずに，自己株式の処分をする場合に，申込みをしようとする者に対して目論見書を交付しているときは，その者に対して募集事項等を通知する必要がない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">会社が募集事項等を記載した金商法の目論見書を申込みをしようとする者に交付している場合その他その者の保護に欠けるおそれがないものとして法務省令で定める場合は，203条1項の通知は不要となる（203条4項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1186 ★A</span><div class="question">募集株式の発行に関して，会社は，募集株式の引受けの申込者の中から割当てを受ける者とその者に割り当てる株式数を定めるにあたって，割り当てる株式の数を申込者が引き受けようとする募集株式の数より減少することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">204条1項後段。割当て自由の原則である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1187 R3 B</span><div class="question">公開会社においては，募集株式を引き受けようとする者がその総数の引受けを行う契約を締結する場合，当該募集株式が譲渡制限株式であるときは，定款に別段の定めのない限り，株主総会の決議によって当該契約の承認を受けなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">募集株式が譲渡制限株式である場合は，(1)総数引受けでないときはその割当ての決定を，また，(2)本問のように総数引受けのときは当該契約の承認を，株主総会特別決議（取締役会設置会社では取締役会決議）で行う必要がある（204条2項，205条2項，309条2項5号）。なお，公開会社は取締役会設置会社である（327条1項1号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1188 R6-Ⅱ／H31-Ⅰ ★A</span><div class="question">株式会社が，募集株式の発行に際して株主に株式の割当てを受ける権利を与えた場合において，当該株主は，当該募集株式の引受けの申込期日までに申込みをしないときは，当該募集株式の割当てを受ける権利を失う。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">株主割当ての場合の申込みをしないときの当然失権（申込失権）の制度である（204条4項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1189 A</span><div class="question">公開会社は，募集株式の引受人について当該引受人（その子会社等を含む。）がその引き受けた募集株式の株主となった場合に有することとなる議決権の数が当該募集株式の引受人の全員がその引き受けた募集株式の株主となった場合における総株主の議決権の数に対する割合が2分の1を超える場合は，当該引受人が当該公開会社の親会社等である場合又は株主割当てによる場合を除き，払込期日（払込期間を定めた場合にはその期間の初日）の2週間前までに，株主に対し当該引受人の氏名又は名称及び住所，当該引受人が有することとなる議決権の数その他の事項を通知又は公告しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">平成26年改正によって新設された「公開会社における支配株主の異動を伴う募集株式の割当て等の特則」である（206条の2第1項2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1190 R5-Ⅰ A</span><div class="question">公開会社の募集株式の割当てにより，当該募集株式の引受人となった者が当該公開会社の総株主の議決権の2分の1を超える数の議決権を有することになる場合において，総株主の議決権の10分の1以上の議決権を有する株主が当該公開会社に反対の通知をしたときは，株主総会の特別決議によって当該引受人に対する募集株式の割当てについて承認を受けなければならない。なお，定款に別段の定めはないものとする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">「特別決議」が誤り。株主総会の特別決議ではなく，株主総会の普通決議（341条と同様の決議）によって，特定引受人に対する割当て・特定引受人との総数引受契約の承認を受けなければならない（206条の2第4項5項）。なお，341条の普通決議は，（定款で定足数を増減できるが）定款による定足数の引下げは3分の1までに制限されており，また，決議要件は引上げしか認められない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1191 ★A</span><div class="question">公開会社において，株主総会の特別決議により募集事項等を決定した場合，払込期日（又は払込期間の初日）の2週間前までに募集事項を株主に通知し又は公告する必要がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">公開会社で「取締役会決議によって募集事項が定められた場合」（201条1項，199条2項）は，払込期日・払込期間の初日の2週間前までに，株主に対して当該事項を通知・公告しなければならない（201条3項4項）。「公開会社で株主総会特別決議で募集事項を決定した場合」（有利発行の場合）は，株主総会が開催されるから，上記のような公示制度はない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1192 ★B</span><div class="question">公開会社は，株主に株式の割当てを受ける権利を与えずに，新株の発行をする場合に，払込期日又は払込期間初日の2週間前までに有価証券届出書を内閣総理大臣に提出しているときは，取締役会で決定した募集事項を株主に通知する必要がない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">公開会社が募集事項につき払込期日・払込期間の初日の2週間前までに有価証券届出書を提出している場合その他株主の保護に欠けるおそれがないものとして法務省令で定める場合は，通知・公告は不要（201条5項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1193 R3 A</span><div class="question">株式会社は，株主に株式の割当てを受ける権利を与えて募集株式を発行する場合，当該権利を有する株主に対して募集事項を通知しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">公開会社・非公開会社を問わず，株主割当てによる場合は，当然失権（204条4項）を防止する等の趣旨から，引受けの申込期日の2週間までの株主に対する募集事項等の通知が要求されている（202条4項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1194 R6-Ⅱ ★★A</span><div class="question">株主に株式の割当てを受ける権利を与えて募集株式を発行する場合は，募集株式の引受けの申込みの期日の2週間前までに当該株主に対して募集事項を通知しなければならないが，公開会社においては当該通知は公告に代えることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">公開会社・非公開会社を問わず，株主割当てによる場合は，当然失権（申込失権。204条4項）を防止する等の趣旨から，引受けの申込期日の2週間までの株主に対する募集事項等の「通知」が要求されている（202条4項）。公告による代替は許されない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1195 A</span><div class="question">募集株式の発行等における「特に有利な金額」とは，会社の資金調達の目的を達成できる範囲内で，既存株主にとって最も有利な価額を著しく下回る価額である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">通説。要は「公正な払込金額」を著しく下回る価額である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1196 A</span><div class="question">募集株式の発行等時においても，設立時と同様に，現物出資が認められており，また，設立時と同様に，現物出資者の氏名等を定款に記載又は記録する必要がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">前半は正しいが，後半は誤り。設立時（28条1号）と違って，定款への記載は要求されていない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1197 ★A</span><div class="question">募集株式の発行等において，現物出資が認められるのは，株主割当ての方法による場合に限られる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">現物出資は，株主割当ての場合に限らず，株主割当て以外の場合にも認められる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1198 R2-Ⅰ B</span><div class="question">募集株式の引受人が現物出資財産を給付する場合，当該引受人に割り当てる株式の総数が発行済株式の総数の10分の1を超えないときは，当該現物出資財産の価額について，検査役の調査を要しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">左記の場合は，現物出資規制の例外として，検査役の調査が不要となる（207条9項1号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1199 R6-Ⅰ A</span><div class="question">株式会社が，募集株式について，現物出資財産を出資の目的とする旨並びに当該財産の内容及び価額を定めた場合に，当該株式会社が現物出資財産について定めた価額の総額が500万円を超えないときは，検査役の調査が免除される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">左記の場合は，現物出資規制の例外として，検査役の調査が不要となる（207条9項2号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1200 R6-Ⅰ A</span><div class="question">株式会社が，募集株式について，現物出資財産を出資の目的とする旨並びに当該財産の内容及び価額を定めた場合に，当該株式会社から株式の割当てを受けた募集株式の引受人が，現物出資財産として市場価格のある有価証券を給付する場合において，当該現物出資財産の価額が，法務省令で定める方法により算定される当該有価証券の市場価格を超えないときは，検査役の調査が免除される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">左記の場合は，現物出資規制の例外として，検査役の調査が不要となる（207条9項3号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1201 ★A</span><div class="question">募集株式の発行に関して，不動産を現物出資する場合にも，価額が相当であることについて公認会計士の証明があれば，会社は，検査役の選任を申し立てる必要はない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">不動産の場合は，＋αとして，不動産鑑定士の鑑定評価が必要（207条9項4号かっこ書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1202 R6-Ⅰ A</span><div class="question">株式会社が，募集株式について，現物出資財産を出資の目的とする旨並びに当該財産の内容及び価額を定めた場合に，当該株式会社から株式の割当てを受けた募集株式の引受人が，現物出資財産として不動産を給付する場合において，当該現物出資財産の価額が相当であることについて税理士の証明のみを受けたときは，検査役の調査が免除される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">不動産の場合は，＋αとして，不動産鑑定士の鑑定評価が必要（207条9項4号かっこ書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1203 ★A</span><div class="question">募集株式の発行等を行う場合に関して，発行会社に対する金銭債権は，現物出資財産とすることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">なお，デット・エクイティ・スワップ（DES）として，一定の場合は，検査役の調査が不要となる（207条9項5号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1204 R6-Ⅰ B</span><div class="question">株式会社が，募集株式について，現物出資財産を出資の目的とする旨並びに当該財産の内容及び価額を定めた場合に，当該株式会社から株式の割当てを受けた募集株式の引受人が，現物出資財産として，当該株式会社に対する弁済期が到来していない金銭債権を給付する場合において，当該金銭債権について定められた価額が当該金銭債権に係る負債の帳簿価額を超えないときは，検査役の調査が免除される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">「弁済期が到来していない」が誤り。デット・エクイティ・スワップ（DES）として例外的に検査役の調査が不要となるのは，弁済期が到来している金銭債権に限られる（207条9項5号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1205 R2-Ⅰ ★A</span><div class="question">募集株式の引受人は，出資の履行をする債務と株式会社に対する債権とを相殺することができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">208条3項。引受人側からの相殺は許されない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1206 ★A</span><div class="question">募集株式の発行等を行う場合に関して，発行会社は，募集株式の引受人に対する出資の払込みを受ける債権と，当該引受人に対する債務とを，相殺することはできない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">引受人側からの相殺は許されないが（208条3項），会社側からの相殺は許される（同条項の反対解釈）。デット・エクイティ・スワップ（207条9項5号参照）は実質的には金銭出資における会社側からの相殺である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1207 ★A</span><div class="question">募集株式の発行等を行う場合に関して，募集事項の決定において，募集株式と引換えにする金銭の払込みの期日を定めた場合には，募集株式の引受人は，当該期日に出資の履行をした募集株式の株主となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">払込期日を定めたときは，（払込期日の前に払込みをしても）払込期日に募集株式の発行等の効力が生じ，募集株式の引受人はその日から株主となる（209条1項1号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1208 H31-Ⅰ ★A</span><div class="question">募集事項として払込み又は給付の期間が定められた場合，募集株式の引受人は，その期間内において出資の履行をした日に，募集株式の株主となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">払込期間を定めたときは，出資の履行をした日に，募集株式の発行等の効力が生じ，募集株式の引受人はその日から株主となる（209条1項2号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1209 R3 C</span><div class="question">最高裁判所の判例の趣旨によれば，他人の承諾を得てその名義を用いて募集株式を引き受けた場合，名義借用者でなく，名義貸与者がその株主となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">他人の承諾を得てその名義を用いて募集株式を引き受けた場合は，名義人（名義貸与者）ではなく，実質上の引受人（金銭等を支出した名義借用者）がその株主となる（実質説。最判昭42・11・17）。なぜなら，株式の引受け・払込みについても，一般私法上の法律行為と同様に（民法でも，実際に金銭等を支出した者が権利者だと解することが多い），真に契約の当事者として申込みをした者が引受人としての権利を取得し義務を負担すると解すべきだからである。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1210 B上級</span><div class="question">虚偽表示により募集株式の割当てを受けた場合，割当てを受けた者は割当ての無効を主張できる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">虚偽表示による無効（民法94条1項）は，募集株式の申込み・割当て等には適用されない（211条1項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1211 B上級</span><div class="question">錯誤によって募集株式を引き受けた場合，募集株式の引受人は，どの時期でも，株式引受けの取消しをすることはできない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">募集株式の引受けの錯誤取消し（民法95条1項）は，株主となった日から1年以内で，かつ，当該株式について権利行使をしていなければ，許される（211条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1212 H31-Ⅰ B上級</span><div class="question">募集株式の引受人は，株主となった日からその株式について権利を行使せずに6か月を経過した後は，詐欺を理由として，当該募集株式の引受けの取消しをすることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">「6か月」ではなく「1年」が正しい（211条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1213 A</span><div class="question">募集株式の引受人は，取締役又は執行役と通じて著しく不公正な払込金額で募集株式を引き受けた場合，株式会社に対し，当該払込金額と当該募集株式の公正な価額との差額に相当する金額を支払う義務を負う。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">212条1項1号。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1214 H30-Ⅰ B</span><div class="question">取締役と通じて著しく不公正な払込金額で募集株式の発行を受けた者は，当該払込金額と当該募集株式の公正な価額との差額に相当する金額を支払った後でなければ，当該募集株式について株主の権利を行使することができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">左記の場合，募集株式の引受人は左記金額を支払う義務を負う（212条1項1号）。しかし，出資の履行が仮装された場合における209条2項（支払後でなければ株主権を行使できない）のような規定はない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1215 R3 B</span><div class="question">現物出資財産を給付した募集株式の引受人が，当該現物出資財産の価額が募集事項において定められた価額に著しく不足することにつき善意でかつ重大な過失がないときは，募集株式の引受けの申込みに係る意思表示を取り消すことができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">現物出資財産の価額が著しく不足する場合，引受人は差額支払義務を負うが（212条1項2号），当該引受人が著しい不足に善意・無重過失であるときは，引受けの申込みを取り消すことができる（同条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1216 B</span><div class="question">募集株式の引受人は，現物出資財産の給付を仮装した場合は，株式会社に対し，給付を仮装した現物出資財産を給付する義務を負い，この際，当該株式会社は，当該給付に代えて，当該現物出資財産の価額に相当する金銭の支払を請求することはできない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">前半は正しい（213条の2第1項2号）。後半が誤り。会社は当該給付に代えて当該現物出資財産の価額に相当する金銭の支払を請求でき，その場合は当該金銭の全額を支払う義務を負う（同条項号かっこ書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1217 H30-Ⅰ B</span><div class="question">募集株式の引受人が払込金額の払込みを仮装したことによって株式会社に対して払込みを仮装した払込金額の支払義務を負う場合，当該支払義務は総株主の同意がなければ免除することができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">左記の引受人の責任は，総株主の同意があれば免除できる（213条の2第2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1218 A</span><div class="question">募集株式の引受人が出資の履行を仮装した場合は，出資の履行を仮装した当該募集株式は無効である以上，当該引受人が当該募集株式について株主の権利を行使する余地はない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">出資の履行を仮装した引受人は，自らの支払・給付または仮装関与取締役等による支払後は，出資の履行を仮装した募集株式について，株主権を行使できる（209条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1219 R2-Ⅰ A</span><div class="question">募集株式の払込金額の払込みを仮装した引受人から当該募集株式を善意でかつ重大な過失なく譲り受けた者は，当該引受人が仮装した払込金額につき支払がされた後でなければ，当該募集株式についての株主の権利を行使することができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">引受人から出資の履行が仮装された募集株式を譲り受けた者は，善意かつ無重過失であれば，「引受人等の支払義務の履行前でも」（条文に書いていないので注意），株主権を行使できる（209条3項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1220 H30-Ⅰ B</span><div class="question">募集株式の払込金額の払込みを仮装した引受人から当該募集株式を譲り受けた者は，悪意又は重大な過失があるときは，当該引受人と連帯して，株式会社に対し払込みを仮装した払込金額を支払う義務を負う。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">引受人から出資の履行が仮装された募集株式を譲り受けた者は，悪意・重過失がある場合は，引受人等の支払義務の履行前は株主権を行使できない（善意かつ無重過失であれば行使できる）との規定はあるが（209条3項），仮装した払込金額の支払義務はない。</span></div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <div id="topic-2-2" class="topic-section">
+        <h2>2-2 募集株式の発行等（2）</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 18</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 18</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 18</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 18</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 18</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 18</span>
+            </div>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1221 ★A上級</span><div class="question">新株発行の無効は，訴えをもってのみ主張することができるが，新株発行の不存在は，訴えによらなくても主張することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">新株発行無効の訴え（828条1項2号）は形成訴訟であるが，新株発行不存在確認の訴え（829条1号）は確認訴訟である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1222 ★A上級</span><div class="question">公開会社において，新株発行の無効の訴えの提訴期間は，株式の発行の効力が生じた日から6箇月以内であるが，新株発行の不存在の確認の訴えの提訴期間は，株式の発行の効力が生じた日から1年以内である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">前半は正しいが（828条1項2号），後半が誤り。新株発行不存在確認の訴え（829条1号）は確認訴訟で，提訴権者や提訴期間の制限はない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1223 ★★★A上級</span><div class="question">公開会社でない株式会社においては，新株発行の無効の訴えは，株式の発行の効力が生じた日から1年以内に提起することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">提訴期間は，公開会社では6か月以内であるが，非公開会社では1年以内である（828条1項2号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1224 ★A上級</span><div class="question">新株発行の無効の訴えを提起することができる者には，取締役は含まれない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">提訴権者は「株主等」であるが（828条2項2号），これには取締役も含まれる（同条項1号かっこ書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1225 H30-Ⅱ B上級</span><div class="question">公開会社において新株発行の募集事項を決定する取締役会決議に賛成した取締役は，当該新株発行の無効の訴えを提起することができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">提訴権者は「株主等」であり（828条2項2号），「株主等」は，株主・取締役・監査役・執行役・清算人である（同条項1号かっこ書）。「取締役」であれば提訴権者になることができ，募集事項を決定する取締役会決議に賛成したか反対したかは関係がない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1226 ★A上級</span><div class="question">新株発行の無効の訴えに係る請求を認容する確定判決は，第三者に対してもその効力を有する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">認容判決には対世効がある（838条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1227 R7-Ⅰ／H30-Ⅱ ★A上級</span><div class="question">新株発行の無効の訴えに係る請求を認容する判決が確定したときは，当該判決において無効とされた新株発行は，当該新株発行が効力を生じた日に遡って，その効力を失う。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">新株発行無効の訴えの認容判決は将来効であり，当該新株発行は将来に向かってその効力を失う（839条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1228 ★B上級</span><div class="question">株式会社は，新株発行の無効の訴えに係る請求を認容する判決が確定したときは，当該判決の確定時における当該株式の株主に対し，払込みを受けた金額に相当する金銭を支払い，又は給付を受けた財産を引き渡さなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">最後の部分が誤り。現物出資の場合も「給付を受けた財産の給付の時における価額に相当する金銭」を支払わなければならない（840条1項前段）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1229 ★B上級</span><div class="question">新株発行の無効判決が確定したときであっても，当該株式に係る株主は判決確定までに剰余金の配当として受けた金銭を会社に返還する必要はない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">新株発行の無効判決は将来効しかないから（839条），判決確定前に行われた剰余金の配当，議決権の行使，株式譲渡等は，すべて有効である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1230 R7-Ⅰ A上級</span><div class="question">新株発行の無効の訴えにおける被告は，当該新株発行に係る株式の株主である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">新株発行無効の訴えの被告は，株式の発行をした株式会社である（834条2号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1231 ★★A上級</span><div class="question">新株発行の無効の訴えに関する最高裁判所の判例によれば，指名委員会等設置会社でない取締役会設置会社において，取締役会決議を経ないで新株発行がなされたことは，新株発行の無効原因となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">公開会社において取締役会の決議（201条1項，199条2項）を欠いて新株を発行した場合でも，無効原因とはならない（判例）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1232 R2-Ⅰ ★A上級</span><div class="question">最高裁判所の判例の趣旨によれば，公開会社において払込金額が募集株式の引受人に特に有利な金額であるために株主総会の特別決議が必要である場合において，株主総会の特別決議を経ることなく募集事項を決定して，当該募集株式が発行されたものであっても，その瑕疵は，当該募集株式の発行の無効原因とはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">公開会社において株主総会の特別決議を欠いて第三者に対して新株を有利発行した場合でも，新株発行無効の訴えの無効原因とはならない（判例）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1233 R5-Ⅰ／H30-Ⅱ A上級</span><div class="question">最高裁判所の判例の趣旨によれば，公開会社でない株式会社において，募集事項の決定について株主総会の特別決議を経ないまま株主割当て以外の方法によってされた募集株式の発行には無効原因がある。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">非公開会社において株主総会の特別決議を経ないまま株主割当て以外の方法による新株発行がされた場合は，重大な法令違反があり，新株発行無効の訴えの無効原因になる（判例）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1234 A上級</span><div class="question">最高裁判所の判例によれば，著しく不公正な方法により募集株式が発行された場合は，募集株式発行等差止請求権の差止事由になる以上，新株発行無効の訴えの無効原因にもなる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">差止請求権（210条）の対象とはなるが，無効原因にはならない（有効）（判例）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1235 R7-Ⅰ／H30-Ⅱ ★★A上級</span><div class="question">最高裁判所の判例の趣旨によれば，公開会社である株式会社における募集株式の発行において，募集事項の公示（通知又は公告）をしなければならないにもかかわらずこれを行わないことは，当該公示をしないこと以外に当該募集株式の発行の差止めの事由がない場合を除き，新株発行の無効原因となる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">公開会社で募集事項の公示（201条3項4項の通知・公告）を欠いて新株が発行された場合，原則として無効だが，他に瑕疵がなく差止事由（210条）が存在しなかったことを会社が立証した場合は有効である（判例）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1236 ★★A上級</span><div class="question">最高裁判所の判例によれば，募集株式の発行の差止めの仮処分命令に違反して当該募集株式の発行を行うことは，当該募集株式の発行の無効原因にならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">口頭 or 書面による差止請求（210条）を無視した新株発行は有効であるが，仮処分を無視した新株発行は無効である（判例）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1237 ★B上級</span><div class="question">新株発行の無効の訴えに関する最高裁判所の判例によれば，新株発行の無効の訴えが提起された場合，出訴期間の経過後に，新たな無効事由を追加して主張することも許される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">新株発行の無効の訴え（828条1項2号）が提起され，その後，出訴期間が経過した後は，新たな無効事由の追加主張は許されない（判例）。株主総会決議取消しの訴え（831条1項）の場合と同様である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1238 ★A上級</span><div class="question">新株発行の不存在の確認の訴えに係る請求を認容する判決が確定したときは，当該新株発行は，将来に向かって効力を失う。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">新株発行不存在確認の訴え（829条1号）の認容判決は遡及する（遡及効は阻止されない）（839条参照）。</span></div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pagePrefix = "Kigyo_Shikin2_";
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') { input.checked = savedValue === 'true'; }
+                    else { input.value = savedValue; if (input.classList.contains('date-input') && savedValue !== "") input.type='date'; }
+                }
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') localStorage.setItem(storageKey, input.checked);
+                    else localStorage.setItem(storageKey, input.value);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

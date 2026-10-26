@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【企業法】事業譲渡等（自動保存付き）</title>
+    <style>
+        /* スムーズスクロール */
+        html { scroll-behavior: smooth; }
+
+        body {
+            /* ゼロにスラッシュが入るのを防ぐ標準フォント */
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75;
+            color: #333;
+            max-width: 900px; /* 13インチiPad向けゆったりレイアウト */
+            margin: 0 auto;
+            padding: 40px 25px;
+            background-color: #f5f7f9;
+        }
+
+        /* 表紙・目次エリア */
+        .cover-page {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50;
+            font-size: 2.2em;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 1.3em;
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        /* 目次リスト */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: left;
+            max-width: 600px;
+        }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block;
+            text-decoration: none;
+            color: #1e293b;
+            background-color: #f1f5f9;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-left: 6px solid #3498db;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover {
+            background-color: #e2e8f0;
+            transform: translateX(5px);
+        }
+
+        /* 大見出し（テーマごとのブロック） */
+        .topic-section {
+            margin-top: 150px; 
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding-left: 14px;
+            border-left: 6px solid #3498db;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+        }
+        
+        /* スコアボード（日付＋点数） */
+        .score-board {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .attempt-label {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+        
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+        }
+        .date-input {
+            width: 125px;
+            padding: 6px 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .score-input {
+            width: 50px;
+            padding: 6px 8px;
+            font-size: 1.05em;
+            text-align: right;
+        }
+        .score-denominator {
+            font-weight: bold;
+            color: #64748b;
+            font-size: 1.05em;
+        }
+
+        /* Q&Aブロック */
+        .qa-block {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            break-inside: avoid;
+        }
+        
+        /* タップしやすいチェックボックス */
+        .checkbox-area {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+
+        /* 問題文とバッジのレイアウト */
+        .question-header {
+            margin-bottom: 20px;
+        }
+        .q-badge {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.9em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 4px;
+        }
+        .question {
+            font-weight: bold;
+            font-size: 1.15em;
+            color: #1e293b;
+            line-height: 1.7;
+            display: inline;
+        }
+
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            display: inline-block;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ans-row {
+            display: flex;
+            margin-bottom: 14px;
+            font-size: 1.05em;
+        }
+        .label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+        
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 16px;
+            font-size: 0.95em;
+            color: #475569;
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+
+        /* トップに戻るリンク */
+        .back-to-top {
+            display: block;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+
+        /* 印刷用スタイル */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; padding-top: 0; border-top: none; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+        </style>
+</head>
+<body id="top">
+
+    <div class="cover-page">
+        <h1 class="cover-title">企業法 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">事業譲渡等</div>
+        <ul class="toc-list">
+            <li><a href="#topic-1-1">1-1 事業譲渡等</a></li>
+        </ul>
+    </div>
+
+
+    <div id="topic-1-1" class="topic-section">
+        <h2>1-1 事業譲渡等</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 38</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 38</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 38</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 38</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 38</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 38</span>
+            </div>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1606 ★A</span><div class="question">株式会社が会社以外の商人にその事業の全部を譲渡する場合には，株主総会の特別決議による承認を要しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">株式会社が事業の全部を譲渡する場合は，原則として総会特別決議による承認を受ける必要がある（467条1項1号，309条2項11号）。個人商人に譲渡する場合も同様。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1607 ★B</span><div class="question">株式会社の事業の全部を合同会社に譲渡し，その対価として譲渡会社が譲受会社の持分を取得する事業譲渡契約は，譲渡会社の総株主の同意がなければ効力を生じることはない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">株式会社が事業の全部を譲渡する場合は，原則として総会特別決議による承認を受ければよい（467条1項1号，309条2項11号）。持分会社に譲渡する場合も同様であり，総株主の同意が必要との規定はない。譲渡会社の株主に通常の事業全部譲渡を超える不利益があるわけではないからである。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1608 ★★A</span><div class="question">事業の全部を譲渡した株式会社が解散するには，解散する旨の株主総会決議が必要である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">たとえ全部譲渡の場合でも，譲渡会社は当然には解散しない。解散するには株主総会の特別決議が必要となる（471条3号，309条2項11号。なお469条1項1号参照）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1609 H30-Ⅱ A</span><div class="question">株式会社がその事業の全部を譲渡する場合，譲渡会社は，当該譲渡の効力発生日に清算手続を経ることなく当然に消滅する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">たとえ全部譲渡の場合でも，譲渡会社は当然には解散せず，解散するには株主総会の特別決議が必要となる（471条3号，309条2項11号）。また，仮に解散決議をした場合でも，その後の清算手続（475条～）を経て消滅するのであり，当然に消滅することはない（合併における消滅会社とは違う）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1610 ★★A</span><div class="question">株式会社が事業の全部又は重要な一部の譲渡をする場合には，当該株式会社は，債権者に異議を述べる機会を与える手続をとらなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">事業譲渡では，債務を移転する場合に免責的債務引受をするには会社債権者の承諾が必要だから（民法472条3項），会社法上の債権者異議手続は設けられていない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1611 H31-Ⅱ B</span><div class="question">株式会社がその事業の全部を譲渡する場合において，そのための株主総会の決議と同時に当該株式会社が解散する旨の決議がされたときは，当該株式会社の債権者は，当該事業譲渡について異議を述べることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">そもそも事業譲渡では（同時に解散決議があろうがなかろうが）債務を移転する場合に免責的債務引受をするには会社債権者の承諾が必要だから（民法472条3項），会社法上の債権者異議手続は設けられていない。なお，事業全部譲渡の決議と同時に解散決議をした場合は「反対株主の株式買取請求権」は認められない（469条1項1号）。本問はこれと混同させようとする問題である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1612 ★A</span><div class="question">事業の一部の譲渡において，譲渡する資産の帳簿価額が株式会社の総資産額として法務省令で定める方法により算定される額の5分の1を超える場合は，当該事業の一部が重要でないときも，当該株式会社では当該事業の譲渡に係る契約を承認する株主総会の決議を要する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">事業の重要な一部の譲渡（467条1項2号）として株主総会特別決議が要求されるのは，量的基準（譲渡資産の帳簿価額が譲渡会社の総資産額の5分の1を超える必要）をみたし，かつ，質的基準（「重要な」一部の譲渡である必要）をみたす必要がある。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1613 R4-Ⅱ ★A</span><div class="question">親会社が子会社株式の一部を譲渡する場合において，譲渡株式の帳簿価額が当該親会社の総資産額として法務省令で定める方法により算定される額の5分の1を超えるが，譲渡の効力発生日においてもなお当該親会社が当該子会社の議決権の総数の過半数を有するときは，当該親会社では当該株式の譲渡に係る契約を承認する株主総会の決議を要しない。なお，定款に別段の定めはないものとする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">株式会社は，子会社の株式・持分の全部または一部を譲渡する場合に，当該譲渡により譲り渡す株式・持分の帳簿価額が当該会社の総資産額として法務省令で定める方法により算定される額の5分の1（これを下回る割合を定款で定めた場合はその割合）を超えるときで，かつ，「当該会社が効力発生日において当該子会社の議決権の総数の過半数の議決権を有しない結果になるとき」は，当該行為の効力発生日の前日までに，株主総会の特別決議によって，当該行為に係る契約の承認を受けなければならない（467条1項2号の2，309条2項11号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1614 R7-Ⅱ／R4-Ⅱ ★★A</span><div class="question">他の会社の事業の重要な一部を譲り受ける場合には，譲受会社において，当該事業の重要な一部を譲り受けることについて株主総会の特別決議による承認を受けなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">譲受会社側は，他の会社の事業の「全部」の譲受けだけが規制の対象となっている（467条1項3号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1615 ★★B</span><div class="question">株式会社が外国会社からその事業の全部を譲り受ける場合には，株主総会の特別決議による承認を受けなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">「『他の会社』の事業の全部の譲受け」の「他の会社」には外国会社その他の法人を含む（467条1項3号かっこ書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1616 ★A</span><div class="question">株式会社が個人商人の営業の全部を譲り受ける場合には，株主総会の特別決議を必要としない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">譲受会社側は，他の「会社」の事業の全部の譲受けだけが規制の対象となっている（467条1項3号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1617 ★B</span><div class="question">株式会社が，その事業の全部を賃貸する場合には，株主総会の普通決議による承認を受けなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">総会の「特別決議」による承認が必要となる（467条1項4号，309条2項11号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1618 ★A</span><div class="question">株式会社がその事業の重要な一部を賃貸する場合には，株主総会の特別決議による承認を要しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">株式会社の事業の「全部」の賃貸等について，株主総会特別決議による承認が必要となる（467条1項4号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1619 B</span><div class="question">株式会社が，他の会社からその事業の全部を賃借する場合には，株主総会の特別決議による承認を受けなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">事業の全部を賃貸する「賃貸会社」の側だけが規制の対象となっている（467条1項4号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1620 ★B上級</span><div class="question">株式会社が事業譲渡を行った場合，会社法上，当該事業譲渡をした旨の登記は不要である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">事業譲渡の場合は，吸収合併の登記（921条）のような登記は要求されていない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1621 ★B</span><div class="question">株式会社がその事業の全部を他の株式会社に譲渡する場合，譲受会社は，譲渡会社の資本金及び準備金に相当する額をそれぞれ貸借対照表の純資産の部に計上しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">そのような規定はない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1622 H30-Ⅱ A上級</span><div class="question">最高裁判所の判例によれば，事業の全部を休止している株式会社がその全部の資産を譲渡する場合で，譲受会社が譲渡会社の事業活動を受け継がないときは，当該譲渡会社の株主総会決議の手続を要しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">株主総会特別決議が必要とされる467条1項1号2号の事業譲渡は，必ず事業活動の承継を伴うものでなければならない（判例）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1623 A上級</span><div class="question">最高裁判所の判例によれば，株主総会の特別決議が必要とされる事業譲渡等が行われたということは，譲渡会社は法律上当然に競業避止義務を負うことを意味する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">467条1項1号2号の事業譲渡は，21条（譲渡会社の競業避止義務）から24条にいう事業譲渡と同義である（判例）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1624 R3／H30-Ⅱ A上級</span><div class="question">最高裁判所の判例の趣旨に照らせば，事業譲渡について譲渡会社の株主総会決議の手続が必要であるのにそれを経ないまま事業譲渡が行われた場合，当該事業譲渡は無効であるが，譲受会社がそのことについて善意かつ無重過失であったときは，当該譲渡会社は当該事業譲渡の無効を主張することができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">譲渡会社の株主総会特別決議を欠く事業譲渡は絶対無効であり，たとえ譲受会社が善意かつ無重過失でも，譲渡会社はその無効を譲受会社に主張できる（判例）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1625 A上級</span><div class="question">最高裁判所の判例によれば，事業譲渡について株主総会の特別決議が必要とされる場合に，当該決議を欠いて行われた事業譲渡は無効であり，原則として譲受人がその無効を主張することも許される。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">信義則（民法1条2項）に反すると認められるような特段の事情がない限り，譲受人側からの無効主張も認められる（判例）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1626 R4-Ⅱ／R2-Ⅱ B上級</span><div class="question">株式会社間で事業の全部の譲渡がされた場合，当該事業の全部の譲渡の無効は，会社の組織に関する行為の無効の訴えによらなければ主張することができず，当該事業の全部の譲渡の効力が生じた日から6箇月以内に，訴えをもってのみ主張することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">事業譲渡は単なる取引法上の行為にすぎないから，事業譲渡の手続等に瑕疵があった場合，吸収分割無効の訴え等のような，会社法上特別な訴えの制度はない。したがって，訴えによらずに主張することができる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1627 R7-Ⅱ／H30-Ⅱ B上級</span><div class="question">事業譲渡の無効は，訴えによらずに主張することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">事業譲渡の手続等に瑕疵があった場合，吸収分割無効の訴え等のような，会社法上特別な訴えの制度はないから，訴えによらなくても（どのような方法でも）主張できる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1628 R2-Ⅰ ★A</span><div class="question">営業を譲渡した商人は，当事者が別段の意思表示をしても，同一の市町村の区域内及びこれに隣接する市町村の区域内においては，その営業を譲渡した日から20年間は，同一の営業を行ってはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">譲渡人の競業避止義務は「当事者の別段の意思表示（特約）」があれば，排除できる（商法16条1項。会社法21条1項にも同様の規定あり）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1629 H30-Ⅰ ★★A</span><div class="question">事業を譲渡した会社が，譲受会社との間で同一の事業を行わない旨の特約をした場合には，その特約は，その事業を譲渡した日から50年の期間内に限り，その効力を有する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">21条2項。仮に30年を超える特約があった場合は，「30年」の範囲内で有効となる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1630 R2-Ⅰ A</span><div class="question">営業を譲渡した商人がその営業を譲渡した日から10年間同一の営業を行わない旨の特約をした場合，当該特約は無効である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">譲渡人が同一の営業を行わない旨の特約をした場合は，その特約は営業譲渡をした日から30年の期間内に限り効力を有する（商法16条2項）。したがって，10年間の特約は有効である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1631 A上級</span><div class="question">甲会社から乙会社に有効に事業譲渡が行われたが，当該事業によって生じた丙の甲会社に対する債権の移転手続がとられなかった場合は，原則として丙は甲会社に請求すべきであるが，例外的に，乙会社が甲会社の商号を引き続き使用する場合で，かつ，乙会社が債務引受けの旨を広告した場合は，丙は乙会社にも請求することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">原則論は正しい。しかし，例外の要件は「かつ」ではなく「または」が正しい（22条1項，23条1項）。なお商法17条1項，18条1項にも同様の規定がある。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1632 ★B上級</span><div class="question">会社が個人商人の営業を譲り受けた場合，当該会社が譲渡人である個人商人の商号を引き続き使用したときでも，当該会社は譲渡人である個人商人の営業によって生じた債務を弁済する責任を負わない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">24条2項→22条1項で，責任を負う。会社と個人商人のすべての組み合わせにおいて，事業譲渡（個人商人の場合は営業譲渡）が行われた場合は，同様の規律となる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1633 R3 C上級</span><div class="question">最高裁判所の判例の趣旨に照らせば，預託金会員制のゴルフクラブの名称がゴルフ場の事業主体を表示するものとして用いられている場合において，ゴルフ場の事業の譲渡がされ，譲渡会社が用いていたゴルフクラブの名称を譲受会社が継続して使用しているときには，当該譲受会社が譲受後遅滞なく当該ゴルフクラブの会員によるゴルフ場施設の優先的利用を拒否したなどの特段の事情がない限り，当該譲受会社は，会員が当該譲渡会社に交付した預託金の返還義務を負う。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">「商号」ではなく「ゴルフクラブの名称」が継続使用された場合も，22条1項の類推適用により，原則として，譲受会社は会員が譲渡会社に交付した預託金の返還義務を負う（判例）。なぜなら，預託金会員制のゴルフクラブの名称はゴルフ場を経営する事業主体をも表示するものとして用いられることが多く，名称が継続使用されると，会員は同一の事業主体による事業が継続していると信じたり，事業主体の変更はあったが譲受会社に譲渡会社の債務の引受けがなされたと信じることは，無理からぬことだからである。なお，このことは，ゴルフ場の事業が譲渡された場合だけでなく，会社分割に伴いゴルフ場の事業が他の会社または設立会社に承継された場合も同様に妥当する（判例）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1634 ★B上級</span><div class="question">事業譲渡契約において，譲受会社が譲渡会社の事業によって生じた債務を引き受けない旨が定められ，譲受会社が，事業の譲受け後遅滞なく，譲渡会社の債務を弁済する責任を負わない旨を登記した場合でも，譲受会社が譲渡会社の商号を引き続き使用するときには，譲受会社は譲渡会社の事業によって生じた債務を弁済する責任を負う。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">譲受会社が譲渡会社の商号を続用した場合でも，事業を譲り受けた後，遅滞なく，譲受会社がその本店の所在地において譲渡会社の債務を弁済する責任を負わない旨を登記した場合は，譲受会社は弁済責任を負わない（22条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1635 ★B上級</span><div class="question">個人商人（小商人を除く。）の営業に関し，営業の譲受人が譲渡人の商号を引き続き使用する場合において，譲受人が譲渡人の営業によって生じた債務を弁済する責任を負わないためには，営業の譲渡後遅滞なく，譲受人は，責任を負わない旨を登記し，かつ，第三者に対し通知しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">(1)営業譲渡後遅滞なく，譲受人が譲渡人の債務を弁済する責任を負わない旨を登記した場合，「または」，(2)営業譲渡後遅滞なく，譲受人および譲渡人から第三者に対しその旨の通知をした場合は，譲受人は弁済責任を負わない（商法17条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1636 R2-Ⅰ A上級</span><div class="question">営業を譲り受けた商人（以下，「譲受人」という。）が，営業を譲渡した商人（以下，「譲渡人」という。）の商号を引き続き使用しない場合においても，譲渡人の営業によって生じた債務を引き受ける旨の広告をしたときは，譲渡人の債権者は，その譲受人に対して弁済の請求をすることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">商法18条1項。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1637 ★C上級</span><div class="question">事業譲渡に関して，譲受会社が，譲渡会社の事業によって生じた債務を引き受ける旨の広告をしたことにより，譲渡会社の債務を弁済する責任を負う場合，譲渡会社の責任は，当該広告があった日後2年以内に請求又は請求の予告をしない債権者に対しては，その期間を経過した時に消滅する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">23条2項。以後は譲受会社のみが弁済責任（同条1項）を負う。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1638 H31-Ⅰ C上級</span><div class="question">営業を譲り受けた商人（以下，「譲受人」という。）が，営業を譲渡した商人（以下，「譲渡人」という。）の営業によって生じた債務を引き受ける旨の広告をしたことにより，譲渡人の債務を弁済する責任を負う場合，譲受人の責任は，当該広告があった日後2年以内に請求又は請求の予告をしない債権者に対しては，その期間を経過した時に消滅する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">一定期間経過後に消滅するのは「譲渡人」の責任である（商法18条2項）。譲渡人の責任は一定期間経過後に消滅し，以後は債務引受けの広告をした譲受人のみが弁済責任（同条1項）を負う。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1639 ★A上級</span><div class="question">事業を譲り受けた会社（以下「譲受会社」という。）が事業を譲渡した会社（以下「譲渡会社」という。）の商号を引き続き使用する場合には，譲渡会社の事業によって生じた債権について，譲受会社にした弁済は，弁済者が善意でかつ重大な過失がないときは，その効力を有する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">22条4項。なお商法17条4項にも同様の規定がある。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1640 R6-Ⅰ ★A上級</span><div class="question">営業を譲り受けた商人が譲渡人の商号を引き続き使用する場合には，当該譲渡人の営業によって生じた債権について，当該商人にした弁済は，弁済者が善意であり，かつ重大な過失がないときは，その効力を有する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">商法17条4項。なお会社法22条4項にも同様の規定がある。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1641 R7-Ⅱ A上級</span><div class="question">譲渡会社が，譲受会社に承継されない債務の債権者（以下，「残存債権者」という。）を害することを知って事業を譲渡した場合には，残存債権者は，当該譲受会社に対し，承継した財産の価額を限度として，当該債務の履行を請求することができる。ただし，当該譲受会社が事業の譲渡の効力が生じた時において残存債権者を害することを知らなかったときを除く。なお，当該株式会社について，破産手続開始の決定，再生手続開始の決定又は更生手続開始の決定があった場合を除くものとする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">23条の2第1項。詐害事業譲渡における残存債権者保護の制度である。なお，譲渡会社について倒産手続開始決定（破産手続開始決定・再生手続開始決定・更生手続開始決定）があった場合は，残存債権者は，譲受会社に対して履行請求権を行使できない（23条の2第3項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1642 A上級</span><div class="question">譲渡会社が譲受会社に承継されない債務の債権者（以下「残存債権者」という。）を害することを知って事業を譲渡した場合には，その譲受会社が事業の譲渡の効力が生じた時において残存債権者を害することを知らなかったときでも，残存債権者は，その譲受会社に対して，承継した財産の価額を限度として，当該債務の履行を請求することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">「その譲受会社が事業の譲渡の効力が生じた時において残存債権者を害することを知らなかったとき」は，譲受会社は責任を負わない（23条の2第1項ただし書）。詐害事業譲渡における残存債権者保護の制度である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1643 R2-Ⅰ A上級</span><div class="question">営業を譲渡した商人が残存債権者を害することを知って営業を譲渡し，当該営業の譲渡の効力が生じた時において営業を譲り受けた商人が残存債権者を害することを知っていたときは，残存債権者は，営業を譲り受けた商人に対して，承継した財産の価額を限度として，当該債務の履行を請求することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">商法18条の2第1項。詐害営業譲渡における残存債権者保護の制度である。</span></div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pagePrefix = "Kigyo_Sosiki01_";
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') { input.checked = savedValue === 'true'; }
+                    else { input.value = savedValue; if (input.classList.contains('date-input') && savedValue !== "") input.type='date'; }
+                }
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') localStorage.setItem(storageKey, input.checked);
+                    else localStorage.setItem(storageKey, input.value);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

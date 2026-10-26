@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【企業法】剰余金の配当・剰余金の配当等に関する責任（自動保存付き）</title>
+    <style>
+        /* スムーズスクロール */
+        html { scroll-behavior: smooth; }
+
+        body {
+            /* ゼロにスラッシュが入るのを防ぐ標準フォント */
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75;
+            color: #333;
+            max-width: 900px; /* 13インチiPad向けゆったりレイアウト */
+            margin: 0 auto;
+            padding: 40px 25px;
+            background-color: #f5f7f9;
+        }
+
+        /* 表紙・目次エリア */
+        .cover-page {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50;
+            font-size: 2.2em;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 1.3em;
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        /* 目次リスト */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: left;
+            max-width: 600px;
+        }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block;
+            text-decoration: none;
+            color: #1e293b;
+            background-color: #f1f5f9;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-left: 6px solid #3498db;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover {
+            background-color: #e2e8f0;
+            transform: translateX(5px);
+        }
+
+        /* 大見出し（テーマごとのブロック） */
+        .topic-section {
+            margin-top: 150px; 
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding-left: 14px;
+            border-left: 6px solid #3498db;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+        }
+        
+        /* スコアボード（日付＋点数） */
+        .score-board {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .attempt-label {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+        
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+        }
+        .date-input {
+            width: 125px;
+            padding: 6px 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .score-input {
+            width: 50px;
+            padding: 6px 8px;
+            font-size: 1.05em;
+            text-align: right;
+        }
+        .score-denominator {
+            font-weight: bold;
+            color: #64748b;
+            font-size: 1.05em;
+        }
+
+        /* Q&Aブロック */
+        .qa-block {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            break-inside: avoid;
+        }
+        
+        /* タップしやすいチェックボックス */
+        .checkbox-area {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+
+        /* 問題文とバッジのレイアウト */
+        .question-header {
+            margin-bottom: 20px;
+        }
+        .q-badge {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.9em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 4px;
+        }
+        .question {
+            font-weight: bold;
+            font-size: 1.15em;
+            color: #1e293b;
+            line-height: 1.7;
+            display: inline;
+        }
+
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            display: inline-block;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ans-row {
+            display: flex;
+            margin-bottom: 14px;
+            font-size: 1.05em;
+        }
+        .label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+        
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 16px;
+            font-size: 0.95em;
+            color: #475569;
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+
+        /* トップに戻るリンク */
+        .back-to-top {
+            display: block;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+
+        /* 印刷用スタイル */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; padding-top: 0; border-top: none; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+        </style>
+</head>
+<body id="top">
+
+    <div class="cover-page">
+        <h1 class="cover-title">企業法 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">剰余金の配当・剰余金の配当等に関する責任</div>
+        <ul class="toc-list">
+            <li><a href="#topic-4-1">4-1 株式会社の計算等（3）</a></li>
+        </ul>
+    </div>
+
+
+    <div id="topic-4-1" class="topic-section">
+        <h2>4-1 株式会社の計算等（3）</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 39</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 39</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 39</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 39</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 39</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 39</span>
+            </div>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1465 R3 ★A</span><div class="question">株式会社は，当該株式会社の株式を配当財産とすることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">当該株式会社の株式・社債・新株予約権は配当財産にできない（454条1項1号かっこ書，107条2項2号ホ）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1466 ★★A</span><div class="question">株式会社は，当該株式会社の社債を配当財産とすることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">当該株式会社の株式・社債・新株予約権は配当財産にできない（454条1項1号かっこ書，107条2項2号ホ）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1467 R5-Ⅱ ★A</span><div class="question">株式会社は，当該株式会社の新株予約権を配当財産とすることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">当該株式会社の株式・社債・新株予約権は配当財産にできない（454条1項1号かっこ書，107条2項2号ホ）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1468 R5-Ⅱ ★★A</span><div class="question">株式会社が株主に対し金銭以外の財産を配当財産として剰余金の配当をする場合，株主に金銭分配請求権を与えるときは，定款に別段の定めがない限り，株主総会の普通決議で足りるが，株主に対して金銭分配請求権を与えないときは，株主総会の特別決議を要する。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">現物配当の場合に株主総会特別決議が必要となるのは，株主に金銭分配請求権を与えない場合である（454条4項，309条2項10号）。金銭分配請求権を与える場合は，原則どおり，株主総会普通決議で足りる（454条1項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1469 R3 ★★★A</span><div class="question">取締役会設置会社は，1事業年度の途中において1回に限り取締役会の決議によって配当財産を金銭として剰余金の配当をすることができる旨を，定款で定めることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">取締役会設置会社に認められた中間配当である（454条5項）。中間配当は1事業年度の途中1回に限られ（同条項），また，金銭配当に限られる（同条項かっこ書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1470 ★A上級</span><div class="question">剰余金の配当（株主に金銭分配請求権を与えない現物配当を行う場合を除く）を取締役会が定めることができる旨を定款で定めている株式会社がある。この定款の定めは，最終事業年度に係る計算書類についての会計監査報告の内容に不適正意見があるときには，効力を有しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">この定款の定め（459条1項4号）は，計算書類についての会計監査報告に無限定適正意見がある等の要件をみたす場合に限り，効力を有する（459条2項，会社計算規則155条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1471 R5-Ⅱ ★B上級</span><div class="question">剰余金の配当（株主に金銭分配請求権を与えない現物配当を行う場合を除く）を取締役会で定めることができる旨の定款の定めを置いた会計監査人設置会社では，株主総会の決議によって剰余金の配当に関する事項を定めることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">459条1項の定款規定だけがあって，460条1項の定款規定がない場合は，なお株主総会決議でも剰余金の配当事項の決定はできる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1472 ★★B上級</span><div class="question">剰余金の配当（株主に金銭分配請求権を与えない現物配当を行う場合を除く）を取締役会が定めることができる旨を定款で定めている株式会社がある。この会社の取締役（監査等委員会設置会社にあっては，監査等委員である取締役以外の取締役）の任期の末日は，選任後1年以内に終了する事業年度のうち最終のものに関する定時株主総会の終結の日後の日であってはならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">459条1項柱書。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1473 ★B上級</span><div class="question">剰余金の配当（株主に金銭分配請求権を与えない現物配当を行う場合を除く）を取締役会が定めることができる旨を定款で定めている株式会社がある。この会社では，必ず執行役が選任されなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">この定款の定めは，指名委員会等設置会社のほかに，監査等委員会設置会社でも置けるし，会計監査人設置会社かつ監査役会設置会社かつ取締役の任期が1年以内の会社も置ける（459条1項柱書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1474 ★B上級</span><div class="question">剰余金の配当に関する事項を取締役会が定めることができる旨の定款の定めがある株式会社においては，株主に金銭分配請求権を与えない場合であっても，取締役会の決議によって，金銭以外の財産を配当財産とする剰余金の配当をすることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">459条1項4号の定款規定がある場合でも，現物配当で，かつ，株主に金銭分配請求権を与えない場合は，309条2項10号で株主総会特別決議が必要となる（459条1項4号ただし書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1475 ★★B上級</span><div class="question">金銭以外の財産を配当財産とする剰余金の配当において，株主に金銭分配請求権を与えるときは，当該金銭分配請求権の行使期間の末日は，当該剰余金の配当の効力発生日の翌日から1週間以内の日でなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">現物配当の際の金銭分配請求権の行使期間の末日は，当該「剰余金の配当の効力発生日以前の日」でなければならない（454条4項柱書ただし書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1476 R3 ★A</span><div class="question">配当財産が金銭以外の財産である場合には，株式会社は，当該配当財産に代えて金銭を交付することを会社に請求する権利，すなわち金銭分配請求権を株主に与えなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">現物配当の場合に金銭分配請求権を与えることもできるが（454条4項1号），与えないこともできる（与えない場合は株主総会特別決議が必要）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1477 ★B上級</span><div class="question">配当財産が金銭以外の財産である場合には，株式会社は，その旨を各株主に対して通知しなければならない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">金銭分配請求権を付与する場合はそれに関する事項の通知義務があるが（455条1項），現物配当の旨の通知義務はない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1478 ★A上級</span><div class="question">配当財産が金銭以外の財産である場合には，株式会社は，基準株式数に満たない数の株式を有する株主に対して配当財産の割当てをしないことにする旨を定めることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">454条4項2号。ただし，この場合，会社は，基準未満株式を有する株主に対して，一定の額の金銭を支払う必要がある（456条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1479 ★B上級</span><div class="question">配当財産が金銭以外の財産である場合において，株式会社が基準株式数を定めた場合には，基準株式数に満たない数の株式を有する株主は，その基準未満株式の買取りを当該会社に請求することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">現物配当で基準株式数を定めた場合は，会社は基準未満株主に対して一定の額の金銭を支払う必要があるが（456条），株式買取請求権は認められていない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1480 R5-Ⅱ ★A</span><div class="question">株式会社は，総資産額が1000万円未満の場合には剰余金の配当をすることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">総資産額→純資産額，1000万円→300万円にすれば，正しい（458条）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1481 R3 ★A</span><div class="question">公開会社でない株式会社は，純資産額が300万円未満の場合であっても，剰余金の配当をすることができる旨を定款で定めることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">株式会社は，公開会社・非公開会社とも，純資産額が300万円を下回る場合には，剰余金の配当はできない（458条）。定款に定めを置けば配当できるといった制度はない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1482 R2-Ⅰ B</span><div class="question">最終事業年度の末日後に生じた特別損失の額は，株式会社が剰余金の配当を行う場合の分配可能額の計算に関し，当該剰余金の配当が効力を生ずる日における剰余金の額から減じなければならない額である。なお，当該株式会社の最終事業年度の末日後において臨時計算書類は作成されなかったものとする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">分配可能額の計算において剰余金額から減じなければならない額ではない（461条2項参照）。なお，会社計算規則92条参照。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1483 R2-Ⅰ B</span><div class="question">自己株式の帳簿価額は，株式会社が剰余金の配当を行う場合の分配可能額の計算に関し，当該剰余金の配当が効力を生ずる日における剰余金の額から減じなければならない額である。なお，当該株式会社の最終事業年度の末日後において臨時計算書類は作成されなかったものとする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">分配可能額の計算において剰余金額から減じなければならない額である（461条2項3号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1484 R2-Ⅰ B</span><div class="question">最終事業年度の末日後に自己株式を処分した場合における当該自己株式の対価の額は，株式会社が剰余金の配当を行う場合の分配可能額の計算に関し，当該剰余金の配当が効力を生ずる日における剰余金の額から減じなければならない額である。なお，当該株式会社の最終事業年度の末日後において臨時計算書類は作成されなかったものとする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">分配可能額の計算において剰余金額から減じなければならない額である（461条2項4号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1485 R2-Ⅰ B</span><div class="question">最終事業年度の末日後に自己株式の消却をした場合における当該自己株式の帳簿価額は，株式会社が剰余金の配当を行う場合の分配可能額の計算に関し，当該剰余金の配当が効力を生ずる日における剰余金の額から減じなければならない額である。なお，当該株式会社の最終事業年度の末日後において臨時計算書類は作成されなかったものとする。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">分配可能額の計算において剰余金額から減じなければならない額ではない（461条2項参照）。なお，問題文記載の額は剰余金額の計算において減じなければならない額である（446条5号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1486 A上級</span><div class="question">分配可能額を超えた剰余金の配当がなされた場合に，金銭等の交付を受けた株主が善意であっても，当該株主は，株式会社に対して，交付を受けた金銭等の帳簿価額に相当する金銭を支払う義務を負う。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">株主は，善意・悪意を問わず（善意かつ無過失でも），会社・会社債権者からの支払請求に応じる義務がある（462条1項柱書，463条2項）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1487 H31-Ⅰ B上級</span><div class="question">剰余金の配当により株主に対して交付された金銭等（以下，「配当財産」という。）の帳簿価額の総額が，当該剰余金の配当がその効力を生ずる日における分配可能額を超えた場合（以下，この場合における剰余金の配当を「違法配当」という。）に，違法配当により配当財産の交付を受けた株主は，当該株式会社に対し，当該配当財産の帳簿価額に相当する金銭を支払った後でなければ，その有する株式について，株主の権利を行使することができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">違法配当を受けた株主は，株式会社に対して交付を受けた金銭等の帳簿価額に相当する金銭を支払う義務を負う（462条1項柱書）。しかし，当該支払義務を履行しなかったからといって，株主権を奪われるわけでもなく，株主権が停止されるわけでもない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1488 R7-Ⅰ／H31-Ⅰ ★A上級</span><div class="question">剰余金の配当により株主に対して交付された金銭等の帳簿価額の総額が，その効力を生ずる日における分配可能額を超えてなされた場合（以下，この場合における剰余金の配当を「違法配当」という。）に，株式会社の債権者は，違法配当により金銭等の交付を受けた株主に対し，その交付された金銭等の帳簿価額に相当する金銭を，当該債権者が当該株式会社に対して有する債権額の範囲内で，支払わせることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">463条2項。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1489 R7-Ⅰ／H31-Ⅰ A上級</span><div class="question">剰余金の配当により株主に対して交付された金銭等（以下，「配当財産」という。）の帳簿価額の総額が，当該剰余金の配当がその効力を生ずる日における分配可能額を超えた場合（以下，この場合における剰余金の配当を「違法配当」という。）に，違法配当に関する職務を行った業務執行者のうち，当該違法配当により配当財産を交付した取締役は，その職務を行うについて注意を怠らなかったことを証明したときであっても，当該配当財産の帳簿価額に相当する金銭を当該株式会社に対し支払う義務を免れることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">違法配当を受けた株主（無過失責任）と違って，業務執行者・議案提案取締役の責任は過失責任（立証責任が転換された過失責任）である（462条2項）。違法配当による金銭等を交付した取締役も含めて業務執行者等が，その職務を行うについて注意を怠らなかったことを証明したときは，業務執行者等は支払義務を負わない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1490 ★A上級</span><div class="question">剰余金の配当により株主に対して交付された金銭等の帳簿価額の総額が，その効力を生ずる日における分配可能額を超えてなされた場合（以下，この場合における剰余金の配当を「違法配当」という。）に，違法配当に関する職務を行った業務執行者は，違法配当による金銭等を交付した取締役を除き，その職務を行うについて注意を怠らなかったことを証明したときは，交付された金銭等の帳簿価額に相当する金銭を支払う義務を負わない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">違法配当を受けた株主（無過失責任）と違って，業務執行者・議案提案取締役の責任は過失責任（立証責任が転換された過失責任）である（462条2項）。「違法配当による金銭等を交付した取締役も含めて」業務執行者等が，その職務を行うについて注意を怠らなかったことを証明したときは，業務執行者等は支払義務を負わない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1491 ★A上級</span><div class="question">剰余金の配当により株主に対して交付された金銭等の帳簿価額の総額が，その効力を生ずる日における分配可能額を超えてなされた場合（以下，この場合における剰余金の配当を「違法配当」という。）に，株主総会に違法配当の議案を提案した取締役が，交付された金銭等の帳簿価額に相当する金銭を株式会社に支払う義務は，剰余金の配当の時における分配可能額を限度として，株主総会の特別決議により免除することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">業務執行者等の支払義務は，分配可能額を限度として，「総株主の同意」により免除できる（462条3項ただし書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1492 R7-Ⅰ A上級</span><div class="question">剰余金の配当により株主に対して交付された金銭等の帳簿価額の総額が，その効力を生ずる日における分配可能額を超えてなされた場合（以下，この場合における剰余金の配当を「違法配当」という。）に，取締役会設置会社において取締役会に違法配当の議案を提案した取締役が，交付された金銭等の帳簿価額に相当する金銭を株式会社に支払う義務は，分配可能額を限度として，株主総会の特別決議により免除することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">業務執行者等の支払義務は，分配可能額を限度として，「総株主の同意」により免除できる（462条3項ただし書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1493 H31-Ⅰ A上級</span><div class="question">剰余金の配当により株主に対して交付された金銭等（以下，「配当財産」という。）の帳簿価額の総額が，当該剰余金の配当がその効力を生ずる日における分配可能額を超えた場合（以下，この場合における剰余金の配当を「違法配当」という。）に，違法配当に関する職務を行った業務執行者が，当該株式会社に対し，当該配当財産の帳簿価額に相当する金銭を支払う義務は，総株主の同意がある場合は，当該剰余金配当の時における分配可能額を限度として免除することができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">業務執行者等の支払義務は，分配可能額を限度として，総株主の同意により免除できる（462条3項ただし書）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1494 R7-Ⅰ ★A上級</span><div class="question">剰余金の配当により株主に対して交付された金銭等の帳簿価額の総額が，その効力を生ずる日における分配可能額を超えてなされた場合（以下，この場合における剰余金の配当を「違法配当」という。）に，違法配当に関する職務を行った業務執行者が，違法配当により株主に交付された金銭等の帳簿価額に相当する金銭を株式会社に支払った場合には，当該違法配当につき善意の株主は，当該株主が交付を受けた金銭等について，当該業務執行者からの求償の請求に応ずる義務を負わない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">会社に支払義務を履行した業務執行者等は，悪意の株主に対しては求償できるが，善意の株主に対しては求償できない（463条1項）。一種の制裁である。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1495 R2-Ⅰ B上級</span><div class="question">次の場合は，株式会社がその財産を株主に交付し，その交付した日が属する事業年度（その事業年度の直前の事業年度が最終事業年度でないときは，その事業年度の直前の事業年度）に係る定時株主総会で承認された計算書類に欠損が生じた場合に，その交付に関する職務を行った代表取締役が当該欠損額を支払う義務を負うことがある。譲渡制限株式の株主からの請求に基づく譲渡承認をしない旨の決定をした場合において，当該株主からの株式買取請求に応じて行う当該株式会社の株式の買取り</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">譲渡制限株式の譲渡を会社が承認しない場合に買取請求に応じて会社が自己の株式として買い取る場合（138条1号ハ2号ハ）は，期末に欠損が生じた場合の欠損填補責任の対象である（465条1項1号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1496 ★B上級</span><div class="question">次の場合は，株式会社の代表取締役が会社の財産を株主に交付する行為を行い，その交付した日が属する事業年度（その事業年度の直前の事業年度が最終事業年度でないときは，その事業年度の直前の事業年度）に係る定時株主総会で承認された計算書類に欠損が生じた場合，その交付を行った代表取締役が当該欠損額を補填する責任を負わされることがある。市場取引により行った自己の株式の有償取得。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">市場取引により行った自己の株式の有償取得の場合（165条1項）は，期末に欠損が生じた場合の欠損填補責任の対象である（465条1項2号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1497 R2-Ⅰ B上級</span><div class="question">次の場合は，株式会社がその財産を株主に交付し，その交付した日が属する事業年度（その事業年度の直前の事業年度が最終事業年度でないときは，その事業年度の直前の事業年度）に係る定時株主総会で承認された計算書類に欠損が生じた場合に，その交付に関する職務を行った代表取締役が当該欠損額を支払う義務を負うことがある。全部取得条項付種類株式の取得日における当該株式会社の株式の取得</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">全部取得条項付種類株式の取得（自己の株式の取得の一つ）（173条1項）は，期末に欠損が生じた場合の欠損填補責任の対象である（465条1項6号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1498 ★B上級</span><div class="question">次の場合は，株式会社の代表取締役が会社の財産を株主に交付する行為を行い，その交付した日が属する事業年度（その事業年度の直前の事業年度が最終事業年度でないときは，その事業年度の直前の事業年度）に係る定時株主総会で承認された計算書類に欠損が生じた場合，その交付を行った代表取締役が当該欠損額を補填する責任を負わされることがある。事業年度中1回に限り取締役会決議による剰余金の配当をすることができる旨の定款の定めにしたがってなされた，中間配当。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">中間配当は，期末に欠損が生じた場合の欠損填補責任の典型的な対象である（465条1項10号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1499 R2-Ⅰ B上級</span><div class="question">次の場合は，株式会社がその財産を株主に交付し，その交付した日が属する事業年度（その事業年度の直前の事業年度が最終事業年度でないときは，その事業年度の直前の事業年度）に係る定時株主総会で承認された計算書類に欠損が生じた場合に，その交付に関する職務を行った代表取締役が当該欠損額を支払う義務を負うことがある。定時株主総会において剰余金の配当に関する事項を定める場合における剰余金の配当</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">剰余金の配当は臨時株主総会の決議に基づいても可能であるが（454条1項），「定時」株主総会の決議 or これと同様であると評価される439条で定める取締役会の決議に基づいて行った剰余金の配当は，欠損填補責任の対象から除外されている（465条1項10号イ）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1500 ★C上級</span><div class="question">次の場合は，株式会社の代表取締役が会社の財産を株主に交付する行為を行い，その交付した日が属する事業年度（その事業年度の直前の事業年度が最終事業年度でないときは，その事業年度の直前の事業年度）に係る定時株主総会で承認された計算書類に欠損が生じた場合，その交付を行った代表取締役が当該欠損額を補填する責任を負わされることがある。資本金の額を減少する決議を行った株主総会において，当該額の全部を配当することを定めた場合の剰余金の配当。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">減資分の全部を配当することを定めた場合は，期末に欠損が生じた場合の欠損填補責任の対象から除外されている（465条1項10号ロ）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1501 R2-Ⅰ C上級</span><div class="question">次の場合は，株式会社がその財産を株主に交付し，その交付した日が属する事業年度（その事業年度の直前の事業年度が最終事業年度でないときは，その事業年度の直前の事業年度）に係る定時株主総会で承認された計算書類に欠損が生じた場合に，その交付に関する職務を行った代表取締役が当該欠損額を支払う義務を負うことがある。準備金の額を減少する決議を行った株主総会において，当該準備金の減少額の全部を配当することを定めた場合における剰余金の配当</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">準備金の減少額の全部を配当することを定めた場合は，期末に欠損が生じた場合の欠損填補責任の対象から除外されている（465条1項10号ハ）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1502 ★C上級</span><div class="question">次の場合は，株式会社の代表取締役が会社の財産を株主に交付する行為を行い，その交付した日が属する事業年度（その事業年度の直前の事業年度が最終事業年度でないときは，その事業年度の直前の事業年度）に係る定時株主総会で承認された計算書類に欠損が生じた場合，その交付を行った代表取締役が当該欠損額を補填する責任を負わされることがある。吸収分割承認決議に対する反対株主の株式買取請求に応じて行った自己の株式の有償取得。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">反対株主の株式買取請求に応じて自己の株式を有償取得した場合（そもそも461条の財源規制が課されていない）は，期末に欠損が生じた場合の欠損填補責任の対象ではない（465条1項各号参照）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1503 R7-Ⅰ C上級</span><div class="question">株式会社間で行われる吸収分割における吸収分割承継会社の株主が行う株式買取請求について，吸収分割承継会社が株式買取請求に応じて株式を取得した場合には，その取得した日が属する事業年度に係る定時株主総会で承認された計算書類に欠損が生じたときであっても，その取得に関する職務を行った代表取締役は当該欠損の額を支払う義務を負わない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">反対株主の株式買取請求に応じて自己の株式を有償取得した場合（そもそも461条の財源規制が課されていない）は，期末に欠損が生じた場合の欠損填補責任の対象ではない（465条1項各号参照）。</span></div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pagePrefix = "Kigyo_Keisan04_";
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') { input.checked = savedValue === 'true'; }
+                    else { input.value = savedValue; if (input.classList.contains('date-input') && savedValue !== "") input.type='date'; }
+                }
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') localStorage.setItem(storageKey, input.checked);
+                    else localStorage.setItem(storageKey, input.value);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

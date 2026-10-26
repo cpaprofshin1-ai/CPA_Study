@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【企業法】会社法総論（自動保存付き）</title>
+    <style>
+        /* スムーズスクロール */
+        html { scroll-behavior: smooth; }
+
+        body {
+            /* ゼロにスラッシュが入るのを防ぐ標準フォント */
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.75;
+            color: #333;
+            max-width: 900px; /* 13インチiPad向けゆったりレイアウト */
+            margin: 0 auto;
+            padding: 40px 25px;
+            background-color: #f5f7f9;
+        }
+
+        /* 表紙・目次エリア */
+        .cover-page {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 60px;
+        }
+        .cover-title {
+            color: #2c3e50;
+            font-size: 2.2em;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 1.3em;
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        /* 目次リスト */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: left;
+            max-width: 600px;
+        }
+        .toc-list li { margin-bottom: 15px; }
+        .toc-list a {
+            display: block;
+            text-decoration: none;
+            color: #1e293b;
+            background-color: #f1f5f9;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-left: 6px solid #3498db;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .toc-list a:hover {
+            background-color: #e2e8f0;
+            transform: translateX(5px);
+        }
+
+        /* 大見出し（テーマごとのブロック） */
+        .topic-section {
+            margin-top: 150px; 
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding-left: 14px;
+            border-left: 6px solid #3498db;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+        }
+        
+        /* スコアボード（日付＋点数） */
+        .score-board {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .attempt-label {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+        
+        .date-input, .score-input {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: #334155;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+        }
+        .date-input {
+            width: 125px;
+            padding: 6px 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .score-input {
+            width: 50px;
+            padding: 6px 8px;
+            font-size: 1.05em;
+            text-align: right;
+        }
+        .score-denominator {
+            font-weight: bold;
+            color: #64748b;
+            font-size: 1.05em;
+        }
+
+        /* Q&Aブロック */
+        .qa-block {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            break-inside: avoid;
+        }
+        
+        /* タップしやすいチェックボックス */
+        .checkbox-area {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+
+        /* 問題文とバッジのレイアウト */
+        .question-header {
+            margin-bottom: 20px;
+        }
+        .q-badge {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-size: 0.9em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 4px;
+        }
+        .question {
+            font-weight: bold;
+            font-size: 1.15em;
+            color: #1e293b;
+            line-height: 1.7;
+            display: inline;
+        }
+
+        details { margin-top: 18px; }
+        summary {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            display: inline-block;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        summary:hover { background-color: #2980b9; }
+        .answer-content {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #edf2f7;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ans-row {
+            display: flex;
+            margin-bottom: 14px;
+            font-size: 1.05em;
+        }
+        .label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+        
+        .mark-x { color: #ef4444; font-weight: bold; font-size: 1.1em; }
+        .mark-o { color: #10b981; font-weight: bold; font-size: 1.1em; }
+        .incorrect-text { color: #dc2626; }
+        .correct-text { color: #1e40af; font-weight: bold; }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 16px;
+            font-size: 0.95em;
+            color: #475569;
+        }
+        .note-title { font-weight: bold; color: #334155; margin-right: 6px; }
+
+        /* トップに戻るリンク */
+        .back-to-top {
+            display: block;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-to-top:hover { text-decoration: underline; }
+
+        /* 印刷用スタイル */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .cover-page { border: none; box-shadow: none; margin-top: 50px; }
+            .toc-list a { border-left: 6px solid #94a3b8 !important; }
+            .back-to-top { display: none; }
+            .topic-section { page-break-before: always; break-before: page; margin-top: 0; padding-top: 0; border-top: none; }
+            summary::-webkit-details-marker { display: none; }
+            .date-input, .score-input { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; }
+        }
+        </style>
+</head>
+<body id="top">
+
+    <div class="cover-page">
+        <h1 class="cover-title">企業法 短答対策 Q&amp;A</h1>
+        <div class="cover-subtitle">会社法総論</div>
+        <ul class="toc-list">
+            <li><a href="#topic-1-1">1-1 会社法総論</a></li>
+        </ul>
+    </div>
+
+
+    <div id="topic-1-1" class="topic-section">
+        <h2>1-1 会社法総論</h2>
+        <div class="score-board">
+            <div class="score-item">
+                <span class="attempt-label">1回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 22</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">2回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 22</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">3回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 22</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">4回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 22</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">5回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 22</span>
+            </div>
+            <div class="score-item">
+                <span class="attempt-label">6回目:</span>
+                <input type="text" class="date-input" title="日付" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+                <input type="number" class="score-input" min="0" max="99" title="点数">
+                <span class="score-denominator">/ 22</span>
+            </div>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.1 A</span><div class="question">親会社または株式会社の経営を支配している者（法人であるものを除く。）として法務省令で定めるものを親会社等という。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">自然人たる支配株主も「親会社等」に含まれる（2条4号の2）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.2 ★★A</span><div class="question">譲渡制限株式と譲渡制限株式でない種類の株式をともに発行する種類株式発行会社は，公開会社ではない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">一部の種類株式の内容として譲渡制限の定めを設けていない会社も「公開会社」である（2条5号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.3 ★B</span><div class="question">発行済株式の全部が譲渡制限株式であり，定款で譲渡制限株式以外の株式を発行する旨を定めている株式会社は，公開会社である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">譲渡制限株式以外の種類株式を発行する旨を定款に定めてさえいれば，発行済株式全部が譲渡制限株式でも，「公開会社」である（2条5号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.4 ★A</span><div class="question">最終事業年度に係る貸借対照表に資本金として計上した額が4億円であり，負債の部に計上した額の合計額が200億円である株式会社は，大会社である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">大会社は，資本金5億円以上「または」負債200億円以上の株式会社である（2条6号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.5 ★B</span><div class="question">定款の定めによって取締役会を任意に設置した公開会社でない株式会社は，取締役会設置会社ではない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">取締役会を任意に設置した会社も取締役会設置会社である（2条7号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.6 A上級</span><div class="question">当該株式会社の親会社の取締役や子会社の業務執行取締役は，当該株式会社の社外取締役とはなりえない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">子会社の業務執行取締役等はなりえないし（2条15号イ前段），親会社等の取締役・執行役・使用人もなりえない（同号ハ）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.7 H30-Ⅱ A上級</span><div class="question">株式会社の取締役のうち，その就任の前の10年間において，当該株式会社又はその子会社の業務を執行した取締役であったことがある者は，当該株式会社の社外取締役には該当しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">その就任前10年間，当該会社またはその子会社の業務執行取締役等であった者は，当該会社の社外取締役にはなれない（2条15号イ後段）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.8 ★A上級</span><div class="question">非取締役会設置会社の代表取締役であった者は，当該代表取締役を退任してから10年を経過していなくても，当該非取締役会設置会社の親会社の社外取締役となることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">その就任前10年間，当該会社またはその子会社の業務執行取締役等であった者は，当該会社の社外取締役にはなれない（2条15号イ後段）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.9 H30-Ⅱ A上級</span><div class="question">株式会社の取締役のうち，当該株式会社の親会社の取締役である者は，当該株式会社の社外取締役には該当しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">当該会社の自然人である支配株主，親会社等の取締役・執行役・使用人は，当該会社の社外取締役にはなれない（2条15号ハ）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.10 ★B上級</span><div class="question">株式会社の社外取締役は，当該株式会社の子会社の社外取締役となることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">当該会社の自然人である支配株主，親会社等の「取締役」・執行役・使用人は，当該会社の社外取締役にはなれない（2条15号ハ）。したがって，親会社の社外「取締役」は子会社の社外取締役にはなれない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.11 B上級</span><div class="question">当該株式会社の親会社等の子会社等（当該株式会社及びその子会社を除く）の業務執行取締役等は，当該株式会社の社外取締役になることはできない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">兄弟会社の業務執行取締役等は社外取締役になれない（2条15号ニ）。なお，兄弟会社の業務執行取締役等でない取締役（ex.社外取締役）はなれる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.12 B上級</span><div class="question">当該株式会社の重要な使用人の配偶者は，当該株式会社の社外取締役になることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">当該会社の取締役・執行役・支配人その他の重要な使用人または自然人たる親会社等の配偶者または2親等内の親族は，社外取締役にはなれない（2条15号ホ）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.13 ★A上級</span><div class="question">任期満了により株式会社の社外取締役を退任した者は，その後，当該株式会社の社外監査役になることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">その就任前10年間，当該会社・子会社の取締役・会計参与・執行役・使用人でなかった者は，社外監査役となりうる（2条16号イ）。したがって，社外取締役を退任後10年が経過していれば，（そして他の要件もみたしていれば）社外監査役になりうる。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.14 ★B上級</span><div class="question">株式会社の監査役は，当該株式会社の子会社の社外監査役となることができる。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">当該会社の自然人たる親会社等または親会社等の取締役・監査役・執行役・支配人その他の使用人は，社外監査役にはなれない（2条16号ハ）。したがって，親会社の監査役は子会社の社外監査役にはなれない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.15 ★B上級</span><div class="question">株式会社の取締役の二親等内の親族は，当該株式会社の社外監査役となることができない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">当該会社の取締役・支配人その他の重要な使用人・自然人たる親会社等の配偶者または2親等内の親族は，社外監査役にはなれない（2条16号ホ）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.16 A</span><div class="question">会社法上，業務執行取締役となることができるのは，代表取締役だけではない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">他に，選定業務執行取締役（業務担当取締役）や会社の業務を執行した取締役も含まれる（2条15号イ）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.17 C</span><div class="question">会社法上の定義における「最終事業年度」とは，単に最も遅い事業年度のことを意味し，各事業年度に係る計算書類につき定時株主総会の承認（会計監査人設置会社で一定の要件をみたした会社については取締役会の承認）を受けている否かは関係しない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">最終事業年度とは，各事業年度に係る計算書類につき定時株主総会の承認（会計監査人設置会社で一定の要件をみたした会社では取締役会の承認）を受けた場合における当該各事業年度のうち最も遅いものをいう（2条24号）。したがって，仮に最も遅い事業年度でも，上記承認を受けていなければ，「最終事業年度」ではない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.18 ★C</span><div class="question">合名会社が利益の配当をする場合における配当する財産は，配当財産である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">会社法上，「配当財産」とは，株式会社が剰余金の配当をする場合における配当する財産をいう（2条25号）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.19 C</span><div class="question">相互保険会社は，会社法上の会社ではない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">相互保険会社には「社員」が存在せず，したがって社員への利益分配はないから，営利性がなく，会社法上の会社ではない。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.20 A</span><div class="question">株式会社では株主が一人だけの一人会社は認められるが，持分会社では社員が一人だけの一人会社は認められない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">前半は正しいが，後半が誤り。持分会社でも一人会社が認められる（641条4号参照）。</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.21 ★A</span><div class="question">会社は法人であり，その名において権利を有し義務を負うので，株主または社員が会社の債務について会社債権者に対して直接に責任を負うことはない。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-x">(×)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">合名会社・合資会社の無限責任社員，合資会社の有限責任社員は，直接責任を負う（580条）。なお，持分会社も「会社」である（2条1号）</span></div>
+                </div>
+            </details>
+        </div>
+        <div class="qa-block">
+            <div class="checkbox-area">
+                <input type="checkbox" class="custom-checkbox" title="1回目">
+                <input type="checkbox" class="custom-checkbox" title="2回目">
+                <input type="checkbox" class="custom-checkbox" title="3回目">
+                <input type="checkbox" class="custom-checkbox" title="4回目">
+                <input type="checkbox" class="custom-checkbox" title="5回目">
+                <input type="checkbox" class="custom-checkbox" title="6回目">
+            </div>
+            <div class="question-header">
+                <span class="q-badge">No.22 ★B上級</span><div class="question">会社による政治資金の寄附は，客観的，抽象的に観察して，会社の社会的役割を果たすためになされたものと認められるかぎりにおいては，会社の定款所定の目的の範囲内の行為であるとするのが判例である。</div>
+            </div>
+            <details>
+                <summary>解答・解説を見る</summary>
+                <div class="answer-content">
+                    <div class="ans-row"><span class="label">【解答】</span><span><span class="mark-o">(○)</span></span></div>
+                    <div class="ans-row"><span class="label">【解説】</span><span class="correct-text">最判昭和45年6月24日。</span></div>
+                </div>
+            </details>
+        </div>
+        <a href="#top" class="back-to-top">↑ 目次（トップ）に戻る</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pagePrefix = "Kigyo_G01_";
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach((input, index) => {
+                const storageKey = pagePrefix + 'input_' + index;
+                const savedValue = localStorage.getItem(storageKey);
+                if (savedValue !== null) {
+                    if (input.type === 'checkbox') { input.checked = savedValue === 'true'; }
+                    else { input.value = savedValue; if (input.classList.contains('date-input') && savedValue !== "") input.type='date'; }
+                }
+                input.addEventListener('change', () => {
+                    if (input.type === 'checkbox') localStorage.setItem(storageKey, input.checked);
+                    else localStorage.setItem(storageKey, input.value);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
